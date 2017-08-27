@@ -1,24 +1,22 @@
 import React from 'react';
-import axios from 'axios'
 import { render } from 'react-dom';
 import GMap from './components/GMap.jsx';
-import SearchBar from './components/SearchBar.jsx';
 
 class App extends React.Component {
   constructor() {
     super() 
     this.state = {
       searchCity: null,
-      lat: null,
-      lng: null
+      lat: 32.8000,
+      lng: -79.9311
     }
     
   }
   get basicSettings() {
     return {
       initialCenter: {
-        lat: 32.8000 || this.state.lat,
-        lng: -79.9311 || this.state.lng
+        lat: this.state.lat,
+        lng: this.state.lng
       },
       initialZoom: 12,
     }
@@ -62,26 +60,11 @@ class App extends React.Component {
     return settings;
   }
 
-  handleSearchSubmit(e) {
-    e.preventDefault();
-    axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + this.state.searchCity + '&key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ')
-    .then(res => {
-      let location = res.data.results[0].geometry.location;
-      this.setState({lat: location.lat, lng: location.lng})
-    })
-
-    this.setState({ searchCity: '' })
-    console.log('i am in index' ,this.state)
-  }
-
-
-
   render() {
     return (
       <div>
         <div className="mapContainer">
           <GMap config={this.multipleMarkersSettings} />
-          <SearchBar handleSearchSubmit={this.handleSearchSubmit}/>
         </div>
       </div>
     )

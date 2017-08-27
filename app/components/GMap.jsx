@@ -1,7 +1,11 @@
 import React from 'react';
+import axios from 'axios'
+
 import MapStyles from './MapStyles';
 import Script from 'react-load-script';
 import PropTypes from 'prop-types';
+import SearchBar from './SearchBar.jsx';
+
 
 export default class GMap extends React.Component {
     static get propTypes() {
@@ -37,11 +41,14 @@ export default class GMap extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            center: null
+            center: null,
+            searchCity: ''
         };
+        this.mapCenter.bind(this);
     }
 
     loadMap() {
+        console.log(this.props)
         const { config } = this.props;
         if (this.state.scriptLoaded) {
             if (config && config.snapToUserLocation && navigator.geolocation) {
@@ -118,112 +125,133 @@ export default class GMap extends React.Component {
         //     })
         //     console.log('here i am')
         // })
-    
+
         return map
     }
 
-createMarkers(markers) {
+    createMarkers(markers) {
 
-    const markersArray = markers.map((marker) => {
-        const { config } = this.props,
-            icon = config.icons && config.icons[marker.icon].image,
-            thisMarker = this.newMarker(marker.position, icon);
+        const markersArray = markers.map((marker) => {
+            const { config } = this.props,
+                icon = config.icons && config.icons[marker.icon].image,
+                thisMarker = this.newMarker(marker.position, icon);
 
-        // have to define google maps event listeners here too
-        // because we can't add listeners on the map until it's created
-        if (marker.message) {
-            thisMarker.infoWindowIsOpen = false;
-            google.maps.event.addListener(thisMarker, 'click', () => this.handleMarkerClick(thisMarker, marker.message));
-        }
-        return thisMarker;
-    })
-    return markersArray;
-}
-
-getUserLocation() {
-    // lets map autocenter on user's location (if the user enables it)
-    // which takes a while, so the map should get rendered with the initial center first
-    navigator.geolocation.getCurrentPosition((position) => {
-        this.moveMap(position.coords.latitude, position.coords.longitude, "You are here.");
-    }, () => alert("Couldn't find your location"))
-}
-
-handleMarkerClick(marker, message) {
-    if (!marker.infoWindowIsOpen) {
-        marker.infoWindowIsOpen = true;
-        this.newInfoWindow(marker, message);
-    } else {
-        marker.infoWindowIsOpen = false;
-        marker.infoWindow.close();
+            // have to define google maps event listeners here too
+            // because we can't add listeners on the map until it's created
+            if (marker.message) {
+                thisMarker.infoWindowIsOpen = false;
+                google.maps.event.addListener(thisMarker, 'click', () => this.handleMarkerClick(thisMarker, marker.message));
+            }
+            return thisMarker;
+        })
+        return markersArray;
     }
-}
 
-handleScriptCreate() {
-    this.setState({
-        scriptLoaded: false
-    })
-}
+    getUserLocation() {
+        // lets map autocenter on user's location (if the user enables it)
+        // which takes a while, so the map should get rendered with the initial center first
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.moveMap(position.coords.latitude, position.coords.longitude, "You are here.");
+        }, () => alert("Couldn't find your location"))
+    }
 
-handleScriptError() {
-    this.setState({
-        scriptError: true
-    })
-}
+    handleMarkerClick(marker, message) {
+        if (!marker.infoWindowIsOpen) {
+            marker.infoWindowIsOpen = true;
+            this.newInfoWindow(marker, message);
+        } else {
+            marker.infoWindowIsOpen = false;
+            marker.infoWindow.close();
+        }
+    }
 
-handleScriptLoad() {
-    this.setState({
-        scriptLoaded: true
-    });
-    this.loadMap();
-}
+    handleScriptCreate() {
+        this.setState({
+            scriptLoaded: false
+        })
+    }
 
-newInfoWindow(anchor, content) {
-    anchor.infoWindow = new google.maps.InfoWindow({
-        map: this.map,
-        anchor: anchor,
-        content: content
-    })
-    google.maps.event.addListenerOnce(anchor.infoWindow, 'closeclick', () => anchor.infoWindowIsOpen = false);
-    return anchor.infoWindow;
-}
+    handleScriptError() {
+        this.setState({
+            scriptError: true
+        })
+    }
 
-newMarker(position, image) {
-    return new google.maps.Marker({
-        position: position,
-        map: this.map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        icon: image
-    })
-}
+    handleScriptLoad() {
+        this.setState({
+            scriptLoaded: true
+        });
+        this.loadMap();
+    }
 
-mapCenter(lat, lng) {
-    return new google.maps.LatLng(lat, lng);
-}
+    newInfoWindow(anchor, content) {
+        anchor.infoWindow = new google.maps.InfoWindow({
+            map: this.map,
+            anchor: anchor,
+            content: content
+        })
+        google.maps.event.addListenerOnce(anchor.infoWindow, 'closeclick', () => anchor.infoWindowIsOpen = false);
+        return anchor.infoWindow;
+    }
 
-moveMap(lat, lng, message) {
-    this.setState({
-        center: this.mapCenter(lat, lng)
-    });
-    this.map.panTo(this.state.center);
-    let thisMarker = this.newMarker(this.state.center);
-    this.newInfoWindow(thisMarker, message);
-}
+    newMarker(position, image) {
+        return new google.maps.Marker({
+            position: position,
+            map: this.map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            icon: image
+        })
+    }
+
+    mapCenter(lat, lng) {
+        return new google.maps.LatLng(lat, lng);
+    }
+
+    moveMap(lat, lng, message) {
+        this.setState({
+            center: this.mapCenter(lat, lng)
+        });
+        this.map.panTo(this.state.center);
+        let thisMarker = this.newMarker(this.state.center);
+        this.newInfoWindow(thisMarker, message);
+    }
+
+    handleChange(e) {
+
+        this.setState({ searchCity: e.target.value })
+        console.log(this.state)
+    }
+
+    handleSearchSubmit(e) {
+        e.preventDefault();
+        axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + this.state.searchCity + '&key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ')
+            .then(res => {
+                console.log(res)
+                let location = res.data.results[0].geometry.location;
+                this.moveMap(location.lat, location.lng)
+            })
+
+        this.setState({ searchCity: '' })
+        console.log('i am in index', this.state)
+    }
 
 
-render() {
-    let url = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ&libraries=places‌​"
-    return (
-        <div className="GMap">
-            <Script
-                url={url}
-                onCreate={this.handleScriptCreate.bind(this)}
-                onError={this.handleScriptError.bind(this)}
-                onLoad={this.handleScriptLoad.bind(this)}
-            />
-            <div className='GMap-canvas' ref="mapCanvas"></div>
-            {this.props.config.legend && <div ref="legend" className="legend"><h3>Legend</h3></div>}
-        </div>
-    )
-}
+    render() {
+        let url = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ&libraries=places‌​"
+        return (
+            <div className="GMap">
+                <Script
+                    url={url}
+                    onCreate={this.handleScriptCreate.bind(this)}
+                    onError={this.handleScriptError.bind(this)}
+                    onLoad={this.handleScriptLoad.bind(this)}
+                />
+                <div className='GMap-canvas' ref="mapCanvas"></div>
+                <SearchBar handleChange={this.handleChange.bind(this)} handleSearchSubmit={this.handleSearchSubmit.bind(this)} />
+
+                {this.props.config.legend && <div ref="legend" className="legend"><h3>Legend</h3></div>}
+            </div>
+        )
+    }
 }
