@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import GMap from './components/GMap.jsx';
+import SearchBar from './components/SearchBar.jsx';
 
 class App extends React.Component {
   get basicSettings() {
@@ -52,14 +53,13 @@ class App extends React.Component {
   }
 
 
-  onMapClick(e) {
-    
-  }
+
   render() {
     return (
       <div>
         <div className="mapContainer">
           <GMap config={this.multipleMarkersSettings} />
+          <SearchBar />
         </div>
       </div>
     )

@@ -7,19 +7,24 @@ export default class SearchBar extends Component {
         this.state = {
             searchCity: ''
         }
+        this.handleChange.bind(this)
+        this.handleSearchSubmit.bind(this)
     }
-    handleChange = (e) => {
+    handleChange(e) {
+        
         this.setState({searchCity: e.target.value})
+        console.log(this.state)
     }
-    handleSearchSubmit = (e) => {
+    handleSearchSubmit (e) {
         e.preventDefault();
         // send city
         this.setState({searchCity: ''})
+        console.log(this.state)
     }
     render() {
         return (
-            <form onSubmit={this.handleSearchSubmit}>
-                <input type="text" onChange={this.handleChange} placeholder="Search for a location:" value={this.state.searchCity} />
+            <form onSubmit={this.handleSearchSubmit.bind(this)}>
+                <input type="text" onChange={this.handleChange.bind(this)} placeholder="Search for a location:" value={this.state.searchCity} />
                 <button type="submit">Search</button>
             </form>
         )
