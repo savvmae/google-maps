@@ -42,7 +42,8 @@ export default class GMap extends React.Component {
         super(props);
         this.state = {
             center: null,
-            searchCity: ''
+            searchCity: '',
+            hasLoaded: false
         };
         this.mapCenter.bind(this);
     }
@@ -148,6 +149,7 @@ export default class GMap extends React.Component {
     }
 
     getUserLocation() {
+        this.setState({hasLoaded: false})
         // lets map autocenter on user's location (if the user enables it)
         // which takes a while, so the map should get rendered with the initial center first
         navigator.geolocation.getCurrentPosition((position) => {
@@ -213,8 +215,10 @@ export default class GMap extends React.Component {
             center: this.mapCenter(lat, lng)
         });
         this.map.panTo(this.state.center);
+        if (!this.state.hasLoaded){
         let thisMarker = this.newMarker(this.state.center);
         this.newInfoWindow(thisMarker, message);
+        }
     }
 
     handleChange(e) {
@@ -225,10 +229,11 @@ export default class GMap extends React.Component {
 
     handleSearchSubmit(e) {
         e.preventDefault();
-        axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + this.state.searchCity + '&key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ')
+        axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + this.state.searchCity + '&key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ')
             .then(res => {
                 console.log(res)
                 let location = res.data.results[0].geometry.location;
+                this.setState({hasLoaded: true})
                 this.moveMap(location.lat, location.lng)
             })
 
@@ -248,8 +253,8 @@ export default class GMap extends React.Component {
                     onLoad={this.handleScriptLoad.bind(this)}
                 />
                 <div className='GMap-canvas' ref="mapCanvas"></div>
-                <SearchBar handleChange={this.handleChange.bind(this)} handleSearchSubmit={this.handleSearchSubmit.bind(this)} />
-
+                <SearchBar handleChange={this.handleChange.bind(this)} handleSearchSubmit={this.handleSearchSubmit.bind(this)} searchCity={this.state.searchCity}/>
+                <button onClick={this.getUserLocation.bind(this)}>Use current Location</button>
                 {this.props.config.legend && <div ref="legend" className="legend"><h3>Legend</h3></div>}
             </div>
         )
