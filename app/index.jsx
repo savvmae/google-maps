@@ -24,7 +24,7 @@ class App extends React.Component {
 
   get multipleMarkersSettings() {
     let settings = this.basicSettings;
-    settings.snapToUserLocation = true;
+    settings.snapToUserLocation = false;
     settings.initialZoom = 10;
     settings.colors = {
       base: "#212121",

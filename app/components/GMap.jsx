@@ -43,13 +43,12 @@ export default class GMap extends React.Component {
         this.state = {
             center: null,
             searchCity: '',
-            hasLoaded: false
+            hasLoaded: true
         };
         this.mapCenter.bind(this);
     }
 
     loadMap() {
-        console.log(this.props)
         const { config } = this.props;
         if (this.state.scriptLoaded) {
             if (config && config.snapToUserLocation && navigator.geolocation) {
