@@ -1,16 +1,18 @@
 import React from 'react';
 import { render } from 'react-dom';
 import GMap from './components/GMap.jsx';
+import LandingModal from './components/LandingModal.jsx';
 
 class App extends React.Component {
   constructor() {
-    super() 
+    super()
     this.state = {
       searchCity: null,
       lat: 32.8000,
-      lng: -79.9311
+      lng: -79.9311,
+      landingModal: true
     }
-    
+
   }
   get basicSettings() {
     return {
@@ -63,8 +65,13 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        {this.state.landingModal
+          ?
+          <LandingModal />
+          : null}
         <div className="mapContainer">
           <GMap config={this.multipleMarkersSettings} />
+
         </div>
       </div>
     )
