@@ -25,7 +25,6 @@ class LandingModal extends Component {
 
 
     render() {
-        console.log(this.props)
         return (
             <div>
                 <ReactModal header='landing Header'

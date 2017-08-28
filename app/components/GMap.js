@@ -1,13 +1,17 @@
 import React from 'react';
-import axios from 'axios'
-
+import axios from 'axios';
+import { Row, Col, ProgressBar } from 'react-materialize';
+import { connect } from 'react-redux';
 import MapStyles from './MapStyles';
 import Script from 'react-load-script';
 import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 
+import { loading } from '../actions';
 
-export default class GMap extends React.Component {
+
+
+class GMap extends React.Component {
     static get propTypes() {
         return {
             config: PropTypes.shape({
@@ -98,7 +102,6 @@ export default class GMap extends React.Component {
         }
         let map = new google.maps.Map(this.refs.mapCanvas, mapOptions);
         map.addListener('click', (e) => {
-            console.log(e.latLng)
             this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
             let position = { lat: this.state.lat, lng: this.state.lng }
             this.newMarker(position)
@@ -148,10 +151,12 @@ export default class GMap extends React.Component {
     }
 
     getUserLocation() {
-        this.setState({hasLoaded: false})
+        this.props.loading();
+        this.setState({ hasLoaded: false })
         // lets map autocenter on user's location (if the user enables it)
         // which takes a while, so the map should get rendered with the initial center first
         navigator.geolocation.getCurrentPosition((position) => {
+            this.props.loading();
             this.moveMap(position.coords.latitude, position.coords.longitude, "You are here.");
         }, () => alert("Couldn't find your location"))
     }
@@ -214,30 +219,29 @@ export default class GMap extends React.Component {
             center: this.mapCenter(lat, lng)
         });
         this.map.panTo(this.state.center);
-        if (!this.state.hasLoaded){
-        let thisMarker = this.newMarker(this.state.center);
-        this.newInfoWindow(thisMarker, message);
+        if (!this.state.hasLoaded) {
+            let thisMarker = this.newMarker(this.state.center);
+            this.newInfoWindow(thisMarker, message);
         }
     }
 
     handleChange(e) {
 
         this.setState({ searchCity: e.target.value })
-        console.log(this.state)
     }
 
     handleSearchSubmit(e) {
         e.preventDefault();
+        this.props.loading();
         axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + this.state.searchCity + '&key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ')
             .then(res => {
-                console.log(res)
+                this.props.loading();
                 let location = res.data.results[0].geometry.location;
-                this.setState({hasLoaded: true})
+                this.setState({ hasLoaded: true })
                 this.moveMap(location.lat, location.lng)
             })
 
         this.setState({ searchCity: '' })
-        console.log('i am in index', this.state)
     }
 
 
@@ -252,10 +256,33 @@ export default class GMap extends React.Component {
                     onLoad={this.handleScriptLoad.bind(this)}
                 />
                 <div className='GMap-canvas' ref="mapCanvas"></div>
-                <SearchBar handleChange={this.handleChange.bind(this)} handleSearchSubmit={this.handleSearchSubmit.bind(this)} searchCity={this.state.searchCity}/>
+                {this.props.state.loading
+                    ? <Row>
+                        <Col s={12}>
+                            <ProgressBar />
+                        </Col>
+                    </Row>
+                    : null}
+                <SearchBar handleChange={this.handleChange.bind(this)} handleSearchSubmit={this.handleSearchSubmit.bind(this)} searchCity={this.state.searchCity} />
                 <button className="btn waves-effect waves-light z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
-                {this.props.config.legend && <div ref="legend" className="legend"><h3>Legend</h3></div>}
+
             </div>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        state
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        loading: () => {
+            return dispatch(loading())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GMap)

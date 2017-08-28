@@ -5,8 +5,6 @@ import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
 
 import {toggleLogin, login} from '../actions';
 
-
-
 class LoginModal extends Component {
     constructor() {
         super()
@@ -22,8 +20,6 @@ class LoginModal extends Component {
     handleSubmit = (event) => {
         this.props.login(this.state);
     }
-
-
     render() {
         return (
             <ReactModal header='login Header'

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { SET_TOKEN, SET_USER, GET_RESPONSE, SENDING_DATA, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER } from './actions';
+import { SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER } from './actions';
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
@@ -18,11 +18,11 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case SENDING_DATA:
-            console.log("i am in the reducer")
+        case TOGGLE_LOADING:
+            console.log("i am in the loading reducer")
             return update(state, {
                 loading: {
-                    $set: true
+                    $set: !state.loading
                 }
             })
         case GET_RESPONSE:
@@ -32,7 +32,6 @@ export const reducer = (state = initialState, action) => {
                 }
             })
         case SET_TOKEN:
-
             return update(state, {
                 token: {
                     $set: action.payload
