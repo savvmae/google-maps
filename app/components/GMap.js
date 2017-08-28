@@ -7,41 +7,9 @@ import Script from 'react-load-script';
 import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 
-import { loading } from '../actions';
-
-
+import { loading, searchCity } from '../actions';
 
 class GMap extends React.Component {
-    static get propTypes() {
-        return {
-            config: PropTypes.shape({
-                colors: PropTypes.objectOf(PropTypes.string),
-                icons: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
-                initialCenter: PropTypes.objectOf(PropTypes.number),
-                initialZoom: PropTypes.number,
-                legend: PropTypes.bool,
-                markers: PropTypes.arrayOf(PropTypes.shape({
-                    position: PropTypes.objectOf(PropTypes.number),
-                    icon: PropTypes.string,
-                    message: PropTypes.string
-                })),
-                snapToUserLocation: PropTypes.bool
-            })
-        }
-    }
-
-    static get defaultProps() {
-        return {
-            config: {
-                initialCenter: {
-                    lat: 29.975588,
-                    lng: -90.102682
-                },
-                initialZoom: 10
-            }
-        }
-    }
-
     constructor(props) {
         super(props);
         this.state = {
@@ -53,25 +21,22 @@ class GMap extends React.Component {
     }
 
     loadMap() {
-        const { config } = this.props;
+        const config = this.props.state;
         if (this.state.scriptLoaded) {
-            if (config && config.snapToUserLocation && navigator.geolocation) {
-                this.getUserLocation();
-            } else {
-                this.setState({
-                    center: this.mapCenter(config.initialCenter.lat, config.initialCenter.lng)
-                })
-            }
-            // create the map and markers after the component has
-            // been rendered because we need to manipulate the DOM for Google =(
-            this.map = this.createMap(config.initialCenter);
-            if (config && config.markers) {
-                this.markers = this.createMarkers(config.markers);
-                if (config.legend) {
-                    this.createLegend(config.icons);
-                }
+            this.setState({
+                center: this.mapCenter(config.initialCenter.lat, config.initialCenter.lng)
+            })
+        }
+        // create the map and markers after the component has
+        // been rendered because we need to manipulate the DOM for Google =(
+        this.map = this.createMap(config.initialCenter);
+        if (config && config.markers) {
+            this.markers = this.createMarkers(config.markers);
+            if (config.legend) {
+                this.createLegend(config.icons);
             }
         }
+
     }
 
     // clean up event listeners when component unmounts
@@ -91,12 +56,12 @@ class GMap extends React.Component {
     }
 
     createMap(center) {
-        const { config } = this.props;
+        const config = this.props.state;
         const mapOptions = {
-            zoom: this.props.config.initialZoom,
+            zoom: config.initialZoom,
             center: center,
         }
-        if (config && config.colors) {
+        if (config) {
             mapOptions.styles = MapStyles(config.colors);
             mapOptions.mapTypeId = 'terrain';
         }
@@ -135,7 +100,7 @@ class GMap extends React.Component {
     createMarkers(markers) {
 
         const markersArray = markers.map((marker) => {
-            const { config } = this.props,
+            const config = this.props.state,
                 icon = config.icons && config.icons[marker.icon].image,
                 thisMarker = this.newMarker(marker.position, icon);
 
@@ -226,22 +191,16 @@ class GMap extends React.Component {
     }
 
     handleChange(e) {
-
         this.setState({ searchCity: e.target.value })
     }
 
     handleSearchSubmit(e) {
         e.preventDefault();
         this.props.loading();
-        axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + this.state.searchCity + '&key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ')
-            .then(res => {
-                this.props.loading();
-                let location = res.data.results[0].geometry.location;
-                this.setState({ hasLoaded: true })
-                this.moveMap(location.lat, location.lng)
-            })
-
-        this.setState({ searchCity: '' })
+        this.props.searchCity(this.state.searchCity).then(res => {
+            this.moveMap(this.props.state.center.lat, this.props.state.center.lng);
+            this.setState({ searchCity: '' })
+        })
     }
 
 
@@ -281,6 +240,9 @@ function mapDispatchToProps(dispatch) {
     return {
         loading: () => {
             return dispatch(loading())
+        },
+        searchCity: (location) => {
+            return dispatch(searchCity(location))
         }
     }
 }

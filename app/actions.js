@@ -1,4 +1,6 @@
-import { registerService, loginService, dashboardService } from './services'
+import { registerService, loginService, dashboardService, searchService } from './services'
+import axios from 'axios'
+
 
 export const GET_RESPONSE = "GET_RESPONSE";
 export const SET_TOKEN = "SET_TOKEN";
@@ -8,6 +10,7 @@ export const LOGOUT = "LOGOUT";
 export const TOGGLE_LANDING = "TOGGLE_LANDING"
 export const TOGGLE_LOGIN = "TOGGLE_LOGIN"
 export const TOGGLE_REGISTER = "TOGGLE_REGISTER"
+export const SET_LOCATION = "SET_LOCATION"
 
 
 
@@ -40,34 +43,46 @@ export function dashboard(token) {
     }
 }
 
+export function searchCity(location) {
+    return (dispatch, getState) => {
+        return searchService(location).then((res) => {
+                dispatch(loading())
+                dispatch(setLocation(res))
+            })
+        // dispatch action to move map, need to put move map action here in order to do that
+    }
+}
+export function setLocation(location) {
+    return { type: SET_LOCATION, location }
+}
 export function logout(payload) {
-    return {type: LOGOUT, payload}
+    return { type: LOGOUT, payload }
 }
 
 export function loading(payload) {
-    return {type: TOGGLE_LOADING, payload}
+    return { type: TOGGLE_LOADING, payload }
 }
 
 export function toggleLanding(payload) {
-    return {type: TOGGLE_LANDING, payload}
-} 
-
-export function toggleLogin(payload) {
-    return {type: TOGGLE_LOGIN, payload}
-} 
-
-export function toggleRegister(payload) {
-    return {type: TOGGLE_REGISTER, payload}
-} 
-
-function getResponseAction (payload) {
-  return { type: GET_RESPONSE, payload }
+    return { type: TOGGLE_LANDING, payload }
 }
 
-function setToken (payload) {
+export function toggleLogin(payload) {
+    return { type: TOGGLE_LOGIN, payload }
+}
+
+export function toggleRegister(payload) {
+    return { type: TOGGLE_REGISTER, payload }
+}
+
+function getResponseAction(payload) {
+    return { type: GET_RESPONSE, payload }
+}
+
+function setToken(payload) {
     return { type: SET_TOKEN, payload }
 }
 
-function setUser (payload) {
+function setUser(payload) {
     return { type: SET_USER, payload }
 }

@@ -2,8 +2,8 @@ import axios from 'axios'
 
 
 export function registerService(param) {
-        console.log( "i am the register service")
-    
+    console.log("i am the register service")
+
     return axios({
         method: 'post',
         url: 'https://user-auth-test.herokuapp.com/register',
@@ -46,4 +46,13 @@ export function dashboardService(param) {
         console.log(serverResponse)
         return serverResponse
     })
+}
+
+export function searchService(param) {
+    return axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + param + '&key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ')
+        .then(res => {
+            console.log(res)
+            let loc = res.data.results[0].geometry.location;
+            return loc
+        })
 }
