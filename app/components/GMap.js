@@ -7,7 +7,7 @@ import Script from 'react-load-script';
 import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 
-import { loading, searchCity } from '../actions';
+import { loading, searchCity, toggleMarkerModal } from '../actions';
 
 class GMap extends React.Component {
     constructor(props) {
@@ -36,7 +36,6 @@ class GMap extends React.Component {
                 this.createLegend(config.icons);
             }
         }
-
     }
 
     // clean up event listeners when component unmounts
@@ -69,31 +68,9 @@ class GMap extends React.Component {
         map.addListener('click', (e) => {
             this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
             let position = { lat: this.state.lat, lng: this.state.lng }
-            this.newMarker(position)
+            this.props.toggleMarkerModal();
+            // this.newMarker(position)
         })
-        // var autocomplete = new google.maps.places.Autocomplete(node);
-        // autocomplete.bindTo('bounds', map);
-
-        // autocomplete.addListener('place_changed', () => {
-        //     const place = autocomplete.getPlace();
-        //     if (!place.geometry) {
-        //         return;
-        //     }
-
-        //     if (place.geometry.viewport) {
-        //         map.fitBounds(place.geometry.viewport);
-        //     } else {
-        //         map.setCenter(place.geometry.location);
-        //         map.setZoom(17);
-        //     }
-
-        //     this.setState({
-        //         place: place,
-        //         position: place.geometry.location
-        //     })
-        //     console.log('here i am')
-        // })
-
         return map
     }
 
@@ -103,7 +80,6 @@ class GMap extends React.Component {
             const config = this.props.state,
                 icon = config.icons && config.icons[marker.icon].image,
                 thisMarker = this.newMarker(marker.position, icon);
-
             // have to define google maps event listeners here too
             // because we can't add listeners on the map until it's created
             if (marker.message) {
@@ -122,7 +98,7 @@ class GMap extends React.Component {
         // which takes a while, so the map should get rendered with the initial center first
         navigator.geolocation.getCurrentPosition((position) => {
             this.props.loading();
-            this.moveMap(position.coords.latitude, position.coords.longitude, "You are here.");
+            this.moveMap(position.coords.latitude, position.coords.longitude);
         }, () => alert("Couldn't find your location"))
     }
 
@@ -166,13 +142,15 @@ class GMap extends React.Component {
     }
 
     newMarker(position, image) {
-        return new google.maps.Marker({
+        let thisMarker = new google.maps.Marker({
             position: position,
             map: this.map,
             draggable: true,
             animation: google.maps.Animation.DROP,
             icon: image
         })
+        this.newInfoWindow(thisMarker, this.state.markerInfo)
+        return thisMarker
     }
 
     mapCenter(lat, lng) {
@@ -204,12 +182,11 @@ class GMap extends React.Component {
     }
 
 
-    render() {
-        let url = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ&libraries=places‌​"
+    render() {  
         return (
             <div className="GMap">
                 <Script
-                    url={url}
+                    url={this.props.state.url}
                     onCreate={this.handleScriptCreate.bind(this)}
                     onError={this.handleScriptError.bind(this)}
                     onLoad={this.handleScriptLoad.bind(this)}
@@ -243,6 +220,9 @@ function mapDispatchToProps(dispatch) {
         },
         searchCity: (location) => {
             return dispatch(searchCity(location))
+        },
+        toggleMarkerModal: () => {
+            return dispatch(toggleMarkerModal())
         }
     }
 }

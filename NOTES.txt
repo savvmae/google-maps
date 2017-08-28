@@ -1,0 +1,18 @@
+user clicks on map,
+modal pops up
+ would you like to add this as a spot?
+Y N
+if Y ---
+    if logged in ---
+        details modal 
+            -type
+            -occuppied 
+            -notes
+        Submit
+    if not logged in ---
+        Sorry you must be logged in
+         - register button
+         - login button
+if N ---
+    modal closes and marker goes away
+    

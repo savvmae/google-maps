@@ -25,6 +25,7 @@ class LoginModal extends Component {
             <ReactModal header='login Header'
                 isOpen={this.props.state.showLoginModal}
                 contentLabel="Minimal Modal Example">
+                <Button onClick={this.props.toggleLogin} floating icon='close' className='red' large style={{ bottom: '0px', left: '45%' }}/>
                 <div className="container container-fifty">
                     <Col m={6} s={12}>
                         <Card>
@@ -56,7 +57,7 @@ class LoginModal extends Component {
                         </Card>
                     </Col>
                 </div>
-                <button className="btn waves-effect waves-light z-zero" onClick={this.props.toggleLogin}>Close</button>
+                
             </ReactModal>
         )
     }

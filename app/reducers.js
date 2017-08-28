@@ -1,19 +1,21 @@
 import { combineReducers } from 'redux';
-import { SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION } from './actions';
+import { SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_DETAIL_MARKER} from './actions';
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
 
 
 const initialState = {
+    url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ&libraries=places‌​",
     token: null,
     user: null,
-    message: '',
     loading: false,
     loggedIn: false,
     showLandingModal: true,
     showLoginModal: false,
     showRegisterModal: false,
+    showMarkerModal: false,
+    showMarkerDetailModal: false,
     markers: [{
         position: {
             lat: 32.7000,
@@ -111,6 +113,18 @@ export const reducer = (state = initialState, action) => {
             return update(state, {
                 showRegisterModal: {
                     $set: !state.showRegisterModal
+                }
+            })
+        case TOGGLE_MARKER:
+            return update(state, {
+                showMarkerModal: {
+                    $set: !state.showMarkerModal
+                }
+            })
+        case TOGGLE_DETAIL_MARKER:
+            return update(state, {
+                showMarkerDetailModal: {
+                    $set: !state.showMarkerDetailModal
                 }
             })
         default:

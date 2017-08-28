@@ -11,6 +11,8 @@ export const TOGGLE_LANDING = "TOGGLE_LANDING"
 export const TOGGLE_LOGIN = "TOGGLE_LOGIN"
 export const TOGGLE_REGISTER = "TOGGLE_REGISTER"
 export const SET_LOCATION = "SET_LOCATION"
+export const TOGGLE_MARKER = "TOGGLE_MARKER"
+export const TOGGLE_DETAIL_MARKER = "TOGGLE_DETAIL_MARKER"
 
 
 
@@ -73,6 +75,14 @@ export function toggleLogin(payload) {
 
 export function toggleRegister(payload) {
     return { type: TOGGLE_REGISTER, payload }
+}
+
+export function toggleMarkerModal(payload) {
+    return { type: TOGGLE_MARKER, payload }
+}
+
+export function toggleMarkerDetailModal(payload) {
+    return { type: TOGGLE_DETAIL_MARKER, payload }
 }
 
 function getResponseAction(payload) {

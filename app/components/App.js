@@ -1,28 +1,34 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { render } from 'react-dom';
 import GMap from './GMap';
 import LandingModal from './LandingModal';
+import MarkerModal from './MarkerModal';
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-  }
+    constructor(props) {
+        super(props)
+    }
 
-  render() {
-    return (
-      <div>
-        {this.props.state.showLandingModal
-          ?
-          <LandingModal />
-          : null}
-        <div className="mapContainer">
-          <GMap />
+    render() {
+        console.log(this.props.state)
+        return (
+            <div>
+                {this.props.state.showLandingModal
+                    ?
+                    <LandingModal />
+                    : null}
+                <div className="mapContainer">
+                    {this.props.state.showMarkerModal
+                        ?
+                        <MarkerModal />
+                        : null}
+                    <GMap />
 
-        </div>
-      </div>
-    )
-  }
+                </div>
+            </div>
+        )
+    }
 }
 
 const mapStateToProps = (state) => {

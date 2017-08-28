@@ -30,6 +30,7 @@ class RegisterModal extends Component {
             <ReactModal header='register Header'
                 isOpen={this.props.state.showRegisterModal}
                 contentLabel="Minimal Modal Example">
+                <Button onClick={this.props.toggleRegister} floating icon='close' className='red' large style={{ top: '0px', left: '45%' }}/>
                 <div className="container container-fifty">
                     <Col m={6} s={12}>
                         <Card>
@@ -75,7 +76,7 @@ class RegisterModal extends Component {
                         </Card>
                     </Col>
                 </div>
-                <button className="btn waves-effect waves-light z-zero" onClick={this.props.toggleRegister}>Close</button>
+                
             </ReactModal>
         )
     }
