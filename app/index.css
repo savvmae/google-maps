@@ -38,3 +38,7 @@ html, body {
 .legend img {
   vertical-align: middle;
 }
+
+.z-zero {
+  z-index: 0;
+}

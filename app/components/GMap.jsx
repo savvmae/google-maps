@@ -253,7 +253,7 @@ export default class GMap extends React.Component {
                 />
                 <div className='GMap-canvas' ref="mapCanvas"></div>
                 <SearchBar handleChange={this.handleChange.bind(this)} handleSearchSubmit={this.handleSearchSubmit.bind(this)} searchCity={this.state.searchCity}/>
-                <button onClick={this.getUserLocation.bind(this)}>Use current Location</button>
+                <button className="btn waves-effect waves-light z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
                 {this.props.config.legend && <div ref="legend" className="legend"><h3>Legend</h3></div>}
             </div>
         )

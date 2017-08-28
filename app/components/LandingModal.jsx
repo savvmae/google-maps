@@ -27,18 +27,18 @@ export default class Landing extends Component {
 
     handleCloseModal() {
         if (this.state.showLoginModal) {
-        this.setState({ showLoginModal: false });
+            this.setState({ showLoginModal: false });
         } else if (this.state.showRegModal) {
-            this.setState({ showRegModal: false})
+            this.setState({ showRegModal: false })
         } else {
-            this.setState({ showLandingModal: false})
+            this.setState({ showLandingModal: false })
         }
     }
     openLogin() {
-        this.setState({showLoginModal: true})
+        this.setState({ showLoginModal: true })
     }
     openRegister() {
-        this.setState({showRegModal: true})
+        this.setState({ showRegModal: true })
     }
 
 
@@ -48,21 +48,22 @@ export default class Landing extends Component {
                 <ReactModal header='landing Header'
                     isOpen={this.state.showLandingModal}
                     contentLabel="Minimal Modal Example">
-                     <p> Welcome to Free parking spot finder! You may continue anonymously, but with limited features. Or you can login/register below </p>
-                     
-                    <button onClick={this.handleCloseModal}>Continue Without Logging in</button>
-                    <button onClick={this.openLogin}>Login</button>
-                    <button onClick={this.openRegister}>Register</button>
+                    <p> Welcome to Free parking spot finder! You may continue anonymously, but with limited features. Or you can login/register below </p>
+                    <div className="row">
+                        <button className="btn waves-effect waves-light z-zero" onClick={this.handleCloseModal}>Continue Without Logging in</button>
+                    </div><div className="row">
+                        <button className="btn waves-effect waves-light z-zero" onClick={this.openLogin}>Login</button></div><div className="row">
+                        <button className="btn waves-effect waves-light z-zero" onClick={this.openRegister}>Register</button></div>
                 </ReactModal>
                 {this.state.showLoginModal
-    
-                ? <LoginModal handleCloseModal={this.handleCloseModal.bind(this)}/>
-                : null }
+
+                    ? <LoginModal handleCloseModal={this.handleCloseModal.bind(this)} />
+                    : null}
                 {this.state.showRegModal
-    
-                ? <RegisterModal handleCloseModal={this.handleCloseModal.bind(this)} />
-                : null }
-                
+
+                    ? <RegisterModal handleCloseModal={this.handleCloseModal.bind(this)} />
+                    : null}
+
             </div>
         )
     }
