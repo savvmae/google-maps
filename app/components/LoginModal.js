@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
-import { Button, Icon } from 'react-materialize'
+import { connect } from 'react-redux'
 import ReactModal from 'react-modal';
-import { Row, Input, Link, Card, Col } from 'react-materialize'
+import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
+
+import {toggleLogin, login} from '../actions';
 
 
-export default class LoginModal extends Component {
+
+class LoginModal extends Component {
     constructor() {
         super()
 
         this.state = {
-            showModal: true,
             email: '',
             password: ''
         }
-        this.updateState.bind(this)
     }
-    updateState(event) {
+    updateState = (event) => {
         this.setState({ [event.target.name]: event.target.value })
     }
+    handleSubmit = (event) => {
+        this.props.login(this.state);
+    }
+
 
     render() {
         return (
             <ReactModal header='login Header'
-                isOpen={this.state.showModal}
+                isOpen={this.props.state.showLoginModal}
                 contentLabel="Minimal Modal Example">
                 <div className="container container-fifty">
                     <Col m={6} s={12}>
@@ -36,12 +41,12 @@ export default class LoginModal extends Component {
 
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">mail</i>
-                                            <input onChange={this.updateState.bind(this)} id="icon_telephone" type="email" name="email" className="validate" />
+                                            <input onChange={this.updateState} id="icon_telephone" type="email" name="email" className="validate" />
                                             <label htmlFor="icon_telephone" >Email</label>
                                         </div>
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">lock</i>
-                                            <input onChange={this.updateState.bind(this)} id="icon_prefix" type="password" name="password" className="validate" />
+                                            <input onChange={this.updateState} id="icon_prefix" type="password" name="password" className="validate" />
                                             <label htmlFor="icon_prefix">Password</label>
                                         </div>
                                     </div>
@@ -55,8 +60,28 @@ export default class LoginModal extends Component {
                         </Card>
                     </Col>
                 </div>
-                <button className="btn waves-effect waves-light z-zero" onClick={this.props.handleCloseModal}>Close</button>
+                <button className="btn waves-effect waves-light z-zero" onClick={this.props.toggleLogin}>Close</button>
             </ReactModal>
         )
     }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        state
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        login: (user) => {
+            return dispatch(login(user))
+        },
+        toggleLogin: () => {
+            return dispatch(toggleLogin())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal)

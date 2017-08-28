@@ -4,7 +4,7 @@ import axios from 'axios'
 import MapStyles from './MapStyles';
 import Script from 'react-load-script';
 import PropTypes from 'prop-types';
-import SearchBar from './SearchBar.jsx';
+import SearchBar from './SearchBar';
 
 
 export default class GMap extends React.Component {

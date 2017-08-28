@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux'
 import { render } from 'react-dom';
-import GMap from './components/GMap.jsx';
-import LandingModal from './components/LandingModal.jsx';
+import GMap from './GMap';
+import LandingModal from './LandingModal';
 
-class App extends React.Component {
+export default class App extends Component {
   constructor() {
     super()
     this.state = {
@@ -78,4 +79,4 @@ class App extends React.Component {
   }
 }
 
-render(<App />, document.getElementById('ReactGMapsApp'));
+

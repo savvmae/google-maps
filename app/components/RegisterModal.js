@@ -1,30 +1,34 @@
 import React, { Component } from 'react';
-import { Button, Icon } from 'react-materialize'
 import ReactModal from 'react-modal';
-import { Row, Input, Link, Card, Col } from 'react-materialize'
+import { Row, Input, Link, Card, Col, Button, Icon  } from 'react-materialize'
+import { connect } from 'react-redux'
+
+import {toggleRegister, register} from '../actions';
 
 
-export default class RegisterModal extends Component {
+class RegisterModal extends Component {
     constructor() {
         super()
-
         this.state = {
-            showModal: true,
             email: '',
             password: '',
             confirmPassword: '',
             username: ''
         }
-        this.updateState.bind(this);
     }
-    updateState(event) {
+    updateState = (event) => {
         this.setState({ [event.target.name]: event.target.value })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.register(this.state);
     }
 
     render() {
         return (
             <ReactModal header='register Header'
-                isOpen={this.state.showModal}
+                isOpen={this.props.state.showRegisterModal}
                 contentLabel="Minimal Modal Example">
                 <div className="container container-fifty">
                     <Col m={6} s={12}>
@@ -38,12 +42,12 @@ export default class RegisterModal extends Component {
 
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">mail</i>
-                                            <input onChange={this.updateState.bind(this)} id="icon_telephone" type="email" name="email" className="validate" />
+                                            <input onChange={this.updateState} id="icon_telephone" type="email" name="email" className="validate" />
                                             <label htmlFor="icon_telephone" >Email</label>
                                         </div>
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">textsms</i>
-                                            <input onChange={this.updateState.bind(this)} id="icon_telephone" type="text" name="username" className="validate" />
+                                            <input onChange={this.updateState} id="icon_telephone" type="text" name="username" className="validate" />
                                             <label htmlFor="icon_telephone" >Username</label>
                                         </div>
 
@@ -51,12 +55,12 @@ export default class RegisterModal extends Component {
                                     <div className="row">
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">lock</i>
-                                            <input onChange={this.updateState.bind(this)} id="icon_prefix" type="password" name="password" className="validate" />
+                                            <input onChange={this.updateState} id="icon_prefix" type="password" name="password" className="validate" />
                                             <label htmlFor="icon_prefix">Password</label>
                                         </div>
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">lock</i>
-                                            <input onChange={this.updateState.bind(this)} id="icon_prefix" type="password" name="confirmPassword" className="validate" />
+                                            <input onChange={this.updateState} id="icon_prefix" type="password" name="confirmPassword" className="validate" />
                                             <label htmlFor="icon_prefix">Confirm Password</label>
                                         </div>
 
@@ -71,9 +75,28 @@ export default class RegisterModal extends Component {
                         </Card>
                     </Col>
                 </div>
-                <button className="btn waves-effect waves-light z-zero" onClick={this.props.handleCloseModal}>Close</button>
+                <button className="btn waves-effect waves-light z-zero" onClick={this.props.toggleRegister}>Close</button>
             </ReactModal>
         )
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+        state
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        register: (user) => {
+            return dispatch(register(user))
+        },
+        toggleRegister: () => {
+            return dispatch(toggleRegister())
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterModal)
