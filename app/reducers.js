@@ -18,8 +18,8 @@ const initialState = {
     showMarkerDetailModal: false,
     markers: [{
         position: {
-            lat: 32.7000,
-            lng: -79.9311
+            lat: 32.797,
+            lng: -79.955
         },
         details: {
             spotType: "lot",
@@ -29,8 +29,8 @@ const initialState = {
     },
     {
         position: {
-            lat: 32.8900,
-            lng: -79.9511
+            lat: 32.792,
+            lng: -79.95
         },
         details: {
             spotType: "broken meter",
@@ -40,8 +40,8 @@ const initialState = {
     },
     {
         position: {
-            lat: 32.8000,
-            lng: -79.9811
+            lat: 32.795,
+            lng: -79.935
         },
         details: {
             spotType: "resdential no time limit",
@@ -71,7 +71,21 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case SPOT_DETAILS:
+            console.log('spot details')
+            let newMarker = {
+                position: {
+                    lat: action.payload.lat,
+                    lng: action.payload.lng
+                },
+                details: {
+                    isSpotTaken: action.payload.isSpotTaken,
+                    spotType: action.payload.spotType,
+                    spotNotes: action.payload.spotNotes
+                }
+            }
+            console.log(newMarker)
             return update(state, {
+                
                 spotDetails: {
                     isSpotTaken: {
                         $set: action.payload.isSpotTaken
@@ -83,6 +97,9 @@ export const reducer = (state = initialState, action) => {
                         $set: action.payload.spotNotes
                     }
                 },
+                markers: {
+                    $push: newMarker
+                }
 
             })
         case TOGGLE_LOADING:

@@ -11,6 +11,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.props.state.markers)
         return (
             <div>
                 {this.props.state.showLandingModal
