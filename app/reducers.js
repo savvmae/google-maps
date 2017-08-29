@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { SPOT_DETAILS, SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_DETAIL_MARKER } from './actions';
+import { SPOT_DETAILS, SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER } from './actions';
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
@@ -57,10 +57,8 @@ const initialState = {
 }
 
 export const reducer = (state = initialState, action) => {
-        console.log('reducer', action.type)    
     switch (action.type) {
         case SPOT_DETAILS:
-            console.log('reducer')
             return update(state, {
                 spotDetails: {
                     isSpotTaken: {
@@ -140,6 +138,12 @@ export const reducer = (state = initialState, action) => {
                 }
             })
         case TOGGLE_MARKER:
+            return update(state, {
+                showMarkerModal: {
+                    $set: !state.showMarkerModal
+                }
+            })
+        case TOGGLE_MARKER_AND_SET_LOCATION:
             return update(state, {
                 showMarkerModal: {
                     $set: !state.showMarkerModal

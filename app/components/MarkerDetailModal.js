@@ -13,7 +13,9 @@ class MarkerDetailModal extends Component {
         this.state = {
             spotType: null,
             isSpotTaken: false,
-            spotNotes: null
+            spotNotes: null,
+            lat: this.props.state.spotDetails.lat,
+            lng: this.props.state.spotDetails.lng
         }
     }
     updateState = (event) => {
@@ -25,6 +27,7 @@ class MarkerDetailModal extends Component {
     }
     handleSubmit = (event) => {
         event.preventDefault();
+        let d
         this.props.submitNewSpot(this.state);
     }
 
@@ -76,7 +79,7 @@ function mapDispatchToProps(dispatch) {
             return dispatch(toggleMarkerDetailModal())
         },
         submitNewSpot: (details) => {
-            return submitNewSpot(submitNewSpot(details))
+            return dispatch(submitNewSpot(details))
         }
     }
 }

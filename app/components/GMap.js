@@ -23,9 +23,7 @@ class GMap extends React.Component {
     loadMap() {
         const config = this.props.state;
         if (this.state.scriptLoaded) {
-            this.setState({
-                center: this.mapCenter(config.initialCenter.lat, config.initialCenter.lng)
-            })
+            this.mapCenter(config.initialCenter.lat, config.initialCenter.lng)
         }
         // create the map and markers after the component has
         // been rendered because we need to manipulate the DOM for Google =(
@@ -68,14 +66,16 @@ class GMap extends React.Component {
         map.addListener('click', (e) => {
             this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
             let position = { lat: this.state.lat, lng: this.state.lng }
-            this.props.toggleMarkerModal(position);
+            this.props.toggleMarkerModal(position)
+            this.newMarker(position)
+            
+                // this.props.toggleMarkerModal()
             // this.newMarker(position)
         })
         return map
     }
 
     createMarkers(markers) {
-
         const markersArray = markers.map((marker) => {
             const config = this.props.state,
                 icon = config.icons && config.icons[marker.icon].image,

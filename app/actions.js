@@ -1,4 +1,4 @@
-import { registerService, loginService, dashboardService, searchService } from './services'
+import { registerService, loginService, dashboardService, searchService, addSpotService } from './services'
 import axios from 'axios'
 
 
@@ -12,6 +12,7 @@ export const TOGGLE_LOGIN = "TOGGLE_LOGIN";
 export const TOGGLE_REGISTER = "TOGGLE_REGISTER";
 export const SET_LOCATION = "SET_LOCATION";
 export const TOGGLE_MARKER = "TOGGLE_MARKER";
+export const TOGGLE_MARKER_AND_SET_LOCATION = "TOGGLE_MARKER_AND_SET_LOCATION";
 export const TOGGLE_DETAIL_MARKER = "TOGGLE_DETAIL_MARKER";
 export const SPOT_DETAILS = "SPOT_DETAILS";
 
@@ -49,9 +50,9 @@ export function dashboard(token) {
 export function searchCity(location) {
     return (dispatch, getState) => {
         return searchService(location).then((res) => {
-                dispatch(loading())
-                dispatch(setLocation(res))
-            })
+            dispatch(loading())
+            dispatch(setLocation(res))
+        })
         // dispatch action to move map, need to put move map action here in order to do that
     }
 }
@@ -60,8 +61,17 @@ export function searchCity(location) {
 //     //  needs to take position as parameter, render new marker with details listed
 // }
 export function submitNewSpot(payload) {
-    console.log('action')
-    return { type: SPOT_DETAILS, payload}   
+    console.log(payload)
+    return (dispatch, getState) => {
+        return addSpotService(payload).then((res) => {
+            dispatch(toggleMarkerModal())
+            //dispatch new marker??
+        })
+    }
+    // dispatch service
+    // return togglemarkerdetailmodal and togglemarkermodal
+    // return make new marker
+    return { type: SPOT_DETAILS, payload }
 }
 export function setLocation(location) {
     return { type: SET_LOCATION, location }
@@ -87,7 +97,11 @@ export function toggleRegister(payload) {
 }
 
 export function toggleMarkerModal(payload) {
-    return { type: TOGGLE_MARKER, payload }
+    if (payload) {
+        return { type: TOGGLE_MARKER_AND_SET_LOCATION, payload }
+    } else {
+        return { type: TOGGLE_MARKER, payload }
+    }
 }
 
 export function toggleMarkerDetailModal(payload) {

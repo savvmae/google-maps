@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactModal from 'react-modal';
 import { Row, Input, Link, Card, Col, Button, Icon  } from 'react-materialize'
 
-import {toggleLanding, toggleLogin, toggleRegister, toggleMarkerDetailModal} from '../actions';
+import {toggleLanding, toggleLogin, toggleMarkerModal, toggleMarkerDetailModal} from '../actions';
 
 import MarkerDetailModal from './MarkerDetailModal';
 
@@ -16,9 +16,7 @@ class MarkerModal extends Component {
     handleToggleDetailModal = () => {
         this.props.toggleMarkerDetailModal()
     }
-    handleToggleMarkerModal = () => {
-        this.props.toggleMarkerModal()
-    }
+
 
     render() {
         return (
@@ -30,7 +28,7 @@ class MarkerModal extends Component {
                     <div className="row">
                         <button className="btn waves-effect waves-light z-zero" onClick={this.handleToggleDetailModal}>Yes</button>
                     </div><div className="row">
-                        <button className="btn waves-effect waves-light z-zero" onClick={this.handleToggleMarkerModal}>No</button></div>
+                        <button className="btn waves-effect waves-light z-zero" onClick={this.props.toggleMarkerModal}>No</button></div>
                 </ReactModal>
                 {this.props.state.showMarkerDetailModal
 
@@ -55,8 +53,8 @@ function mapDispatchToProps(dispatch) {
         toggleMarkerDetailModal: () => {
             return dispatch(toggleMarkerDetailModal())
         },
-        toggleLogin: () => {
-            return dispatch(toggleLogin())
+        toggleMarkerModal: () => {
+            return dispatch(toggleMarkerModal())
         }
     }
 }
