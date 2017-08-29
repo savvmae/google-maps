@@ -56,10 +56,11 @@ export function searchService(param) {
             return loc
         })
 }
-export function addSpotService(details) { 
-    return axios.post('api')
-        .then(res => {
-            console.log(res)
-            return res
-        })
-}
+// working, ready to get plugged into api
+// export function addSpotService(details) { 
+//     return axios.post('api')
+//         .then(res => {
+//             console.log(res)
+//             return res
+//         })
+// }

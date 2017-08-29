@@ -38,10 +38,10 @@ const initialState = {
         message: "Three."
     }],
     initialCenter: {
-        lat: 32.8000,
-        lng: -79.9311
+        lat: 32.79,
+        lng: -79.93
     },
-    initialZoom: 12,
+    initialZoom: 13,
     center: {
         lat: null,
         lng: null
@@ -138,6 +138,8 @@ export const reducer = (state = initialState, action) => {
                 }
             })
         case TOGGLE_MARKER:
+            console.log('toggle  marker')
+        
             return update(state, {
                 showMarkerModal: {
                     $set: !state.showMarkerModal
@@ -157,6 +159,7 @@ export const reducer = (state = initialState, action) => {
                 }   }
             })
         case TOGGLE_DETAIL_MARKER:
+            console.log('toggle detail marker')
             return update(state, {
                 showMarkerDetailModal: {
                     $set: !state.showMarkerDetailModal

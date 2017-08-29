@@ -22,9 +22,6 @@ class GMap extends React.Component {
 
     loadMap() {
         const config = this.props.state;
-        if (this.state.scriptLoaded) {
-            this.mapCenter(config.initialCenter.lat, config.initialCenter.lng)
-        }
         // create the map and markers after the component has
         // been rendered because we need to manipulate the DOM for Google =(
         this.map = this.createMap(config.initialCenter);
@@ -63,6 +60,7 @@ class GMap extends React.Component {
             mapOptions.mapTypeId = 'terrain';
         }
         let map = new google.maps.Map(this.refs.mapCanvas, mapOptions);
+        map.setCenter(this.mapCenter(config.initialCenter.lat, config.initialCenter.lng)); 
         map.addListener('click', (e) => {
             this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
             let position = { lat: this.state.lat, lng: this.state.lng }

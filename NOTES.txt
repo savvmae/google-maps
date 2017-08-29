@@ -15,4 +15,11 @@ if Y ---
          - login button
 if N ---
     modal closes and marker goes away
-    
+
+
+need to separate out my services and reducers and actions
+
+need to get info stored on spots to render in info boxes
+
+
+

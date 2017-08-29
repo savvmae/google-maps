@@ -53,7 +53,6 @@ export function searchCity(location) {
             dispatch(loading())
             dispatch(setLocation(res))
         })
-        // dispatch action to move map, need to put move map action here in order to do that
     }
 }
 // export function newMarker(position) {
@@ -62,16 +61,20 @@ export function searchCity(location) {
 // }
 export function submitNewSpot(payload) {
     console.log(payload)
-    return (dispatch, getState) => {
-        return addSpotService(payload).then((res) => {
-            dispatch(toggleMarkerModal())
-            //dispatch new marker??
-        })
-    }
-    // dispatch service
-    // return togglemarkerdetailmodal and togglemarkermodal
+    return (dispatch, getState) =>
+        dispatch(toggleMarkerModal())
+    // dispatch(toggleMarkerDetailModal())
+
+    // service looking good
+    // return (dispatch, getState) => {
+    //     return addSpotService(payload).then((res) => {
+    // dispatch(toggleMarkerDetailModal())
+    //         dispatch(toggleMarkerModal())
+    //         //dispatch new marker??
+    // })
+    // }
     // return make new marker
-    return { type: SPOT_DETAILS, payload }
+    // return { type: SPOT_DETAILS, payload }
 }
 export function setLocation(location) {
     return { type: SET_LOCATION, location }
