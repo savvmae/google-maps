@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactModal from 'react-modal';
 import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
 
-import { toggleLanding, toggleLogin, toggleRegister } from '../actions';
+import { toggleMarkerDetailModal, submitNewSpot } from '../actions';
 
 
 class MarkerDetailModal extends Component {
@@ -12,13 +12,9 @@ class MarkerDetailModal extends Component {
 
         this.state = {
             spotType: null,
-            isSpotTaken: null,
+            isSpotTaken: false,
             spotNotes: null
         }
-    }
-
-    handleToggleMarker = () => {
-        this.props.toggleMarkerDetailModal()
     }
     updateState = (event) => {
         if (event.target.checked) {
@@ -28,6 +24,7 @@ class MarkerDetailModal extends Component {
         }
     }
     handleSubmit = (event) => {
+        event.preventDefault();
         this.props.submitNewSpot(this.state);
     }
 
@@ -37,7 +34,7 @@ class MarkerDetailModal extends Component {
                 <ReactModal header='Marker Info Header'
                     isOpen={this.props.state.showMarkerDetailModal}
                     contentLabel="Minimal Modal Example">
-                        <Button floating icon='close' className='red' large style={{ bottom: '0px', left: '45%' }}/>
+                        <Button onClick={this.props.toggleMarkerDetailModal} floating icon='close' className='red' large style={{ bottom: '0px', left: '45%' }}/>
                    
                     <p>  Details about the spot! </p>
                     <div className="row">
@@ -55,8 +52,8 @@ class MarkerDetailModal extends Component {
                                 <Input onChange={this.updateState} name='group1' type='checkbox' label='Taken?' />
                             </div>
                             <div className="row">
-                                <button className="btn waves-effect waves-light" type="submit" name="action">Add Spot!
-                                        <i className="material-icons right">send</i>
+                                <button className="btn waves-effect waves-light" type="submit">Add Spot!
+                                <i className="material-icons right">send</i>
                                 </button>
                             </div>
                         </form>
@@ -75,14 +72,11 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
     return {
-        toggleLanding: () => {
-            return dispatch(toggleLanding())
+        toggleMarkerDetailModal: () => {
+            return dispatch(toggleMarkerDetailModal())
         },
-        toggleRegister: () => {
-            return dispatch(toggleRegister())
-        },
-        toggleLogin: () => {
-            return dispatch(toggleLogin())
+        submitNewSpot: (details) => {
+            return submitNewSpot(submitNewSpot(details))
         }
     }
 }

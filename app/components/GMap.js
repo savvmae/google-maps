@@ -68,7 +68,7 @@ class GMap extends React.Component {
         map.addListener('click', (e) => {
             this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
             let position = { lat: this.state.lat, lng: this.state.lng }
-            this.props.toggleMarkerModal();
+            this.props.toggleMarkerModal(position);
             // this.newMarker(position)
         })
         return map
@@ -221,8 +221,8 @@ function mapDispatchToProps(dispatch) {
         searchCity: (location) => {
             return dispatch(searchCity(location))
         },
-        toggleMarkerModal: () => {
-            return dispatch(toggleMarkerModal())
+        toggleMarkerModal: (position) => {
+            return dispatch(toggleMarkerModal(position))
         }
     }
 }

@@ -7,12 +7,13 @@ export const SET_TOKEN = "SET_TOKEN";
 export const SET_USER = "SET_USER";
 export const TOGGLE_LOADING = "TOGGLE_LOADING";
 export const LOGOUT = "LOGOUT";
-export const TOGGLE_LANDING = "TOGGLE_LANDING"
-export const TOGGLE_LOGIN = "TOGGLE_LOGIN"
-export const TOGGLE_REGISTER = "TOGGLE_REGISTER"
-export const SET_LOCATION = "SET_LOCATION"
-export const TOGGLE_MARKER = "TOGGLE_MARKER"
-export const TOGGLE_DETAIL_MARKER = "TOGGLE_DETAIL_MARKER"
+export const TOGGLE_LANDING = "TOGGLE_LANDING";
+export const TOGGLE_LOGIN = "TOGGLE_LOGIN";
+export const TOGGLE_REGISTER = "TOGGLE_REGISTER";
+export const SET_LOCATION = "SET_LOCATION";
+export const TOGGLE_MARKER = "TOGGLE_MARKER";
+export const TOGGLE_DETAIL_MARKER = "TOGGLE_DETAIL_MARKER";
+export const SPOT_DETAILS = "SPOT_DETAILS";
 
 
 
@@ -53,6 +54,14 @@ export function searchCity(location) {
             })
         // dispatch action to move map, need to put move map action here in order to do that
     }
+}
+// export function newMarker(position) {
+//     return (dispatch, getState)
+//     //  needs to take position as parameter, render new marker with details listed
+// }
+export function submitNewSpot(payload) {
+    console.log('action')
+    return { type: SPOT_DETAILS, payload}   
 }
 export function setLocation(location) {
     return { type: SET_LOCATION, location }

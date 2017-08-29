@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_DETAIL_MARKER} from './actions';
+import { SPOT_DETAILS, SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_DETAIL_MARKER } from './actions';
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
@@ -45,12 +45,36 @@ const initialState = {
     center: {
         lat: null,
         lng: null
+    },
+    spotDetails: {
+        spotType: null,
+        isSpotTaken: null,
+        spotNotes: null,
+        lat: null,
+        lng: null
     }
 
 }
 
 export const reducer = (state = initialState, action) => {
+        console.log('reducer', action.type)    
     switch (action.type) {
+        case SPOT_DETAILS:
+            console.log('reducer')
+            return update(state, {
+                spotDetails: {
+                    isSpotTaken: {
+                        $set: action.payload.isSpotTaken
+                    }, 
+                    spotType: {
+                        $set: action.payload.spotType
+                    },
+                    spotNotes: {
+                        $set: action.payload.spotNotes
+                    }
+                },
+
+            })
         case TOGGLE_LOADING:
             return update(state, {
                 loading: {
@@ -119,7 +143,14 @@ export const reducer = (state = initialState, action) => {
             return update(state, {
                 showMarkerModal: {
                     $set: !state.showMarkerModal
-                }
+                },
+                spotDetails: {
+                    lat: {
+                        $set: action.payload.lat
+                    },
+                    lng: {
+                        $set: action.payload.lng
+                }   }
             })
         case TOGGLE_DETAIL_MARKER:
             return update(state, {
@@ -127,7 +158,9 @@ export const reducer = (state = initialState, action) => {
                     $set: !state.showMarkerDetailModal
                 }
             })
+        
         default:
+            
             return state;
     }
 }
