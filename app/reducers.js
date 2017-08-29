@@ -21,21 +21,33 @@ const initialState = {
             lat: 32.7000,
             lng: -79.9311
         },
-        message: "One."
+        details: {
+            spotType: "lot",
+            spotNotes: "34 spots",
+            isSpotTaken: true
+        }
     },
     {
         position: {
             lat: 32.8900,
             lng: -79.9511
         },
-        message: "Two."
+        details: {
+            spotType: "broken meter",
+            spotNotes: "sometimes working",
+            isSpotTaken: false
+        }
     },
     {
         position: {
             lat: 32.8000,
             lng: -79.9811
         },
-        message: "Three."
+        details: {
+            spotType: "resdential no time limit",
+            spotNotes: "1 block",
+            isSpotTaken: true
+        }
     }],
     initialCenter: {
         lat: 32.79,
@@ -137,9 +149,7 @@ export const reducer = (state = initialState, action) => {
                     $set: !state.showRegisterModal
                 }
             })
-        case TOGGLE_MARKER:
-            console.log('toggle  marker')
-        
+        case TOGGLE_MARKER:        
             return update(state, {
                 showMarkerModal: {
                     $set: !state.showMarkerModal
@@ -159,7 +169,6 @@ export const reducer = (state = initialState, action) => {
                 }   }
             })
         case TOGGLE_DETAIL_MARKER:
-            console.log('toggle detail marker')
             return update(state, {
                 showMarkerDetailModal: {
                     $set: !state.showMarkerDetailModal

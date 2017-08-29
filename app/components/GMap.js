@@ -74,16 +74,15 @@ class GMap extends React.Component {
     }
 
     createMarkers(markers) {
+
         const markersArray = markers.map((marker) => {
             const config = this.props.state,
                 icon = config.icons && config.icons[marker.icon].image,
-                thisMarker = this.newMarker(marker.position, icon);
+                thisMarker = this.newMarker(marker.position, icon, marker.details);
             // have to define google maps event listeners here too
             // because we can't add listeners on the map until it's created
-            if (marker.message) {
                 thisMarker.infoWindowIsOpen = false;
-                google.maps.event.addListener(thisMarker, 'click', () => this.handleMarkerClick(thisMarker, marker.message));
-            }
+                google.maps.event.addListener(thisMarker, 'click', () => this.handleMarkerClick(thisMarker, marker.details));
             return thisMarker;
         })
         return markersArray;
@@ -100,10 +99,11 @@ class GMap extends React.Component {
         }, () => alert("Couldn't find your location"))
     }
 
-    handleMarkerClick(marker, message) {
+    handleMarkerClick(marker, details) {
         if (!marker.infoWindowIsOpen) {
             marker.infoWindowIsOpen = true;
-            this.newInfoWindow(marker, message);
+            console.log(details)
+            this.newInfoWindow(marker, details);
         } else {
             marker.infoWindowIsOpen = false;
             marker.infoWindow.close();
@@ -130,16 +130,32 @@ class GMap extends React.Component {
     }
 
     newInfoWindow(anchor, content) {
+        let contentString = 
+             `
+                <div>
+                  <h6>Spot Details<h6>
+                  <div class="small">
+                    Type of Spot: ${content.spotType}
+                  </div>
+                  <div class="small">
+                    Notes: ${content.spotNotes}
+                  </div>
+                  <div class="small">
+                    Taken?: ${content.isSpotTaken}
+                  </div>
+                </div>
+              `
+        
         anchor.infoWindow = new google.maps.InfoWindow({
             map: this.map,
             anchor: anchor,
-            content: content
+            content: contentString
         })
         google.maps.event.addListenerOnce(anchor.infoWindow, 'closeclick', () => anchor.infoWindowIsOpen = false);
         return anchor.infoWindow;
     }
 
-    newMarker(position, image) {
+    newMarker(position, image, details) {
         let thisMarker = new google.maps.Marker({
             position: position,
             map: this.map,
@@ -147,7 +163,7 @@ class GMap extends React.Component {
             animation: google.maps.Animation.DROP,
             icon: image
         })
-        this.newInfoWindow(thisMarker, this.state.markerInfo)
+        
         return thisMarker
     }
 
