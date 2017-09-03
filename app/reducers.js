@@ -6,7 +6,7 @@ import update from 'immutability-helper';
 
 
 const initialState = {
-    url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ&libraries=places‌​",
+    url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ&libraries=places&sensor=false",
     token: null,
     user: null,
     loading: false,

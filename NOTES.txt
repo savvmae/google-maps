@@ -1,3 +1,10 @@
+    AUTO COMPLETE BUG
+    
+
+
+
+
+
 user clicks on map,
 modal pops up
  would you like to add this as a spot?

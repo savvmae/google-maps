@@ -14,6 +14,7 @@ class GMap extends React.Component {
         super(props);
         this.state = {
             center: null,
+            searchCityAuto: '',
             searchCity: '',
             hasLoaded: true
         };
@@ -60,15 +61,15 @@ class GMap extends React.Component {
             mapOptions.mapTypeId = 'terrain';
         }
         let map = new google.maps.Map(this.refs.mapCanvas, mapOptions);
-        map.setCenter(this.mapCenter(config.initialCenter.lat, config.initialCenter.lng)); 
+        map.setCenter(this.mapCenter(config.initialCenter.lat, config.initialCenter.lng));
         map.addListener('click', (e) => {
             this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
             let position = { lat: this.state.lat, lng: this.state.lng }
             this.props.toggleMarkerModal(position)
             // need to render new marker only if button cicked is "yes" and submit comes back sucessful
             this.newMarker(position)
-            
-                // this.props.toggleMarkerModal()
+
+            // this.props.toggleMarkerModal()
             // this.newMarker(position)
         })
         return map
@@ -82,8 +83,8 @@ class GMap extends React.Component {
                 thisMarker = this.newMarker(marker.position, icon, marker.details);
             // have to define google maps event listeners here too
             // because we can't add listeners on the map until it's created
-                thisMarker.infoWindowIsOpen = false;
-                google.maps.event.addListener(thisMarker, 'click', () => this.handleMarkerClick(thisMarker, marker.details));
+            thisMarker.infoWindowIsOpen = false;
+            google.maps.event.addListener(thisMarker, 'click', () => this.handleMarkerClick(thisMarker, marker.details));
             return thisMarker;
         })
         return markersArray;
@@ -133,8 +134,8 @@ class GMap extends React.Component {
     }
 
     newInfoWindow(anchor, content) {
-        let contentString = 
-             `
+        let contentString =
+            `
                 <div>
                   <h6>Spot Details<h6>
                   <div class="small">
@@ -148,7 +149,7 @@ class GMap extends React.Component {
                   </div>
                 </div>
               `
-        
+
         anchor.infoWindow = new google.maps.InfoWindow({
             map: this.map,
             anchor: anchor,
@@ -166,7 +167,7 @@ class GMap extends React.Component {
             animation: google.maps.Animation.DROP,
             icon: image
         })
-        
+
         return thisMarker
     }
 
@@ -185,21 +186,35 @@ class GMap extends React.Component {
         // }
     }
 
-    handleChange(e) {
-        this.setState({ searchCity: e.target.value })
+    handleChange = (e) => {
+        var searchBox = new google.maps.places.Autocomplete(e.target);
+        this.setState({ searchCity: e.target.value }) 
+        let that = this       
+        searchBox.addListener('place_changed', function () {
+            that.props.loading()
+            var places = searchBox.getPlace();
+            console.log('i am inside change event listener')
+            that.props.searchCity(places.formatted_address).then(res => {
+                that.moveMap(that.props.state.center.lat, that.props.state.center.lng);
+                that.setState({ searchCity: '' })
+            })
+        })
+        // var autocomplete = new google.maps.places.Autocomplete(e.target)
     }
 
     handleSearchSubmit(e) {
         e.preventDefault();
-        this.props.loading();
-        this.props.searchCity(this.state.searchCity).then(res => {
-            this.moveMap(this.props.state.center.lat, this.props.state.center.lng);
-            this.setState({ searchCity: '' })
-        })
+            console.log('i am inside submit')
+        
+        // this.props.loading();
+        // this.props.searchCity(this.state.searchCity).then(res => {
+        //     this.moveMap(this.props.state.center.lat, this.props.state.center.lng);
+        //     this.setState({ searchCity: '' })
+        // })
     }
 
 
-    render() {  
+    render() {
         return (
             <div className="GMap">
                 <Script
@@ -213,7 +228,7 @@ class GMap extends React.Component {
                     ? <Row>
                         <Col s={12}>
                             <div className="fifty-w margy-a">
-                            <ProgressBar />
+                                <ProgressBar />
                             </div>
                         </Col>
                     </Row>
