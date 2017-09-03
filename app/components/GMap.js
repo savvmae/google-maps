@@ -65,6 +65,7 @@ class GMap extends React.Component {
             this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
             let position = { lat: this.state.lat, lng: this.state.lng }
             this.props.toggleMarkerModal(position)
+            // need to render new marker only if button cicked is "yes" and submit comes back sucessful
             this.newMarker(position)
             
                 // this.props.toggleMarkerModal()
@@ -96,6 +97,8 @@ class GMap extends React.Component {
         navigator.geolocation.getCurrentPosition((position) => {
             this.props.loading();
             this.moveMap(position.coords.latitude, position.coords.longitude);
+            this.newMarker(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+            this.props.toggleMarkerModal()
         }, () => alert("Couldn't find your location"))
     }
 
@@ -176,10 +179,10 @@ class GMap extends React.Component {
             center: this.mapCenter(lat, lng)
         });
         this.map.panTo(this.state.center);
-        if (!this.state.hasLoaded) {
-            let thisMarker = this.newMarker(this.state.center);
-            this.newInfoWindow(thisMarker, message);
-        }
+        // if (!this.state.hasLoaded) {
+        //     let thisMarker = this.newMarker(this.state.center);
+        //     this.newInfoWindow(thisMarker, message);
+        // }
     }
 
     handleChange(e) {
@@ -209,7 +212,9 @@ class GMap extends React.Component {
                 {this.props.state.loading
                     ? <Row>
                         <Col s={12}>
+                            <div className="fifty-w margy-a">
                             <ProgressBar />
+                            </div>
                         </Col>
                     </Row>
                     : null}

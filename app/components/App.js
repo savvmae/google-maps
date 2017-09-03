@@ -11,14 +11,14 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.props.state.markers)
+        // console.log(this.props.state.markers)
         return (
             <div>
                 {this.props.state.showLandingModal
                     ?
                     <LandingModal />
                     : null}
-                <div className="mapContainer">
+                <div className="mapContainer margy-t">
                     {this.props.state.showMarkerModal
                         ?
                         <MarkerModal />
