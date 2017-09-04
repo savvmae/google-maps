@@ -1,0 +1,37 @@
+{
+    "markers": [
+        {
+            "position": {
+                "lat": 32.797,
+                "lng": -79.955
+            },
+            "details": {
+                "spotType": "lot",
+                "spotNotes": "34 spots",
+                "isSpotTaken": true
+            }
+        },
+        {
+            "position": {
+                "lat": 32.792,
+                "lng": -79.95
+            },
+            "details": {
+                "spotType": "broken meter",
+                "spotNotes": "sometimes working",
+                "isSpotTaken": false
+            }
+        },
+        {
+            "position": {
+                "lat": 32.795,
+                "lng": -79.935
+            },
+            "details": {
+                "spotType": "resdential no time limit",
+                "spotNotes": "1 block",
+                "isSpotTaken": true
+            }
+        }
+    ]
+}

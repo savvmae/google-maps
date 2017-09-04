@@ -1,5 +1,7 @@
 import { registerService, loginService, dashboardService, searchService, addSpotService } from './services'
 import axios from 'axios'
+import spots from '!json-loader!./data/spots.json'
+
 
 
 export const GET_RESPONSE = "GET_RESPONSE";
@@ -15,6 +17,7 @@ export const TOGGLE_MARKER = "TOGGLE_MARKER";
 export const TOGGLE_MARKER_AND_SET_LOCATION = "TOGGLE_MARKER_AND_SET_LOCATION";
 export const TOGGLE_DETAIL_MARKER = "TOGGLE_DETAIL_MARKER";
 export const SPOT_DETAILS = "SPOT_DETAILS";
+export const SET_MARKERS = "SET_MARKERS"
 
 
 
@@ -35,16 +38,8 @@ export function login(user) {
     }
 }
 
-export function dashboard(token) {
-    return (dispatch, getState) => {
-        token = token || getState().token;
-        if (!token) {
-            return;
-        }
-        return dashboardService(token).then(function (res) {
-            dispatch(setUser(res.data))
-        })
-    }
+export function dashboard() {
+    return { type: SET_MARKERS, spots}
 }
 
 export function searchCity(location) {
@@ -60,9 +55,9 @@ export function searchCity(location) {
 //     //  needs to take position as parameter, render new marker with details listed
 // }
 export function submitNewSpot(payload) {
-    console.log(payload)
-    return (dispatch, getState) =>
-        dispatch(toggleMarkerModal())
+    spots.push(payload)
+    console.log(spots)
+    return { type: NEW_MARKER, payload}
     // dispatch(toggleMarkerDetailModal())
 
     // service looking good

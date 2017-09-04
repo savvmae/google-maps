@@ -4,10 +4,16 @@ import { render } from 'react-dom';
 import GMap from './GMap';
 import LandingModal from './LandingModal';
 import MarkerModal from './MarkerModal';
+import { dashboard } from '../actions';
+
 
 class App extends Component {
     constructor(props) {
         super(props)
+    }
+
+    componentWillMount = () => {
+        this.props.dashboard()
     }
 
     render() {
@@ -47,6 +53,9 @@ function mapDispatchToProps(dispatch) {
         },
         toggleLogin: () => {
             return dispatch(toggleLogin())
+        },
+        dashboard: () => {
+            return dispatch(dashboard())
         }
     }
 }

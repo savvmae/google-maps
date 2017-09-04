@@ -1,4 +1,5 @@
 import axios from 'axios'
+import spots from '!json-loader!./data/spots.json'
 
 
 export function registerService(param) {
@@ -34,23 +35,15 @@ export function loginService(param) {
     })
 }
 
-export function dashboardService(param) {
+export function dashboardService() {
     console.log("i am triggering")
-    return axios({
-        method: 'get',
-        url: 'https://user-auth-test.herokuapp.com/dashboard',
-        headers: {
-            'X-AUTH-TOKEN': param
-        }
-    }).then(serverResponse => {
-        console.log(serverResponse)
-        return serverResponse
-    })
+    return spots
 }
 
 export function searchService(param) {
-    return axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + param + '&key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ')
+    return axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + param + '&key=AIzaSyDgpRw0NmIP6EWKs0uSRrDjbioHMcleMtw')
         .then(res => {
+            console.log(res)
             let loc = res.data.results[0].geometry.location;
             return loc
         })

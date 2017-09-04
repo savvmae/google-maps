@@ -15,6 +15,11 @@ var config = {
   module : {
     loaders : [
       {
+        test: /\.json$/,
+        loader: 'json-loader',
+        include: APP_DIR + '/data/spots.json',
+      },
+      {
         test : /\.js?/,
         include : APP_DIR,
         loader : 'babel-loader',

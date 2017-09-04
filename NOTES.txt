@@ -1,6 +1,6 @@
     AUTO COMPLETE BUG
-    
-
+    https://developers.google.com/maps/premium/previous-licenses/articles/usage-limits
+https://stackoverflow.com/questions/14601655/google-places-autocomplete-pick-first-result-on-enter-key
 
 
 

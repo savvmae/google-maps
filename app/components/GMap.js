@@ -7,6 +7,7 @@ import Script from 'react-load-script';
 import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 
+
 import { loading, searchCity, toggleMarkerModal } from '../actions';
 
 class GMap extends React.Component {
@@ -20,13 +21,16 @@ class GMap extends React.Component {
         };
         this.mapCenter.bind(this);
     }
+    componentWillMount() {
 
+    }
     loadMap() {
         const config = this.props.state;
         // create the map and markers after the component has
         // been rendered because we need to manipulate the DOM for Google =(
         this.map = this.createMap(config.initialCenter);
         if (config && config.markers) {
+            
             this.markers = this.createMarkers(config.markers);
             if (config.legend) {
                 this.createLegend(config.icons);
@@ -187,33 +191,47 @@ class GMap extends React.Component {
     }
 
     handleChange = (e) => {
-        var searchBox = new google.maps.places.Autocomplete(e.target);
-        this.setState({ searchCity: e.target.value }) 
-        let that = this       
-        searchBox.addListener('place_changed', function () {
-            that.props.loading()
-            var places = searchBox.getPlace();
-            console.log('i am inside change event listener')
-            that.props.searchCity(places.formatted_address).then(res => {
-                that.moveMap(that.props.state.center.lat, that.props.state.center.lng);
-                that.setState({ searchCity: '' })
+        this.setState({ searchCity: e.target.value })
+        if (this.state.searchCity.length > 4) {
+            let searchBox = new google.maps.places.Autocomplete(e.target);
+            let that = this
+            let hasDownBeenPressed = false;
+
+            searchBox.addListener('keydown', (e) => {
+                if (e.keyCode === 40) {
+                    hasDownBeenPressed = true;
+                }
+            });
+            google.maps.event.addDomListener(e.target, 'keydown', (e) => {
+                e.cancelBubble = true;
+                if (e.keyCode === 13 || e.keyCode === 9) {
+                    if (!hasDownBeenPressed && !e.hasRanOnce) {
+                        google.maps.event.trigger(e.target, 'keydown', {
+                            keyCode: 40,
+                            hasRanOnce: true,
+                        });
+                    }
+                }
+            });
+            searchBox.addListener('focus', () => {
+                hasDownBeenPressed = false;
+                searchInput.value = '';
+            });
+
+            searchBox.addListener('place_changed', function () {
+                that.props.loading()
+                var places = searchBox.getPlace();
+                that.setState({ searchCity: places.formatted_address})
+                if (typeof places.address_components !== 'undefined') {
+                    hasDownBeenPressed = false;
+                }
+                that.props.searchCity(places.formatted_address).then(res => {
+                    that.moveMap(that.props.state.center.lat, that.props.state.center.lng);
+                    that.setState({ searchCity: '' })
+                })
             })
-        })
-        // var autocomplete = new google.maps.places.Autocomplete(e.target)
+        }
     }
-
-    handleSearchSubmit(e) {
-        e.preventDefault();
-            console.log('i am inside submit')
-        
-        // this.props.loading();
-        // this.props.searchCity(this.state.searchCity).then(res => {
-        //     this.moveMap(this.props.state.center.lat, this.props.state.center.lng);
-        //     this.setState({ searchCity: '' })
-        // })
-    }
-
-
     render() {
         return (
             <div className="GMap">
@@ -233,7 +251,7 @@ class GMap extends React.Component {
                         </Col>
                     </Row>
                     : null}
-                <SearchBar handleChange={this.handleChange.bind(this)} handleSearchSubmit={this.handleSearchSubmit.bind(this)} searchCity={this.state.searchCity} />
+                <SearchBar handleChange={this.handleChange.bind(this)} searchCity={this.state.searchCity} />
                 <button className="btn waves-effect waves-light z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
 
             </div>
@@ -257,7 +275,7 @@ function mapDispatchToProps(dispatch) {
         },
         toggleMarkerModal: (position) => {
             return dispatch(toggleMarkerModal(position))
-        }
+        },
     }
 }
 
