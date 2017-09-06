@@ -4,7 +4,6 @@ import { render } from 'react-dom';
 import GMap from './GMap';
 import LandingModal from './LandingModal';
 import MarkerModal from './MarkerModal';
-import { dashboard } from '../actions';
 
 
 class App extends Component {
@@ -12,9 +11,9 @@ class App extends Component {
         super(props)
     }
 
-    componentWillMount = () => {
-        this.props.dashboard()
-    }
+    // componentWillMount = () => {
+    //     this.props.dashboard()
+    // }
 
     render() {
         // console.log(this.props.state.markers)
@@ -53,14 +52,11 @@ function mapDispatchToProps(dispatch) {
         },
         toggleLogin: () => {
             return dispatch(toggleLogin())
-        },
-        dashboard: () => {
-            return dispatch(dashboard())
         }
+        // dashboard: () => {
+        //     return dispatch(dashboard())
+        // }
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-
-
-

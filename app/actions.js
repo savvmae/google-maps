@@ -1,8 +1,5 @@
 import { registerService, loginService, dashboardService, searchService, addSpotService } from './services'
 import axios from 'axios'
-import spots from '!json-loader!./data/spots.json'
-
-
 
 export const GET_RESPONSE = "GET_RESPONSE";
 export const SET_TOKEN = "SET_TOKEN";
@@ -16,9 +13,9 @@ export const SET_LOCATION = "SET_LOCATION";
 export const TOGGLE_MARKER = "TOGGLE_MARKER";
 export const TOGGLE_MARKER_AND_SET_LOCATION = "TOGGLE_MARKER_AND_SET_LOCATION";
 export const TOGGLE_DETAIL_MARKER = "TOGGLE_DETAIL_MARKER";
-export const SPOT_DETAILS = "SPOT_DETAILS";
+export const TOGGLE_SPOT_DETAIL = "OGGLE_SPOT_DETAIL"
+export const NEW_MARKER = "NEW_MARKER";
 export const SET_MARKERS = "SET_MARKERS"
-
 
 
 export function register(user) {
@@ -38,10 +35,12 @@ export function login(user) {
     }
 }
 
+// will use once api is set up, will pull markers from db to render to map
 export function dashboard() {
     return { type: SET_MARKERS, spots}
 }
 
+// searches for location based off user input
 export function searchCity(location) {
     return (dispatch, getState) => {
         return searchService(location).then((res) => {
@@ -50,27 +49,17 @@ export function searchCity(location) {
         })
     }
 }
-// export function newMarker(position) {
-//     return (dispatch, getState)
-//     //  needs to take position as parameter, render new marker with details listed
-// }
+// will post to api to add spots
 export function submitNewSpot(payload) {
-    spots.push(payload)
-    console.log(spots)
+    console.log(payload)
     return { type: NEW_MARKER, payload}
-    // dispatch(toggleMarkerDetailModal())
-
     // service looking good
     // return (dispatch, getState) => {
     //     return addSpotService(payload).then((res) => {
-    // dispatch(toggleMarkerDetailModal())
-    //         dispatch(toggleMarkerModal())
-    //         //dispatch new marker??
     // })
     // }
-    // return make new marker
-    // return { type: SPOT_DETAILS, payload }
 }
+
 export function setLocation(location) {
     return { type: SET_LOCATION, location }
 }
@@ -104,6 +93,10 @@ export function toggleMarkerModal(payload) {
 
 export function toggleMarkerDetailModal(payload) {
     return { type: TOGGLE_DETAIL_MARKER, payload }
+}
+
+export function toggleSpotDetailModal(payload) {
+    return { type: TOGGLE_SPOT_DETAIL, payload }
 }
 
 function getResponseAction(payload) {

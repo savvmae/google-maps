@@ -1,5 +1,4 @@
 import axios from 'axios'
-import spots from '!json-loader!./data/spots.json'
 
 
 export function registerService(param) {
@@ -35,10 +34,10 @@ export function loginService(param) {
     })
 }
 
-export function dashboardService() {
-    console.log("i am triggering")
-    return spots
-}
+// export function dashboardService() {
+//     console.log("i am triggering")
+//     return spots
+// }
 
 export function searchService(param) {
     return axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + param + '&key=AIzaSyDgpRw0NmIP6EWKs0uSRrDjbioHMcleMtw')

@@ -4,11 +4,9 @@ import { Row, Col, ProgressBar } from 'react-materialize';
 import { connect } from 'react-redux';
 import MapStyles from './MapStyles';
 import Script from 'react-load-script';
-import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
-
-
-import { loading, searchCity, toggleMarkerModal } from '../actions';
+import SpotDetail from './SpotDetail';
+import { loading, searchCity, toggleMarkerModal, toggleSpotDetailModal } from '../actions';
 
 class GMap extends React.Component {
     constructor(props) {
@@ -30,7 +28,7 @@ class GMap extends React.Component {
         // been rendered because we need to manipulate the DOM for Google =(
         this.map = this.createMap(config.initialCenter);
         if (config && config.markers) {
-            
+
             this.markers = this.createMarkers(config.markers);
             if (config.legend) {
                 this.createLegend(config.icons);
@@ -70,25 +68,22 @@ class GMap extends React.Component {
             this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
             let position = { lat: this.state.lat, lng: this.state.lng }
             this.props.toggleMarkerModal(position)
-            // need to render new marker only if button cicked is "yes" and submit comes back sucessful
             this.newMarker(position)
+            // need actual response for this promise to work
+            // .then(res => {
+            //     this.newMarker(position)
+            //     this.props.toggleMarkerModal()
+            // need to render new marker only if button cicked is "yes" and submit comes back sucessful
 
-            // this.props.toggleMarkerModal()
-            // this.newMarker(position)
         })
         return map
     }
 
     createMarkers(markers) {
-
         const markersArray = markers.map((marker) => {
             const config = this.props.state,
                 icon = config.icons && config.icons[marker.icon].image,
-                thisMarker = this.newMarker(marker.position, icon, marker.details);
-            // have to define google maps event listeners here too
-            // because we can't add listeners on the map until it's created
-            thisMarker.infoWindowIsOpen = false;
-            google.maps.event.addListener(thisMarker, 'click', () => this.handleMarkerClick(thisMarker, marker.details));
+                thisMarker = this.newMarker(marker.position, icon, marker);
             return thisMarker;
         })
         return markersArray;
@@ -108,14 +103,7 @@ class GMap extends React.Component {
     }
 
     handleMarkerClick(marker, details) {
-        if (!marker.infoWindowIsOpen) {
-            marker.infoWindowIsOpen = true;
-            console.log(details)
-            this.newInfoWindow(marker, details);
-        } else {
-            marker.infoWindowIsOpen = false;
-            marker.infoWindow.close();
-        }
+        this.props.toggleSpotDetailModal(details)
     }
 
     handleScriptCreate() {
@@ -137,33 +125,8 @@ class GMap extends React.Component {
         this.loadMap();
     }
 
-    newInfoWindow(anchor, content) {
-        let contentString =
-            `
-                <div>
-                  <h6>Spot Details<h6>
-                  <div class="small">
-                    Type of Spot: ${content.spotType}
-                  </div>
-                  <div class="small">
-                    Notes: ${content.spotNotes}
-                  </div>
-                  <div class="small">
-                    Taken?: ${content.isSpotTaken}
-                  </div>
-                </div>
-              `
-
-        anchor.infoWindow = new google.maps.InfoWindow({
-            map: this.map,
-            anchor: anchor,
-            content: contentString
-        })
-        google.maps.event.addListenerOnce(anchor.infoWindow, 'closeclick', () => anchor.infoWindowIsOpen = false);
-        return anchor.infoWindow;
-    }
-
     newMarker(position, image, details) {
+        console.log(details)
         let thisMarker = new google.maps.Marker({
             position: position,
             map: this.map,
@@ -171,7 +134,7 @@ class GMap extends React.Component {
             animation: google.maps.Animation.DROP,
             icon: image
         })
-
+        google.maps.event.addListener(thisMarker, 'click', () => this.handleMarkerClick(thisMarker, details));
         return thisMarker
     }
 
@@ -221,7 +184,7 @@ class GMap extends React.Component {
             searchBox.addListener('place_changed', function () {
                 that.props.loading()
                 var places = searchBox.getPlace();
-                that.setState({ searchCity: places.formatted_address})
+                that.setState({ searchCity: places.formatted_address })
                 if (typeof places.address_components !== 'undefined') {
                     hasDownBeenPressed = false;
                 }
@@ -253,6 +216,12 @@ class GMap extends React.Component {
                     : null}
                 <SearchBar handleChange={this.handleChange.bind(this)} searchCity={this.state.searchCity} />
                 <button className="btn waves-effect waves-light z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
+                {this.props.state.showSpotDetailModal
+                    ? <SpotDetail
+                        isOpen={this.props.state.showSpotDetailModal}
+                        details={this.state.currentSpot}
+                    />
+                    : null}
 
             </div>
         )
@@ -276,6 +245,9 @@ function mapDispatchToProps(dispatch) {
         toggleMarkerModal: (position) => {
             return dispatch(toggleMarkerModal(position))
         },
+        toggleSpotDetailModal: (details) => {
+            return dispatch(toggleSpotDetailModal(details))
+        }
     }
 }
 

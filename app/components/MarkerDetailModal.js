@@ -27,7 +27,7 @@ class MarkerDetailModal extends Component {
     }
     handleSubmit = (event) => {
         event.preventDefault();
-        let d
+        
         this.props.submitNewSpot(this.state);
     }
 

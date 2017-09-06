@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import { SPOT_DETAILS, SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, SET_MARKERS } from './actions';
+import { NEW_MARKER, SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, TOGGLE_SPOT_DETAIL } from './actions';
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
 
 
 const initialState = {
-    url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ&libraries=places&sensor=false",
+    url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyAWa0K4pJPUraabbqexa91ToelqfKN7QNQ&libraries=places‌​",
     token: null,
     user: null,
     loading: false,
@@ -16,7 +16,41 @@ const initialState = {
     showRegisterModal: false,
     showMarkerModal: false,
     showMarkerDetailModal: false,
-    markers: [],
+    showSpotDetailModal: false,
+    currentSpot: null,
+    markers: [{
+        position: {
+            lat: 32.797,
+            lng: -79.955
+        },
+        details: {
+            spotType: "lot",
+            spotNotes: "34 spots",
+            isSpotTaken: true
+        }
+    },
+    {
+        position: {
+            lat: 32.792,
+            lng: -79.95
+        },
+        details: {
+            spotType: "broken meter",
+            spotNotes: "sometimes working",
+            isSpotTaken: false
+        }
+    },
+    {
+        position: {
+            lat: 32.795,
+            lng: -79.935
+        },
+        details: {
+            spotType: "resdential no time limit",
+            spotNotes: "1 block",
+            isSpotTaken: true
+        }
+    }],
     initialCenter: {
         lat: 32.79,
         lng: -79.93
@@ -27,9 +61,6 @@ const initialState = {
         lng: null
     },
     spotDetails: {
-        spotType: null,
-        isSpotTaken: null,
-        spotNotes: null,
         lat: null,
         lng: null
     }
@@ -38,14 +69,9 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_MARKERS:
-            return update(state, {
-                markers:
-                { $push: action.spots.markers }
-            })
-        case SPOT_DETAILS:
-            console.log('spot details')
-            let newMarker = {
+        // pushes new spot into markers, resets spot details and closes marker modals
+        case NEW_MARKER:
+            let newMarker = [{
                 position: {
                     lat: action.payload.lat,
                     lng: action.payload.lng
@@ -55,26 +81,27 @@ export const reducer = (state = initialState, action) => {
                     spotType: action.payload.spotType,
                     spotNotes: action.payload.spotNotes
                 }
-            }
-            console.log(newMarker)
+            }]
             return update(state, {
-
-                spotDetails: {
-                    isSpotTaken: {
-                        $set: action.payload.isSpotTaken
-                    },
-                    spotType: {
-                        $set: action.payload.spotType
-                    },
-                    spotNotes: {
-                        $set: action.payload.spotNotes
-                    }
-                },
                 markers: {
                     $push: newMarker
+                },
+                spotDetails: {
+                    lat: {
+                        $set: null
+                    },
+                    lng: {
+                        $set: null
+                    }
+                },
+                showMarkerModal: {
+                    $set: false
+                },
+                showMarkerDetailModal: {
+                    $set: false
                 }
-
             })
+        //toggles loading bar
         case TOGGLE_LOADING:
             return update(state, {
                 loading: {
@@ -121,30 +148,35 @@ export const reducer = (state = initialState, action) => {
                     $set: false
                 }
             })
+        //toggle landing modal
         case TOGGLE_LANDING:
             return update(state, {
                 showLandingModal: {
                     $set: !state.showLandingModal
                 }
             })
+        //toggle login modal
         case TOGGLE_LOGIN:
             return update(state, {
                 showLoginModal: {
                     $set: !state.showLoginModal
                 }
             })
+        // toggle register modal
         case TOGGLE_REGISTER:
             return update(state, {
                 showRegisterModal: {
                     $set: !state.showRegisterModal
                 }
             })
+        // toggle add marker prompt modal
         case TOGGLE_MARKER:
             return update(state, {
                 showMarkerModal: {
                     $set: !state.showMarkerModal
                 }
             })
+        // toggle add marker prompt modal and set location of new marker
         case TOGGLE_MARKER_AND_SET_LOCATION:
             return update(state, {
                 showMarkerModal: {
@@ -159,15 +191,23 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             })
+        // toggle add spot details modal
         case TOGGLE_DETAIL_MARKER:
             return update(state, {
                 showMarkerDetailModal: {
                     $set: !state.showMarkerDetailModal
                 }
             })
-
+        case TOGGLE_SPOT_DETAIL:
+            return update(state, {
+                showSpotDetailModal: {
+                    $set: !state.showSpotDetailModal
+                },
+                currentSpot: {
+                    $set: action.payload
+                }
+            })
         default:
-
             return state;
     }
 }

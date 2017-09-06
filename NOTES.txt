@@ -1,9 +1,3 @@
-    AUTO COMPLETE BUG
-    https://developers.google.com/maps/premium/previous-licenses/articles/usage-limits
-https://stackoverflow.com/questions/14601655/google-places-autocomplete-pick-first-result-on-enter-key
-
-
-
 
 user clicks on map,
 modal pops up
@@ -25,8 +19,19 @@ if N ---
 
 
 need to separate out my services and reducers and actions
+- how to link multple reducer files in provider???
 
-need to get info stored on spots to render in info boxes
+set up for all api calls
+
+probably going to need to stick marker specs from google marker onto object in props for identification and retrieval. 
+
+clean up unnecessary actions after api is in and login/register are good.
+
+
+
+
+
+
 
 
 
