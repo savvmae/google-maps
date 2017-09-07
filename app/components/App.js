@@ -16,7 +16,7 @@ class App extends Component {
     // }
 
     render() {
-        // console.log(this.props.state.markers)
+        // console.log(this.props.state.currentSpot)
         return (
             <div>
                 {this.props.state.showLandingModal

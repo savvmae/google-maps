@@ -199,6 +199,7 @@ export const reducer = (state = initialState, action) => {
                 }
             })
         case TOGGLE_SPOT_DETAIL:
+        console.log(action.payload)
             return update(state, {
                 showSpotDetailModal: {
                     $set: !state.showSpotDetailModal

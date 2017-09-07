@@ -126,7 +126,7 @@ class GMap extends React.Component {
     }
 
     newMarker(position, image, details) {
-        console.log(details)
+        // console.log(details)
         let thisMarker = new google.maps.Marker({
             position: position,
             map: this.map,
@@ -219,7 +219,6 @@ class GMap extends React.Component {
                 {this.props.state.showSpotDetailModal
                     ? <SpotDetail
                         isOpen={this.props.state.showSpotDetailModal}
-                        details={this.state.currentSpot}
                     />
                     : null}
 
