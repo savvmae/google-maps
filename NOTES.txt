@@ -1,3 +1,18 @@
+TODO::
+    delete marker on several conditions 
+        -if user clicks delete
+        -if they answer no to add spot
+    
+    handle user not being logged in and trying to edit/delete/add spot
+
+
+
+    WRITE BACK END
+
+
+**************************
+    STRANGE AF - SOMETIMES APP NEEDS TO BE RUN WITHOUT LIBRARY=PLACES IN API URL AND THEN RERUN WITH LIBRARY BACK IN TO PICK UP AUTOCOMPLETE
+**************************
 
 user clicks on map,
 modal pops up
@@ -18,12 +33,11 @@ if N ---
     modal closes and marker goes away
 
 
+
 need to separate out my services and reducers and actions
 - how to link multple reducer files in provider???
 
 set up for all api calls
-
-probably going to need to stick marker specs from google marker onto object in props for identification and retrieval. 
 
 clean up unnecessary actions after api is in and login/register are good.
 
