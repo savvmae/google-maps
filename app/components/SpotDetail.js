@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
-import {toggleSpotDetailModal} from '../actions'
+import { toggleSpotDetailModal } from '../actions'
 
 class SpotDetail extends Component {
     constructor(props) {
-        super(props) 
+        super(props)
 
         this.state = {
             spotType: this.props.state.currentSpot.details.spotType,
@@ -22,10 +22,10 @@ class SpotDetail extends Component {
     putText = (event) => {
         if (event.target.value === '') {
             if (event.target.name === 'spotType') {
-                this.setState({spotType: this.props.state.currentSpot.details.spotType})
+                this.setState({ spotType: this.props.state.currentSpot.details.spotType })
             }
             else {
-                this.setState({spotNotes: this.props.state.currentSpot.details.spotNotes})
+                this.setState({ spotNotes: this.props.state.currentSpot.details.spotNotes })
             }
         }
     }
@@ -35,7 +35,7 @@ class SpotDetail extends Component {
     }
 
     updateCheck = (event) => {
-        this.setState({isSpotTaken: event.target.checked})
+        this.setState({ isSpotTaken: event.target.checked })
     }
 
     handleSubmit = (e) => {
@@ -58,7 +58,7 @@ class SpotDetail extends Component {
         };
 
         return (
-            
+
             <div>
                 <ReactModal style={customStyles} header='SPOT DETAILS'
                     isOpen={this.props.state.showSpotDetailModal} contentLabel="spot">
@@ -70,12 +70,12 @@ class SpotDetail extends Component {
                             <div className="row">
 
                                 <div className="input-field col s6">
-                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText}type="text" name="spotType" className="validate" value={this.state.spotType} />
-                                    
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotType" className="validate" value={this.state.spotType} />
+
                                 </div>
                                 <div className="input-field col s6">
-                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText}type="text" name="spotNotes" value={this.state.spotNotes} className="validate" />
-                                    
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotNotes" value={this.state.spotNotes} className="validate" />
+
                                 </div>
                                 <Input onChange={this.updateCheck} checked={this.state.isSpotTaken} name='isSpotTaken' type='checkbox' label='Taken?' />
                             </div>
@@ -83,11 +83,13 @@ class SpotDetail extends Component {
                                 <button className="btn waves-effect waves-light" type="submit">Update Spot!
                             <i className="material-icons right">send</i>
                                 </button>
-                                <button className="btn waves-effect waves-light" type="submit">Delete Spot!
-                            <i className="material-icons right">close</i>
-                                </button>
                             </div>
                         </form>
+                    </div>
+                    <div className="row">
+                        <button className="btn waves-effect waves-light" onClick={this.props.removeMarker} >Delete Spot!
+                        <i className="material-icons right">close</i>
+                        </button>
                     </div>
                 </ReactModal>
             </div>

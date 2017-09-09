@@ -1,7 +1,7 @@
 TODO::
     delete marker on several conditions 
         -if user clicks delete
-        -if they answer no to add spot
+
     
     handle user not being logged in and trying to edit/delete/add spot
 

@@ -7,6 +7,7 @@ import Script from 'react-load-script';
 import SearchBar from './SearchBar';
 import SpotDetail from './SpotDetail';
 import MarkerDetailModal from './MarkerDetailModal'
+import MarkerModal from './MarkerModal'
 import { loading, searchCity, toggleMarkerModal, toggleSpotDetailModal } from '../actions';
 
 class GMap extends React.Component {
@@ -129,11 +130,19 @@ class GMap extends React.Component {
             animation: google.maps.Animation.DROP,
             icon: image
         })
-        this.setState({ currentMarker: thisMarker })
+        
         if (details) {
             this.addMarkerClick(thisMarker, details)
         }
+        else {
+            this.setState({ currentMarker: thisMarker })
+        }
         return thisMarker
+    }
+
+    setCurrentMarker = (marker, details) => {
+        this.setState({ currentMarker: marker })
+        this.handleMarkerClick(marker, details)
     }
 
     addMarkerClick = (marker, details) => {
@@ -149,11 +158,18 @@ class GMap extends React.Component {
                     lng: details.lng
                 }
             }
-            google.maps.event.addListener(marker, 'click', () => this.handleMarkerClick(marker, thisMarkerDetail));
+            google.maps.event.addListener(marker, 'click', () => this.setCurrentMarker(marker, thisMarkerDetail));
         }
         else {
-            google.maps.event.addListener(marker, 'click', () => this.handleMarkerClick(marker, details));
+            google.maps.event.addListener(marker, 'click', () => this.setCurrentMarker(marker, details));
         }
+    }
+
+    removeMarker = () => {
+        console.log(this.state.currentMarker)
+        this.state.currentMarker.setMap(null)
+        this.setState({currentMarker: null})
+        this.props.toggleSpotDetailModal()
     }
 
     mapCenter(lat, lng) {
@@ -174,7 +190,6 @@ class GMap extends React.Component {
     handleChange = (e) => {
         this.setState({ searchCity: e.target.value })
         if (this.state.searchCity.length > 4) {
-            console.log(google.maps)
             let searchBox = new google.maps.places.Autocomplete(e.target);
             let that = this
             let hasDownBeenPressed = false;
@@ -235,6 +250,13 @@ class GMap extends React.Component {
                     : null}
                 <SearchBar handleChange={this.handleChange.bind(this)} searchCity={this.state.searchCity} />
                 <button className="btn waves-effect waves-light z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
+                {this.props.state.showMarkerModal
+                    ?
+                <MarkerModal 
+                    thisMarker={this.state.currentMarker}
+                    removeMarker={this.removeMarker.bind(this)}
+                />
+                : null }
                 {this.props.state.showMarkerDetailModal
                     ?
                     <MarkerDetailModal
@@ -245,6 +267,7 @@ class GMap extends React.Component {
                 {this.props.state.showSpotDetailModal
                     ? <SpotDetail
                         isOpen={this.props.state.showSpotDetailModal}
+                        removeMarker={this.removeMarker}
                     />
                     : null}
 

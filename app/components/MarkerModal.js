@@ -21,11 +21,12 @@ class MarkerModal extends Component {
     }
     handleToggleMarkerModal = () => {
         this.props.toggleMarkerModal()
-
+        this.props.removeMarker()
     }
 
 
     render() {
+        console.log(this.props.thisMarker)
         const customStyles = {
             overlay: {
                 backgroundColor: 'rgba(255, 255, 255)'
