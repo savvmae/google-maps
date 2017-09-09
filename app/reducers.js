@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { NEW_MARKER, SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, TOGGLE_SPOT_DETAIL } from './actions';
+import { NEW_MARKER, SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, TOGGLE_SPOT_DETAIL, TOGGLE_RESTRICTED } from './actions';
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
@@ -9,8 +9,9 @@ const initialState = {
     url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyDsLRWK_AfZtF4dsnajc8zNpRU-Sp9KxuI&libraries=places",
     token: null,
     user: null,
+    landing: true,
     loading: false,
-    loggedIn: false,
+    loggedIn: true,
     showLandingModal: true,
     showLoginModal: false,
     showRegisterModal: false,
@@ -176,6 +177,16 @@ export const reducer = (state = initialState, action) => {
                     $set: !state.showMarkerModal
                 }
             })
+        case TOGGLE_RESTRICTED: 
+            return update(state, {
+                landing: {
+                    $set: false
+                },
+                showLandingModal: {
+                    $set: true
+                }
+
+            })
         // toggle add marker prompt modal and set location of new marker
         case TOGGLE_MARKER_AND_SET_LOCATION:
             return update(state, {
@@ -199,7 +210,6 @@ export const reducer = (state = initialState, action) => {
                 }
             })
         case TOGGLE_SPOT_DETAIL:
-        console.log(action.payload)
             return update(state, {
                 showSpotDetailModal: {
                     $set: !state.showSpotDetailModal

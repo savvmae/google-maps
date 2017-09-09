@@ -40,10 +40,19 @@ class LandingModal extends Component {
                 <ReactModal style={customStyles} header='landing Header'
                     isOpen={this.props.state.showLandingModal}
                     contentLabel="Minimal Modal Example">
+                    {this.props.state.landing
+                        ?
+                        <div>
                     <p> Welcome to Free parking spot finder! You may continue anonymously, but with limited features. Or you can login/register below </p>
                     <div className="row">
                         <button className="btn waves-effect waves-light z-zero" onClick={this.handleToggleLanding}>Continue Without Logging in</button>
-                    </div><div className="row">
+                    </div>
+                    </div>
+                    : <div><p> You have unlocked a premium feature! If you wish to access this feature, please login or register! </p>
+                    <div className="row">
+                        <button className="btn waves-effect waves-light z-zero" onClick={this.handleToggleLanding}>Continue Without Features</button>
+                    </div> </div> }
+                    <div className="row">
                         <button className="btn waves-effect waves-light z-zero" onClick={this.handleToggleLogin}>Login</button></div><div className="row">
                         <button className="btn waves-effect waves-light z-zero" onClick={this.handleToggleRegister}>Register</button></div>
                 </ReactModal>

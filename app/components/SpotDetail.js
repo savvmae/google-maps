@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
-import { toggleSpotDetailModal } from '../actions'
+import { toggleSpotDetailModal, toggleRestrictedModal } from '../actions'
 
 class SpotDetail extends Component {
     constructor(props) {
@@ -38,8 +38,22 @@ class SpotDetail extends Component {
         this.setState({ isSpotTaken: event.target.checked })
     }
 
-    handleSubmit = (e) => {
+    handleRemoveMarker = () => {
+        if (this.props.state.loggedIn) {
+            this.props.removeMarker()
+            this.props.toggleSpotDetailModal()
+        } else {
+            this.props.toggleRestrictedModal()
+        }
 
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        if (this.props.state.loggedIn) {
+        } else {
+            this.props.toggleRestrictedModal()
+        }
     }
 
     render() {
@@ -87,7 +101,7 @@ class SpotDetail extends Component {
                         </form>
                     </div>
                     <div className="row">
-                        <button className="btn waves-effect waves-light" onClick={this.props.removeMarker} >Delete Spot!
+                        <button className="btn waves-effect waves-light" onClick={this.handleRemoveMarker} >Delete Spot!
                         <i className="material-icons right">close</i>
                         </button>
                     </div>
@@ -107,6 +121,9 @@ function mapDispatchToProps(dispatch) {
     return {
         toggleSpotDetailModal: () => {
             return dispatch(toggleSpotDetailModal())
+        },
+        toggleRestrictedModal: () => {
+            return dispatch(toggleRestrictedModal())
         }
     }
 }

@@ -8,7 +8,7 @@ import SearchBar from './SearchBar';
 import SpotDetail from './SpotDetail';
 import MarkerDetailModal from './MarkerDetailModal'
 import MarkerModal from './MarkerModal'
-import { loading, searchCity, toggleMarkerModal, toggleSpotDetailModal } from '../actions';
+import { loading, searchCity, toggleMarkerModal, toggleSpotDetailModal, toggleRestrictedModal } from '../actions';
 
 class GMap extends React.Component {
     constructor(props) {
@@ -64,10 +64,16 @@ class GMap extends React.Component {
         let map = new google.maps.Map(this.refs.mapCanvas, mapOptions);
         map.setCenter(this.mapCenter(config.initialCenter.lat, config.initialCenter.lng));
         map.addListener('click', (e) => {
-            this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
-            let position = { lat: this.state.lat, lng: this.state.lng }
-            this.props.toggleMarkerModal(position)
-            this.newMarker(position)
+            if (this.props.state.loggedIn) {
+
+                this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+                let position = { lat: this.state.lat, lng: this.state.lng }
+                this.props.toggleMarkerModal(position)
+                this.newMarker(position)
+
+            } else {
+                this.props.toggleRestrictedModal()
+            }
             // need actual response for this promise to work
             // .then(res => {
             //     this.newMarker(position)
@@ -130,7 +136,7 @@ class GMap extends React.Component {
             animation: google.maps.Animation.DROP,
             icon: image
         })
-        
+
         if (details) {
             this.addMarkerClick(thisMarker, details)
         }
@@ -166,10 +172,8 @@ class GMap extends React.Component {
     }
 
     removeMarker = () => {
-        console.log(this.state.currentMarker)
         this.state.currentMarker.setMap(null)
-        this.setState({currentMarker: null})
-        this.props.toggleSpotDetailModal()
+        this.setState({ currentMarker: null })
     }
 
     mapCenter(lat, lng) {
@@ -252,11 +256,11 @@ class GMap extends React.Component {
                 <button className="btn waves-effect waves-light z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
                 {this.props.state.showMarkerModal
                     ?
-                <MarkerModal 
-                    thisMarker={this.state.currentMarker}
-                    removeMarker={this.removeMarker.bind(this)}
-                />
-                : null }
+                    <MarkerModal
+                        thisMarker={this.state.currentMarker}
+                        removeMarker={this.removeMarker.bind(this)}
+                    />
+                    : null}
                 {this.props.state.showMarkerDetailModal
                     ?
                     <MarkerDetailModal
@@ -269,6 +273,10 @@ class GMap extends React.Component {
                         isOpen={this.props.state.showSpotDetailModal}
                         removeMarker={this.removeMarker}
                     />
+                    : null}
+                {this.props.state.showRestrictedModal
+                    ?
+                    <RestrictedModal />
                     : null}
 
             </div>
@@ -295,6 +303,9 @@ function mapDispatchToProps(dispatch) {
         },
         toggleSpotDetailModal: (details) => {
             return dispatch(toggleSpotDetailModal(details))
+        },
+        toggleRestrictedModal: () => {
+            return dispatch(toggleRestrictedModal())
         }
     }
 }

@@ -26,7 +26,6 @@ class MarkerModal extends Component {
 
 
     render() {
-        console.log(this.props.thisMarker)
         const customStyles = {
             overlay: {
                 backgroundColor: 'rgba(255, 255, 255)'

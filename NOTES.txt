@@ -1,6 +1,7 @@
 TODO::
     delete marker on several conditions 
         -if user clicks delete
+            - still need to actually delete from db
 
     
     handle user not being logged in and trying to edit/delete/add spot

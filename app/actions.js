@@ -15,7 +15,8 @@ export const TOGGLE_MARKER_AND_SET_LOCATION = "TOGGLE_MARKER_AND_SET_LOCATION";
 export const TOGGLE_DETAIL_MARKER = "TOGGLE_DETAIL_MARKER";
 export const TOGGLE_SPOT_DETAIL = "OGGLE_SPOT_DETAIL"
 export const NEW_MARKER = "NEW_MARKER";
-export const SET_MARKERS = "SET_MARKERS"
+export const SET_MARKERS = "SET_MARKERS";
+export const TOGGLE_RESTRICTED = "TOGGLE_RESTRICTED"
 
 
 export function register(user) {
@@ -51,7 +52,6 @@ export function searchCity(location) {
 }
 // will post to api to add spots
 export function submitNewSpot(payload) {
-    console.log(payload)
     return { type: NEW_MARKER, payload}
     // service looking good
     // return (dispatch, getState) => {
@@ -97,6 +97,10 @@ export function toggleMarkerDetailModal(payload) {
 
 export function toggleSpotDetailModal(payload) {
     return { type: TOGGLE_SPOT_DETAIL, payload }
+}
+
+export function toggleRestrictedModal(payload) {
+    return { type: TOGGLE_RESTRICTED, payload}
 }
 
 function getResponseAction(payload) {
