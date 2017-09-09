@@ -5,13 +5,37 @@ import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
 import {toggleSpotDetailModal} from '../actions'
 
 class SpotDetail extends Component {
+    constructor(props) {
+        super(props) 
 
-    handleChange = (e) => {
-        if (e.target.checked) {
-            this.setState({ [e.target.name]: e.target.checked })
-        } else {
-            this.setState({ [e.target.name]: e.target.value })
+        this.state = {
+            spotType: this.props.state.currentSpot.details.spotType,
+            spotNotes: this.props.state.currentSpot.details.spotNotes,
+            isSpotTaken: this.props.state.currentSpot.details.isSpotTaken
         }
+    }
+
+    clearText = (event) => {
+        event.target.value = ''
+    }
+
+    putText = (event) => {
+        if (event.target.value === '') {
+            if (event.target.name === 'spotType') {
+                this.setState({spotType: this.props.state.currentSpot.details.spotType})
+            }
+            else {
+                this.setState({spotNotes: this.props.state.currentSpot.details.spotNotes})
+            }
+        }
+    }
+
+    updateState = (event) => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
+    updateCheck = (event) => {
+        this.setState({isSpotTaken: event.target.checked})
     }
 
     handleSubmit = (e) => {
@@ -46,14 +70,14 @@ class SpotDetail extends Component {
                             <div className="row">
 
                                 <div className="input-field col s6">
-                                    <input onChange={this.handleChange} type="text" name="spotType" className="validate" value={this.props.state.currentSpot.details.spotType} />
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText}type="text" name="spotType" className="validate" value={this.state.spotType} />
                                     
                                 </div>
                                 <div className="input-field col s6">
-                                    <input onChange={this.handleChange} type="text" name="spotNotes" value={this.props.state.currentSpot.details.spotNotes} className="validate" />
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText}type="text" name="spotNotes" value={this.state.spotNotes} className="validate" />
                                     
                                 </div>
-                                <Input onChange={this.handleChange} checked={this.props.state.currentSpot.details.isSpotTaken} name='group1' type='checkbox' label='Taken?' />
+                                <Input onChange={this.updateCheck} checked={this.state.isSpotTaken} name='isSpotTaken' type='checkbox' label='Taken?' />
                             </div>
                             <div className="row">
                                 <button className="btn waves-effect waves-light" type="submit">Update Spot!

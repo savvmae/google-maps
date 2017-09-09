@@ -6,6 +6,7 @@ import MapStyles from './MapStyles';
 import Script from 'react-load-script';
 import SearchBar from './SearchBar';
 import SpotDetail from './SpotDetail';
+import MarkerDetailModal from './MarkerDetailModal'
 import { loading, searchCity, toggleMarkerModal, toggleSpotDetailModal } from '../actions';
 
 class GMap extends React.Component {
@@ -15,12 +16,10 @@ class GMap extends React.Component {
             center: null,
             searchCityAuto: '',
             searchCity: '',
-            hasLoaded: true
+            hasLoaded: true,
+            currentMarker: null
         };
         this.mapCenter.bind(this);
-    }
-    componentWillMount() {
-
     }
     loadMap() {
         const config = this.props.state;
@@ -28,7 +27,6 @@ class GMap extends React.Component {
         // been rendered because we need to manipulate the DOM for Google =(
         this.map = this.createMap(config.initialCenter);
         if (config && config.markers) {
-
             this.markers = this.createMarkers(config.markers);
             if (config.legend) {
                 this.createLegend(config.icons);
@@ -92,8 +90,6 @@ class GMap extends React.Component {
     getUserLocation() {
         this.props.loading();
         this.setState({ hasLoaded: false })
-        // lets map autocenter on user's location (if the user enables it)
-        // which takes a while, so the map should get rendered with the initial center first
         navigator.geolocation.getCurrentPosition((position) => {
             this.props.loading();
             this.moveMap(position.coords.latitude, position.coords.longitude);
@@ -126,7 +122,6 @@ class GMap extends React.Component {
     }
 
     newMarker(position, image, details) {
-        // console.log(details)
         let thisMarker = new google.maps.Marker({
             position: position,
             map: this.map,
@@ -134,8 +129,31 @@ class GMap extends React.Component {
             animation: google.maps.Animation.DROP,
             icon: image
         })
-        google.maps.event.addListener(thisMarker, 'click', () => this.handleMarkerClick(thisMarker, details));
+        this.setState({ currentMarker: thisMarker })
+        if (details) {
+            this.addMarkerClick(thisMarker, details)
+        }
         return thisMarker
+    }
+
+    addMarkerClick = (marker, details) => {
+        if (!details.position) {
+            let thisMarkerDetail = {
+                details: {
+                    spotType: details.spotType,
+                    spotNotes: details.spotNotes,
+                    isSpotTaken: details.isSpotTaken
+                },
+                position: {
+                    lat: details.lat,
+                    lng: details.lng
+                }
+            }
+            google.maps.event.addListener(marker, 'click', () => this.handleMarkerClick(marker, thisMarkerDetail));
+        }
+        else {
+            google.maps.event.addListener(marker, 'click', () => this.handleMarkerClick(marker, details));
+        }
     }
 
     mapCenter(lat, lng) {
@@ -156,6 +174,7 @@ class GMap extends React.Component {
     handleChange = (e) => {
         this.setState({ searchCity: e.target.value })
         if (this.state.searchCity.length > 4) {
+            console.log(google.maps)
             let searchBox = new google.maps.places.Autocomplete(e.target);
             let that = this
             let hasDownBeenPressed = false;
@@ -216,6 +235,13 @@ class GMap extends React.Component {
                     : null}
                 <SearchBar handleChange={this.handleChange.bind(this)} searchCity={this.state.searchCity} />
                 <button className="btn waves-effect waves-light z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
+                {this.props.state.showMarkerDetailModal
+                    ?
+                    <MarkerDetailModal
+                        currentMarker={this.state.currentMarker}
+                        addMarkerClick={this.addMarkerClick.bind(this)}
+                    />
+                    : null}
                 {this.props.state.showSpotDetailModal
                     ? <SpotDetail
                         isOpen={this.props.state.showSpotDetailModal}

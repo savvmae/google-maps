@@ -40,7 +40,7 @@ export function loginService(param) {
 // }
 
 export function searchService(param) {
-    return axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + param + '&key=AIzaSyDgpRw0NmIP6EWKs0uSRrDjbioHMcleMtw')
+    return axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + param + '&key=AIzaSyDeWY-pmtMyV_d2yc5YJTZFqRPd6pMV268')
         .then(res => {
             console.log(res)
             let loc = res.data.results[0].geometry.location;

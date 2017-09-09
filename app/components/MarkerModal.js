@@ -50,10 +50,7 @@ class MarkerModal extends Component {
                     </div><div className="row">
                         <button className="btn waves-effect waves-light z-zero" onClick={this.handleToggleMarkerModal} >No</button></div>
                 </ReactModal>
-                {this.props.state.showMarkerDetailModal
 
-                    ? <MarkerDetailModal />
-                    : null}
             </div>
         )
     }

@@ -18,17 +18,35 @@ class MarkerDetailModal extends Component {
             lng: this.props.state.spotDetails.lng
         }
     }
-    updateState = (event) => {
-        if (event.target.checked) {
-            this.setState({ [event.target.name]: event.target.checked })
-        } else {
-            this.setState({ [event.target.name]: event.target.value })
+
+    clearText = (event) => {
+        event.target.value = ''
+    }
+
+    putText = (event) => {
+        if (event.target.value === '') {
+            if (event.target.name === 'spotType') {
+                this.setState({spotType: this.props.state.currentSpot.details.spotType})
+            }
+            else {
+                this.setState({spotNotes: this.props.state.currentSpot.details.spotNotes})
+            }
         }
     }
+
+    updateState = (event) => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
+    updateCheck = (event) => {
+        this.setState({isSpotTaken: event.target.checked})
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
-        
         this.props.submitNewSpot(this.state);
+        this.props.addMarkerClick(this.props.currentMarker, this.state)
+        // would need to make sure this comes back successful, then add onclick
     }
 
     render() {
@@ -50,22 +68,22 @@ class MarkerDetailModal extends Component {
                 <ReactModal style={customStyles} header='Marker Info Header'
                     isOpen={this.props.state.showMarkerDetailModal}
                     contentLabel="Minimal Modal Example">
-                        <Button onClick={this.props.toggleMarkerDetailModal} floating icon='close' className='red' large style={{ bottom: '0px', left: '45%' }}/>
-                   
+                    <Button onClick={this.props.toggleMarkerDetailModal} floating icon='close' className='red' large style={{ bottom: '0px', left: '45%' }} />
+
                     <p>  Details about the spot! </p>
                     <div className="row">
                         <form onSubmit={this.handleSubmit} className="col s12">
                             <div className="row">
 
                                 <div className="input-field col s6">
-                                    <input onChange={this.updateState} type="text" name="spotType" className="validate" />
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText}type="text" name="spotType" className="validate" />
                                     <label htmlFor="icon_telephone" >Type of Spot:</label>
                                 </div>
                                 <div className="input-field col s6">
-                                    <input onChange={this.updateState} type="text" name="spotNotes" className="validate" />
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText}type="text" name="spotNotes" className="validate" />
                                     <label htmlFor="icon_telephone" >Any Notes?</label>
                                 </div>
-                                <Input onChange={this.updateState} name='group1' type='checkbox' label='Taken?' />
+                                <Input onChange={this.updateCheck} name='isSpotTaken' type='checkbox' label='Taken?' />
                             </div>
                             <div className="row">
                                 <button className="btn waves-effect waves-light" type="submit">Add Spot!

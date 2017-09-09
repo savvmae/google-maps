@@ -1,0 +1,59 @@
+{
+    "extends": "airbnb",
+    "plugins": [
+      "react",
+      "jsx-a11y",
+      "import"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaFeatures": {
+        "experimentalObjectRestSpread": true
+      }
+    },
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true,
+      "mocha": true
+    },
+    "rules": {
+      "arrow-parens": [1, "always"],
+      "import/extensions": "off",
+      // allow importing devDependencies for build scripts and test files
+      "import/no-extraneous-dependencies": [
+        "error", {
+        "devDependencies": [
+          "Components/**/*.jsx",
+          "helpers/**/*.js",
+          "**/*.spec.js"
+        ]}
+      ],
+      // allow function declaration hoisting
+      "no-use-before-define": [
+        "error", {
+          "functions": false,
+          "classes": true,
+          "variables": true
+        }
+      ],
+      "no-unused-expressions": [
+        "error", {
+          "allowTernary": true
+        }
+      ],
+      "import/no-extraneous-dependencies": "off",
+      "import/no-named-as-default": "off",
+      "import/no-unresolved": "off",
+      "max-len": 0,
+      "no-else-return": "off",
+      "no-useless-return": "off",
+      "react/forbid-prop-types": ["error", { "forbid": ["any"] }],
+      "arrow-body-style": "off",
+      "class-methods-use-this": "off"
+    }
+  }
