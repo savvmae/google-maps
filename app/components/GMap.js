@@ -134,7 +134,7 @@ class GMap extends React.Component {
             map: this.map,
             draggable: true,
             animation: google.maps.Animation.DROP,
-            icon: image
+            icon: './car.svg'
         })
 
         if (details) {

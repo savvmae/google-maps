@@ -3,10 +3,9 @@ TODO::
         -if user clicks delete
             - still need to actually delete from db
 
+    handle a spot update in global state
+
     
-    handle user not being logged in and trying to edit/delete/add spot
-
-
 
     WRITE BACK END
 
@@ -14,25 +13,6 @@ TODO::
 **************************
     STRANGE AF - SOMETIMES APP NEEDS TO BE RUN WITHOUT LIBRARY=PLACES IN API URL AND THEN RERUN WITH LIBRARY BACK IN TO PICK UP AUTOCOMPLETE
 **************************
-
-user clicks on map,
-modal pops up
- would you like to add this as a spot?
-Y N
-if Y ---
-    if logged in ---
-        details modal 
-            -type
-            -occuppied 
-            -notes
-        Submit
-    if not logged in ---
-        Sorry you must be logged in
-         - register button
-         - login button
-if N ---
-    modal closes and marker goes away
-
 
 
 need to separate out my services and reducers and actions
