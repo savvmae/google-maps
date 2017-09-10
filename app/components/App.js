@@ -4,6 +4,8 @@ import { render } from 'react-dom';
 import GMap from './GMap';
 import LandingModal from './LandingModal';
 import MarkerModal from './MarkerModal';
+import Nav from './Nav'
+
 
 
 class App extends Component {
@@ -16,9 +18,13 @@ class App extends Component {
     // }
 
     render() {
-        // console.log(this.props.state.currentSpot)
         return (
             <div>
+                {this.props.state.loggedIn
+                    ?
+                    <Nav />
+                    : null}
+
                 {this.props.state.showLandingModal
                     ?
                     <LandingModal />

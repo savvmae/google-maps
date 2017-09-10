@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import { connect } from 'react-redux';
 import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
-import { toggleSpotDetailModal, toggleRestrictedModal } from '../actions'
+import { toggleSpotDetailModal, toggleRestrictedModal, updateSpot } from '../actions'
 
 class SpotDetail extends Component {
     constructor(props) {
@@ -51,6 +51,7 @@ class SpotDetail extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.props.state.loggedIn) {
+            this.props.updateSpot(this.state, this.props.state.currentSpot.position)
         } else {
             this.props.toggleRestrictedModal()
         }
@@ -124,6 +125,9 @@ function mapDispatchToProps(dispatch) {
         },
         toggleRestrictedModal: () => {
             return dispatch(toggleRestrictedModal())
+        },
+        updateSpot: (details, position) => {
+            return dispatch(updateSpot(details, position))
         }
     }
 }

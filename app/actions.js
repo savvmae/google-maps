@@ -16,7 +16,8 @@ export const TOGGLE_DETAIL_MARKER = "TOGGLE_DETAIL_MARKER";
 export const TOGGLE_SPOT_DETAIL = "OGGLE_SPOT_DETAIL"
 export const NEW_MARKER = "NEW_MARKER";
 export const SET_MARKERS = "SET_MARKERS";
-export const TOGGLE_RESTRICTED = "TOGGLE_RESTRICTED"
+export const TOGGLE_RESTRICTED = "TOGGLE_RESTRICTED";
+export const UPDATE_SPOT = "UPDATE_SPOT";
 
 
 export function register(user) {
@@ -58,6 +59,13 @@ export function submitNewSpot(payload) {
     //     return addSpotService(payload).then((res) => {
     // })
     // }
+}
+
+export function updateSpot(details, position) {
+    let payload = {
+        details, position
+    }
+    return { type: UPDATE_SPOT, payload }
 }
 
 export function setLocation(location) {

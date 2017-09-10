@@ -24,8 +24,6 @@ class GMap extends React.Component {
     }
     loadMap() {
         const config = this.props.state;
-        // create the map and markers after the component has
-        // been rendered because we need to manipulate the DOM for Google =(
         this.map = this.createMap(config.initialCenter);
         if (config && config.markers) {
             this.markers = this.createMarkers(config.markers);
@@ -40,16 +38,16 @@ class GMap extends React.Component {
         google.maps.event.clearListeners(map, 'click');
     }
 
-    createLegend(icons) {
-        const { legend } = this.refs;
-        for (const key in icons) {
-            const type = icons[key], name = type.name, icon = type.image;
-            const div = document.createElement('div');
-            div.innerHTML = `<img src="${icon}"> ${name}`;
-            legend.appendChild(div);
-        }
-        this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
-    }
+    // createLegend(icons) {
+    //     const { legend } = this.refs;
+    //     for (const key in icons) {
+    //         const type = icons[key], name = type.name, icon = type.image;
+    //         const div = document.createElement('div');
+    //         div.innerHTML = `<img src="${icon}"> ${name}`;
+    //         legend.appendChild(div);
+    //     }
+    //     this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+    // }
 
     createMap(center) {
         const config = this.props.state;
@@ -65,7 +63,6 @@ class GMap extends React.Component {
         map.setCenter(this.mapCenter(config.initialCenter.lat, config.initialCenter.lng));
         map.addListener('click', (e) => {
             if (this.props.state.loggedIn) {
-
                 this.setState({ lat: e.latLng.lat(), lng: e.latLng.lng() })
                 let position = { lat: this.state.lat, lng: this.state.lng }
                 this.props.toggleMarkerModal(position)
@@ -74,12 +71,6 @@ class GMap extends React.Component {
             } else {
                 this.props.toggleRestrictedModal()
             }
-            // need actual response for this promise to work
-            // .then(res => {
-            //     this.newMarker(position)
-            //     this.props.toggleMarkerModal()
-            // need to render new marker only if button cicked is "yes" and submit comes back sucessful
-
         })
         return map
     }
@@ -185,15 +176,11 @@ class GMap extends React.Component {
             center: this.mapCenter(lat, lng)
         });
         this.map.panTo(this.state.center);
-        // if (!this.state.hasLoaded) {
-        //     let thisMarker = this.newMarker(this.state.center);
-        //     this.newInfoWindow(thisMarker, message);
-        // }
     }
 
     handleChange = (e) => {
         this.setState({ searchCity: e.target.value })
-        if (this.state.searchCity.length > 4) {
+        if (this.state.searchCity.length % 3 === 0) {
             let searchBox = new google.maps.places.Autocomplete(e.target);
             let that = this
             let hasDownBeenPressed = false;
@@ -236,6 +223,7 @@ class GMap extends React.Component {
     render() {
         return (
             <div className="GMap">
+
                 <Script
                     url={this.props.state.url}
                     onCreate={this.handleScriptCreate.bind(this)}
@@ -270,7 +258,6 @@ class GMap extends React.Component {
                     : null}
                 {this.props.state.showSpotDetailModal
                     ? <SpotDetail
-                        isOpen={this.props.state.showSpotDetailModal}
                         removeMarker={this.removeMarker}
                     />
                     : null}
