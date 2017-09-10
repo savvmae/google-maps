@@ -9,7 +9,7 @@ class Nav extends Component {
 
     render() {
         return (
-            <Navbar brand={this.props.state.user.name} left>
+            <Navbar className="co" brand={this.props.state.user.name} left>
                 <NavItem href='components.html'>Logout</NavItem>
             </Navbar>
         )

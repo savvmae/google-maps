@@ -250,7 +250,7 @@ class GMap extends React.Component {
                     </Row>
                     : null}
                 <SearchBar handleChange={this.handleChange.bind(this)} searchCity={this.state.searchCity} />
-                <button className="btn waves-effect waves-light z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
+                <button className="co-b btn z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
                 {this.props.state.showMarkerModal
                     ?
                     <MarkerModal
