@@ -125,7 +125,7 @@ class GMap extends React.Component {
             map: this.map,
             draggable: true,
             animation: google.maps.Animation.DROP,
-            icon: './car.svg'
+            icon: './parking.png'
         })
 
         if (details) {
@@ -156,9 +156,17 @@ class GMap extends React.Component {
                     lng: details.lng
                 }
             }
+            console.log(thisMarkerDetail.details.isSpotTaken)
+            if (thisMarkerDetail.details.isSpotTaken) {
+                marker.setIcon('./no-entry-sign.png')
+            }
             google.maps.event.addListener(marker, 'click', () => this.setCurrentMarker(marker, thisMarkerDetail));
         }
         else {
+            console.log(details.details.isSpotTaken)
+            if (details.details.isSpotTaken) {
+                marker.setIcon('./no-entry-sign.png')
+            }
             google.maps.event.addListener(marker, 'click', () => this.setCurrentMarker(marker, details));
         }
     }
