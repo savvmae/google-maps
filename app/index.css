@@ -69,3 +69,9 @@ html, body {
 .co-b {
   background: #529789 !important;
 }
+
+
+
+.bor {
+  border: 3px solid slategray;
+}

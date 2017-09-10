@@ -239,7 +239,7 @@ class GMap extends React.Component {
                     onError={this.handleScriptError.bind(this)}
                     onLoad={this.handleScriptLoad.bind(this)}
                 />
-                <div className='GMap-canvas' ref="mapCanvas"></div>
+                <div className='GMap-canvas bor' ref="mapCanvas"></div>
                 {this.props.state.loading
                     ? <Row>
                         <Col s={12}>
