@@ -51,7 +51,9 @@ class SpotDetail extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.props.state.loggedIn) {
+            this.props.addMarkerClick(this.props.currentMarker, this.state)
             this.props.updateSpot(this.state, this.props.state.currentSpot.position)
+            
         } else {
             this.props.toggleRestrictedModal()
         }

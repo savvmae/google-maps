@@ -143,6 +143,7 @@ class GMap extends React.Component {
     }
 
     addMarkerClick = (marker, details) => {
+        console.log(marker)
         if (!details.position) {
             let thisMarkerDetail = {
                 details: {
@@ -258,7 +259,9 @@ class GMap extends React.Component {
                     : null}
                 {this.props.state.showSpotDetailModal
                     ? <SpotDetail
+                        currentMarker={this.state.currentMarker}
                         removeMarker={this.removeMarker}
+                        addMarkerClick={this.addMarkerClick.bind(this)}
                     />
                     : null}
                 {this.props.state.showRestrictedModal
