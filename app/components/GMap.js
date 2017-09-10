@@ -156,16 +156,18 @@ class GMap extends React.Component {
                     lng: details.lng
                 }
             }
-            console.log(thisMarkerDetail.details.isSpotTaken)
             if (thisMarkerDetail.details.isSpotTaken) {
                 marker.setIcon('./no-entry-sign.png')
+            } else {
+                marker.setIcon('./parking.png')
             }
             google.maps.event.addListener(marker, 'click', () => this.setCurrentMarker(marker, thisMarkerDetail));
         }
         else {
-            console.log(details.details.isSpotTaken)
-            if (details.details.isSpotTaken) {
+            if (details.details.isSpotTaken) {                
                 marker.setIcon('./no-entry-sign.png')
+            } else {
+                marker.setIcon('./parking.png')
             }
             google.maps.event.addListener(marker, 'click', () => this.setCurrentMarker(marker, details));
         }

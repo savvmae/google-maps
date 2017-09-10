@@ -70,8 +70,7 @@ html, body {
   background: #529789 !important;
 }
 
-
-
 .bor {
-  border: 3px solid slategray;
+  border: 3px solid #1A4940;
+  border-radius: 2px;
 }
