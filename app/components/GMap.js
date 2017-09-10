@@ -97,7 +97,7 @@ class GMap extends React.Component {
     }
 
     handleMarkerClick(marker, details) {
-        this.props.toggleSpotDetailModal(details)
+        this.props.toggleSpotDetailModal(marker, details)
     }
 
     handleScriptCreate() {
@@ -143,7 +143,7 @@ class GMap extends React.Component {
     }
 
     addMarkerClick = (marker, details) => {
-        console.log(marker)
+        google.maps.event.clearListeners(marker, 'click');
         if (!details.position) {
             let thisMarkerDetail = {
                 details: {
@@ -259,7 +259,6 @@ class GMap extends React.Component {
                     : null}
                 {this.props.state.showSpotDetailModal
                     ? <SpotDetail
-                        currentMarker={this.state.currentMarker}
                         removeMarker={this.removeMarker}
                         addMarkerClick={this.addMarkerClick.bind(this)}
                     />
@@ -291,8 +290,8 @@ function mapDispatchToProps(dispatch) {
         toggleMarkerModal: (position) => {
             return dispatch(toggleMarkerModal(position))
         },
-        toggleSpotDetailModal: (details) => {
-            return dispatch(toggleSpotDetailModal(details))
+        toggleSpotDetailModal: (marker, details) => {
+            return dispatch(toggleSpotDetailModal(marker, details))
         },
         toggleRestrictedModal: () => {
             return dispatch(toggleRestrictedModal())

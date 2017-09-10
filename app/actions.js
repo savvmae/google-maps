@@ -103,7 +103,8 @@ export function toggleMarkerDetailModal(payload) {
     return { type: TOGGLE_DETAIL_MARKER, payload }
 }
 
-export function toggleSpotDetailModal(payload) {
+export function toggleSpotDetailModal(marker, details) {
+    let payload = { marker, details }
     return { type: TOGGLE_SPOT_DETAIL, payload }
 }
 

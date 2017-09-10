@@ -9,9 +9,9 @@ class SpotDetail extends Component {
         super(props)
 
         this.state = {
-            spotType: this.props.state.currentSpot.details.spotType,
-            spotNotes: this.props.state.currentSpot.details.spotNotes,
-            isSpotTaken: this.props.state.currentSpot.details.isSpotTaken
+            spotType: this.props.state.currentSpot.details.details.spotType,
+            spotNotes: this.props.state.currentSpot.details.details.spotNotes,
+            isSpotTaken: this.props.state.currentSpot.details.details.isSpotTaken
         }
     }
 
@@ -51,7 +51,7 @@ class SpotDetail extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.props.state.loggedIn) {
-            this.props.addMarkerClick(this.props.currentMarker, this.state)
+            this.props.addMarkerClick(this.props.state.currentSpot.marker, this.state)
             this.props.updateSpot(this.state, this.props.state.currentSpot.position)
             
         } else {
@@ -59,7 +59,7 @@ class SpotDetail extends Component {
         }
     }
 
-    render() {
+    render() {  
         const customStyles = {
             overlay: {
                 backgroundColor: 'rgba(255, 255, 255)'
