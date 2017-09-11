@@ -1,11 +1,17 @@
 TODO::
-    delete marker on several conditions 
-        -if user clicks delete
+    delete marker on several conditions DONE
+        -if user clicks delete 
             - still need to actually delete from db
 
-    handle a spot update in global state
+    handle a spot update in global state DONE
+        -will also set up for db push  
 
-    
+    handle user being logged in on root page
+        - greeting DONE
+        - logout button DONE
+        - potentially manage my spots??
+
+    work on how to get different color icons depending on details. - DONE
 
     WRITE BACK END
 
@@ -23,7 +29,9 @@ set up for all api calls
 clean up unnecessary actions after api is in and login/register are good.
 
 
+STYLING
 
+ - palette:  http://paletton.com/#uid=23c0u0kaVz84jP27qHbeJtFiHpX
 
 
 

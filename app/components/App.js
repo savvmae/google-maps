@@ -19,7 +19,7 @@ class App extends Component {
 
     render() {
         return (
-            <div className="b-g">
+            <div className='full'>
                 {this.props.state.loggedIn
                     ?
                     <Nav />

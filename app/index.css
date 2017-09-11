@@ -71,6 +71,18 @@ html, body {
 }
 
 .bor {
-  border: 3px solid #1A4940;
+  border: 3px solid #529789;
   border-radius: 2px;
+}
+
+body {
+  background: url('../bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+
+.full {
+  height: 100vh;
+  background: rgba(225, 225, 225, .4)
 }
