@@ -63,12 +63,12 @@ class MarkerDetailModal extends Component {
                             <div className="row">
 
                                 <div className="input-field col s6">
-                                    <input onChange={this.updateState} type="text" name="spotType" className="teal-text text-darken-3" />
-                                    <label htmlFor="icon_telephone" >Type of Spot:</label>
+                                    <input onChange={this.updateState} type="text" name="spotType" className="blue-grey-text" />
+                                    <label className="blue-grey-text" htmlFor="icon_telephone" >Type of Spot:</label>
                                 </div>
                                 <div className="input-field col s6">
-                                    <input onChange={this.updateState} type="text" name="spotNotes" className="teal-text text-darken-3" />
-                                    <label htmlFor="icon_telephone" >Any Notes?</label>
+                                    <input onChange={this.updateState} type="text" name="spotNotes" className="blue-grey-text" />
+                                    <label className="blue-grey-text" htmlFor="icon_telephone" >Any Notes?</label>
                                 </div>
                                 <Input onChange={this.updateCheck} name='isSpotTaken' type='checkbox' label='Taken?' />
                             </div>

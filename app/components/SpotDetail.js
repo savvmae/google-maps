@@ -88,12 +88,12 @@ class SpotDetail extends Component {
                         <form onSubmit={this.handleSubmit} className="col s12">
                             <div className="row">
 
-                                <div className="input-field col s6 spot-f">
-                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotType" className="validate teal-text text-darken-3 spot-f" value={this.state.spotType} />
+                                <div className="input-field col s6">
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotType" className="validate blue-grey-text" value={this.state.spotType} />
 
                                 </div>
-                                <div className="input-field col s6 spot-f">
-                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotNotes" value={this.state.spotNotes} className="validate teal-text text-darken-3 spot-f" />
+                                <div className="input-field col s6">
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotNotes" value={this.state.spotNotes} className="validate blue-grey-text" />
 
                                 </div>
                                 <Input className="co" onChange={this.updateCheck} checked={this.state.isSpotTaken} name='isSpotTaken' type='checkbox' label='Taken?' />

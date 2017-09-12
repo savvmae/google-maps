@@ -58,26 +58,26 @@ class RegisterModal extends Component {
 
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">mail</i>
-                                            <input onChange={this.updateState} id="icon_telephone" type="email" name="email" className="validate" />
-                                            <label htmlFor="icon_telephone" >Email</label>
+                                            <input onChange={this.updateState} id="icon_telephone" type="email" name="email" className="validate blue-grey-text" />
+                                            <label className="blue-grey-text" htmlFor="icon_telephone" >Email</label>
                                         </div>
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">textsms</i>
-                                            <input onChange={this.updateState} id="icon_telephone" type="text" name="username" className="validate" />
-                                            <label htmlFor="icon_telephone" >Username</label>
+                                            <input onChange={this.updateState} id="icon_telephone" type="text" name="username" className="validate blue-grey-text" />
+                                            <label className="blue-grey-text" htmlFor="icon_telephone" >Username</label>
                                         </div>
 
                                     </div>
                                     <div className="row">
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">lock</i>
-                                            <input onChange={this.updateState} id="icon_prefix" type="password" name="password" className="validate" />
-                                            <label htmlFor="icon_prefix">Password</label>
+                                            <input onChange={this.updateState} id="icon_prefix" type="password" name="password" className="validate blue-grey-text" />
+                                            <label className="blue-grey-text" htmlFor="icon_prefix">Password</label>
                                         </div>
                                         <div className="input-field col s6">
                                             <i className="material-icons prefix">lock</i>
-                                            <input onChange={this.updateState} id="icon_prefix" type="password" name="confirmPassword" className="validate" />
-                                            <label htmlFor="icon_prefix">Confirm Password</label>
+                                            <input onChange={this.updateState} id="icon_prefix" type="password" name="confirmPassword" className="validate blue-grey-text" />
+                                            <label className="blue-grey-text" htmlFor="icon_prefix">Confirm Password</label>
                                         </div>
 
                                     </div>
