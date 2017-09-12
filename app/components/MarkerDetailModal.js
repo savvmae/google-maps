@@ -60,7 +60,8 @@ class MarkerDetailModal extends Component {
                 right: 'auto',
                 bottom: 'auto',
                 marginRight: '-50%',
-                transform: 'translate(-50%, -50%)'
+                transform: 'translate(-50%, -50%)',
+                border: '2px solid black'
             }
         };
         return (
@@ -68,7 +69,7 @@ class MarkerDetailModal extends Component {
                 <ReactModal style={customStyles} header='Marker Info Header'
                     isOpen={this.props.state.showMarkerDetailModal}
                     contentLabel="Minimal Modal Example">
-                    <Button onClick={this.props.toggleMarkerDetailModal} floating icon='close' className='red' large style={{ bottom: '0px', left: '45%' }} />
+                    <Button onClick={this.props.toggleMarkerDetailModal} floating icon='close' className='co-b' large style={{ bottom: '0px', left: '45%' }} />
 
                     <p>  Details about the spot! </p>
                     <div className="row">
@@ -86,7 +87,7 @@ class MarkerDetailModal extends Component {
                                 <Input onChange={this.updateCheck} name='isSpotTaken' type='checkbox' label='Taken?' />
                             </div>
                             <div className="row">
-                                <button className="btn waves-effect waves-light" type="submit">Add Spot!
+                                <button className="btn waves-effect waves-light co" type="submit">Add Spot!
                                 <i className="material-icons right">send</i>
                                 </button>
                             </div>

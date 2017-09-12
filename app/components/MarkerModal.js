@@ -36,7 +36,8 @@ class MarkerModal extends Component {
                 right: 'auto',
                 bottom: 'auto',
                 marginRight: '-50%',
-                transform: 'translate(-50%, -50%)'
+                transform: 'translate(-30%, -5%)',
+                border: '2px solid black'
             }
         };
         return (
@@ -46,9 +47,9 @@ class MarkerModal extends Component {
                     contentLabel="Minimal Modal Example">
                     <p>  Would you like to add this location as a parking spot? </p>
                     <div className="row">
-                        <button className="btn waves-effect waves-light z-zero" onClick={this.handleToggleDetailModal}>Yes</button>
-                    </div><div className="row">
-                        <button className="btn waves-effect waves-light z-zero" onClick={this.handleToggleMarkerModal} >No</button></div>
+                        <button className="btn waves-effect waves-light z-zero margy-r co" onClick={this.handleToggleDetailModal}>Yes</button>
+                    
+                        <button className="btn waves-effect waves-light z-zero co" onClick={this.handleToggleMarkerModal} >No</button></div>
                 </ReactModal>
 
             </div>

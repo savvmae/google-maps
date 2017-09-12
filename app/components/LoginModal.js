@@ -28,19 +28,20 @@ class LoginModal extends Component {
                 right: 'auto',
                 bottom: 'auto',
                 marginRight: '-50%',
-                transform: 'translate(-50%, -50%)'
+                transform: 'translate(-50%, -50%)',
+                border: '2px solid black'
             }
         };
         return (
             <ReactModal style={customStyles} header='login Header'
                 isOpen={this.props.state.showLoginModal}
                 contentLabel="Minimal Modal Example">
-                <Button onClick={this.props.toggleLogin} floating icon='close' className='red' large style={{ bottom: '0px', left: '45%' }} />
+                <Button onClick={this.props.toggleLogin} floating icon='close' className='co-b' large style={{ bottom: '0px', left: '45%' }} />
                 <div className="container container-fifty">
                     <Col m={6} s={12}>
                         <Card>
                             <div className="card-image">
-                                <img src="./register.jpg" />
+                                <img src="./lot.jpg" />
                             </div>
                             <div className="row">
                                 <form onSubmit={this.handleSubmit} className="col s12">
@@ -58,7 +59,7 @@ class LoginModal extends Component {
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                                        <button className="co btn waves-effect waves-light" type="submit" name="action">Submit
                                         <i className="material-icons right">send</i>
                                         </button>
                                     </div>

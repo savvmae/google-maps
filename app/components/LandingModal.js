@@ -32,7 +32,8 @@ class LandingModal extends Component {
                 right: 'auto',
                 bottom: 'auto',
                 marginRight: '-50%',
-                transform: 'translate(-50%, -50%)'
+                transform: 'translate(-50%, -50%)',
+                border: '2px solid black'
             }
         };
         return (
@@ -45,16 +46,16 @@ class LandingModal extends Component {
                         <div>
                     <p> Welcome to Free parking spot finder! You may continue anonymously, but with limited features. Or you can login/register below </p>
                     <div className="row">
-                        <button className="btn waves-effect waves-light z-zero co-b" onClick={this.handleToggleLanding}>Continue Without Logging in</button>
+                        <button className="btn co waves-effect waves-light z-zero " onClick={this.handleToggleLanding}>Continue Without Logging in</button>
                     </div>
                     </div>
                     : <div><p> You have unlocked a premium feature! If you wish to access this feature, please login or register! </p>
                     <div className="row">
-                        <button className="btn waves-effect waves-light z-zero co-b" onClick={this.handleToggleLanding}>Continue Without Features</button>
+                        <button className="btn co waves-effect waves-light z-zero " onClick={this.handleToggleLanding}>Continue Without Features</button>
                     </div> </div> }
                     <div className="row">
-                        <button className="btn waves-effect waves-light z-zero co-b margy-r" onClick={this.handleToggleLogin}>Login</button>
-                        <button className="btn waves-effect waves-light z-zero co-b" onClick={this.handleToggleRegister}>Register</button></div>
+                        <button className="btn co waves-effect waves-light z-zero  margy-r" onClick={this.handleToggleLogin}>Login</button>
+                        <button className="btn co waves-effect waves-light z-zero" onClick={this.handleToggleRegister}>Register</button></div>
                 </ReactModal>
                 {this.props.state.showLoginModal
 

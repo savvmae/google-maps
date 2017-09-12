@@ -20,6 +20,7 @@ class SpotDetail extends Component {
     }
 
     putText = (event) => {
+        console.log(this.props.state.currentSpot.details.details.spotType)
         if (event.target.value === '') {
             if (event.target.name === 'spotType') {
                 this.setState({ spotType: this.props.state.currentSpot.details.spotType })
@@ -79,7 +80,7 @@ class SpotDetail extends Component {
             <div>
                 <ReactModal style={customStyles} header='SPOT DETAILS'
                     isOpen={this.props.state.showSpotDetailModal} contentLabel="spot">
-                    <Button floating icon='close' onClick={this.props.toggleSpotDetailModal} className='red' large style={{ bottom: '0px', left: '45%' }} />
+                    <Button floating icon='close' onClick={this.props.toggleSpotDetailModal} className='co-b' large style={{ bottom: '0px', left: '45%' }} />
 
                     <p>  Details about the spot! </p>
                     <div className="row">
@@ -97,16 +98,14 @@ class SpotDetail extends Component {
                                 <Input onChange={this.updateCheck} checked={this.state.isSpotTaken} name='isSpotTaken' type='checkbox' label='Taken?' />
                             </div>
                             <div className="row">
-                                <button className="btn waves-effect waves-light" type="submit">Update Spot!
+                                <button className="btn waves-effect waves-light co margy-r" type="submit">Update Spot!
                             <i className="material-icons right">send</i>
+                                </button>
+                                <button className="btn waves-effect waves-light co" onClick={this.handleRemoveMarker} >Delete Spot!
+                                <i className="material-icons right">close</i>
                                 </button>
                             </div>
                         </form>
-                    </div>
-                    <div className="row">
-                        <button className="btn waves-effect waves-light" onClick={this.handleRemoveMarker} >Delete Spot!
-                        <i className="material-icons right">close</i>
-                        </button>
                     </div>
                 </ReactModal>
             </div>

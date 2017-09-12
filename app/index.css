@@ -71,7 +71,7 @@ body {
 }
 
 .fifty-w {
-  width: 50%!important 
+  width: 60%!important 
 }
 
 .co {
@@ -83,6 +83,14 @@ body {
 }
 
 .co-b {
+  background: #466F76 !important;
+  transition: .2s ease-out;
+}
+.co-b:hover, .co:hover {
+  background: #759196 !important;
+}
+
+.co-n {
   background: #466F76 !important;
 }
 
@@ -97,7 +105,8 @@ body {
   color: black!important;
   border: 2px solid black!important;
   border-radius: 2px!important;
-  font-weight: bolder
+  font-weight: bolder;
+  padding-left: 10px;
 }
 
 .inpy:focus {
@@ -106,22 +115,27 @@ body {
 }
 
 
-.inpy::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+.inpy::-webkit-input-placeholder {
   color:    black;
+  padding-left: 10px;
 }
-.inpy:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+.inpy:-moz-placeholder { 
  color:    black;
  opacity:  .5;
+ padding-left: 10px;
 }
-.inpy::-moz-placeholder { /* Mozilla Firefox 19+ */
+.inpy::-moz-placeholder {
  color:    black;
  opacity:  .5;
+ padding-left: 10px;
 }
-.inpy:-ms-input-placeholder { /* Internet Explorer 10-11 */
+.inpy:-ms-input-placeholder { 
  color:    black;
+ padding-left: 10px;
 }
-.inpy::-ms-input-placeholder { /* Microsoft Edge */
+.inpy::-ms-input-placeholder {
  color:    black;
+ padding-left: 10px;
 }
 
 
