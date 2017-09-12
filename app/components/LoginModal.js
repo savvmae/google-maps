@@ -40,7 +40,7 @@ class LoginModal extends Component {
                     <Col m={6} s={12}>
                         <Card>
                             <div className="card-image">
-                                <img src="./register.jpeg" />
+                                <img src="./register.jpg" />
                             </div>
                             <div className="row">
                                 <form onSubmit={this.handleSubmit} className="col s12">

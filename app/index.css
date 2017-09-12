@@ -8,6 +8,13 @@ html, body {
   text-align: center;
 }
 
+body {
+  background: url('../bg.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+
 .mapContainer {
   margin: auto;
 }
@@ -19,7 +26,7 @@ html, body {
 .GMap-canvas {
   margin: auto;
   width: 60%;
-  height: 500px;
+  height: 450px;
   margin: auto;
 }
 
@@ -50,6 +57,11 @@ html, body {
   padding-top: 50px;
 }
 
+.margyy-t {
+  margin-top: 50px;
+}
+
+
 .margy-r {
   margin-right: 30px!important
 }
@@ -71,7 +83,7 @@ html, body {
 }
 
 .co-b {
-  background: #529789 !important;
+  background: #466F76 !important;
 }
 
 .bor {
@@ -79,12 +91,40 @@ html, body {
   border-radius: 2px!important;
 }
 
-body {
-  background: url('../bg.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  
+.inpy {
+  text-transform: uppercase;
+  background: #E1CC58!important;  
+  color: black!important;
+  border: 2px solid black!important;
+  border-radius: 2px!important;
+  font-weight: bolder
 }
+
+.inpy:focus {
+  border-bottom: 1px solid black!important;
+  box-shadow: 0 1px 0 0 black!important;
+}
+
+
+.inpy::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color:    black;
+}
+.inpy:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+ color:    black;
+ opacity:  .5;
+}
+.inpy::-moz-placeholder { /* Mozilla Firefox 19+ */
+ color:    black;
+ opacity:  .5;
+}
+.inpy:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color:    black;
+}
+.inpy::-ms-input-placeholder { /* Microsoft Edge */
+ color:    black;
+}
+
+
 
 /* .full {
   height: 100vh;

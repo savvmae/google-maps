@@ -8,8 +8,8 @@ export default class SearchBar extends Component {
         return (
             <div className="container">
                 <Col m={6} s={12}>
-                    <div className="row">
-                        <input className="fifty-w margy-t" type="text" onChange={this.props.handleChange.bind(this)} placeholder="Search for a location:" value={this.props.searchCity} />
+                    <div className="row margyy-t">
+                        <input className="fifty-w  inpy" type="text" onChange={this.props.handleChange.bind(this)} placeholder="Search for a location:" value={this.props.searchCity} />
                     </div>
                 </Col>
             </div>
