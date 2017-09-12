@@ -5,8 +5,8 @@ import { Row, Input, Link, Card, Col, Button, Icon  } from 'react-materialize'
 
 import {toggleLanding, toggleLogin, toggleRegister} from '../actions';
 
-import LoginModal from './LoginModal';
-import RegisterModal from './RegisterModal';
+import LoginModal from '../components/LoginModal';
+import RegisterModal from '../components/RegisterModal';
 
 class LandingModal extends Component {
     constructor(props) {

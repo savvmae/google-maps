@@ -7,11 +7,10 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 
 import registerServiceWorker from './registerServiceWorker';
-//redux imports
 
 import { reducer } from './reducers';
 
-import App from './components/App';
+import App from './containers/App';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 

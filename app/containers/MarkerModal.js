@@ -5,7 +5,7 @@ import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
 
 import { toggleLanding, toggleLogin, toggleMarkerModal, toggleMarkerDetailModal } from '../actions';
 
-import MarkerDetailModal from './MarkerDetailModal';
+import MarkerDetailModal from '../components/MarkerDetailModal';
 
 
 class MarkerModal extends Component {
@@ -15,9 +15,7 @@ class MarkerModal extends Component {
 
     handleToggleDetailModal = () => {
         this.props.toggleMarkerDetailModal()
-        // create function to delete the marker
-        // or don't trigger marker there?
-        // but location for new spot depends on that location being sent. doesn't have to mean marker gets rendered. 
+
     }
     handleToggleMarkerModal = () => {
         this.props.toggleMarkerModal()

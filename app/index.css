@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
-  background: url('../bg.jpeg');
+  background: url('../public/bg.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   

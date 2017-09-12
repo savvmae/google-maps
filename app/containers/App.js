@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { render } from 'react-dom';
-import GMap from './GMap';
-import LandingModal from './LandingModal';
-import MarkerModal from './MarkerModal';
-import Nav from './Nav'
+import GMap from '../components/GMap';
+import LandingModal from '../containers/LandingModal';
+import MarkerModal from '../containers/MarkerModal';
+import Nav from '../containers/Nav'
 
 
 
@@ -12,10 +12,6 @@ class App extends Component {
     constructor(props) {
         super(props)
     }
-
-    // componentWillMount = () => {
-    //     this.props.dashboard()
-    // }
 
     render() {
         return (
@@ -59,9 +55,7 @@ function mapDispatchToProps(dispatch) {
         toggleLogin: () => {
             return dispatch(toggleLogin())
         }
-        // dashboard: () => {
-        //     return dispatch(dashboard())
-        // }
+
     }
 }
 

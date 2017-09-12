@@ -4,10 +4,10 @@ import { Row, Col, ProgressBar } from 'react-materialize';
 import { connect } from 'react-redux';
 import MapStyles from './MapStyles';
 import Script from 'react-load-script';
-import SearchBar from './SearchBar';
+import SearchBar from '../containers/SearchBar';
 import SpotDetail from './SpotDetail';
 import MarkerDetailModal from './MarkerDetailModal'
-import MarkerModal from './MarkerModal'
+import MarkerModal from '../containers/MarkerModal'
 import { loading, searchCity, toggleMarkerModal, toggleSpotDetailModal, toggleRestrictedModal } from '../actions';
 
 class GMap extends React.Component {
@@ -125,7 +125,7 @@ class GMap extends React.Component {
             map: this.map,
             draggable: true,
             animation: google.maps.Animation.DROP,
-            icon: './parking.png'
+            icon: './public/parking.png'
         })
 
         if (details) {
@@ -157,17 +157,17 @@ class GMap extends React.Component {
                 }
             }
             if (thisMarkerDetail.details.isSpotTaken) {
-                marker.setIcon('./no-entry-sign.png')
+                marker.setIcon('./public/no-entry-sign.png')
             } else {
-                marker.setIcon('./parking.png')
+                marker.setIcon('./public/parking.png')
             }
             google.maps.event.addListener(marker, 'click', () => this.setCurrentMarker(marker, thisMarkerDetail));
         }
         else {
             if (details.details.isSpotTaken) {                
-                marker.setIcon('./no-entry-sign.png')
+                marker.setIcon('./public/no-entry-sign.png')
             } else {
-                marker.setIcon('./parking.png')
+                marker.setIcon('./public/parking.png')
             }
             google.maps.event.addListener(marker, 'click', () => this.setCurrentMarker(marker, details));
         }
