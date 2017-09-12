@@ -13,7 +13,7 @@ const initialState = {
     },
     landing: true,
     loading: false,
-    loggedIn: true,
+    loggedIn: false,
     showLandingModal: true,
     showLoginModal: false,
     showRegisterModal: false,

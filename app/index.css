@@ -18,8 +18,8 @@ html, body {
 
 .GMap-canvas {
   margin: auto;
-  width: 50%;
-  height: 350px;
+  width: 60%;
+  height: 500px;
   margin: auto;
 }
 
@@ -47,7 +47,7 @@ html, body {
 }
 
 .margy-t {
-  margin-top: 50px;
+  padding-top: 50px;
 }
 
 .margy-r {
@@ -63,7 +63,11 @@ html, body {
 }
 
 .co {
-  background: #ECC2A7!important;
+  color: black!important;
+  background: #E1CC58!important;
+  border: 2px solid black!important;
+  border-radius: 2px!important;
+  font-weight: bolder
 }
 
 .co-b {
@@ -71,18 +75,18 @@ html, body {
 }
 
 .bor {
-  border: 3px solid #529789;
-  border-radius: 2px;
+  border: 3px solid black!important;
+  border-radius: 2px!important;
 }
 
 body {
-  background: url('../bg.png');
+  background: url('../bg.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   
 }
 
-.full {
+/* .full {
   height: 100vh;
   background: rgba(225, 225, 225, .4)
-}
+} */
