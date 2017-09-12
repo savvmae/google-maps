@@ -1,4 +1,15 @@
 TODO::
+    modularize reducers, actions, services
+
+    protect api keys (.env??)
+
+    
+
+
+
+
+
+
     delete marker on several conditions DONE
         -if user clicks delete 
             - still need to actually delete from db

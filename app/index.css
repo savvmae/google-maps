@@ -154,3 +154,15 @@ input[type=text].valid, input[type=text]:focus.valid {
 .big {
   font-size: 18px;
 }
+nav .brand-logo {
+  margin-right: -10px;
+  width: 15%;
+  transition: background-color .3s;
+}
+nav .brand-logo:hover {
+  font-weight: 500;
+}
+nav ul a:hover, nav .brand-logo:hover {
+  background: rgba(225, 204, 88, .9)!important;
+  color: black !important
+}

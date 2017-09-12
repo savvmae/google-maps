@@ -27,6 +27,9 @@ class RegisterModal extends Component {
 
     render() {
         const customStyles = {
+            overlay: {
+                backgroundColor: 'rgba(255, 255, 255, 0)'
+            },
             content: {
                 top: '50%',
                 left: '50%',
@@ -34,7 +37,8 @@ class RegisterModal extends Component {
                 bottom: 'auto',
                 marginRight: '-50%',
                 transform: 'translate(-50%, -50%)',
-                border: '2px solid black'
+                border: '2px solid black',
+                background: '#DDDDDD'
             }
         };
         return (

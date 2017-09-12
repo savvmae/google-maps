@@ -71,7 +71,8 @@ class SpotDetail extends Component {
                 bottom: 'auto',
                 marginRight: '-50%',
                 transform: 'translate(-50%, -50%)',
-                border: '2px solid black'
+                border: '2px solid black',
+                background: '#DDDDDD'
             }
         };
 

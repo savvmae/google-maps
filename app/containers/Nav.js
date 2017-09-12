@@ -9,8 +9,8 @@ class Nav extends Component {
 
     render() {
         return (
-            <Navbar className="co-n" brand={this.props.state.user.name} left>
-                <NavItem href='components.html'>Logout</NavItem>
+            <Navbar className="co-n thick" brand={this.props.state.user.name} left>
+                <NavItem className="thick" href='components.html'>Logout</NavItem>
             </Navbar>
         )
     }
