@@ -19,21 +19,6 @@ class MarkerDetailModal extends Component {
         }
     }
 
-    clearText = (event) => {
-        event.target.value = ''
-    }
-
-    putText = (event) => {
-        if (event.target.value === '') {
-            if (event.target.name === 'spotType') {
-                this.setState({spotType: this.props.state.currentSpot.details.spotType})
-            }
-            else {
-                this.setState({spotNotes: this.props.state.currentSpot.details.spotNotes})
-            }
-        }
-    }
-
     updateState = (event) => {
         this.setState({ [event.target.name]: event.target.value })
     }
@@ -71,17 +56,17 @@ class MarkerDetailModal extends Component {
                     contentLabel="Minimal Modal Example">
                     <Button onClick={this.props.toggleMarkerDetailModal} floating icon='close' className='co-b' large style={{ bottom: '0px', left: '45%' }} />
 
-                    <p>  Details about the spot! </p>
+                    <p className="thick big">  Details about the spot! </p>
                     <div className="row">
                         <form onSubmit={this.handleSubmit} className="col s12">
                             <div className="row">
 
                                 <div className="input-field col s6">
-                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText}type="text" name="spotType" className="validate" />
+                                    <input onChange={this.updateState} type="text" name="spotType" className="teal-text text-darken-3" />
                                     <label htmlFor="icon_telephone" >Type of Spot:</label>
                                 </div>
                                 <div className="input-field col s6">
-                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText}type="text" name="spotNotes" className="validate" />
+                                    <input onChange={this.updateState} type="text" name="spotNotes" className="teal-text text-darken-3" />
                                     <label htmlFor="icon_telephone" >Any Notes?</label>
                                 </div>
                                 <Input onChange={this.updateCheck} name='isSpotTaken' type='checkbox' label='Taken?' />

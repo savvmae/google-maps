@@ -44,12 +44,12 @@ class LandingModal extends Component {
                     {this.props.state.landing
                         ?
                         <div>
-                    <p> Welcome to Free parking spot finder! You may continue anonymously, but with limited features. Or you can login/register below </p>
+                    <p className="thick big"> Welcome to Free parking spot finder! You may continue anonymously, but with limited features. Or you can login/register below </p>
                     <div className="row">
                         <button className="btn co waves-effect waves-light z-zero " onClick={this.handleToggleLanding}>Continue Without Logging in</button>
                     </div>
                     </div>
-                    : <div><p> You have unlocked a premium feature! If you wish to access this feature, please login or register! </p>
+                    : <div><p className="thick big"> You have unlocked a premium feature! If you wish to access this feature, please login or register! </p>
                     <div className="row">
                         <button className="btn co waves-effect waves-light z-zero " onClick={this.handleToggleLanding}>Continue Without Features</button>
                     </div> </div> }

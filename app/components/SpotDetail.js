@@ -16,17 +16,16 @@ class SpotDetail extends Component {
     }
 
     clearText = (event) => {
-        event.target.value = ''
+        this.setState({ [event.target.name]: ''})
     }
 
     putText = (event) => {
-        console.log(this.props.state.currentSpot.details.details.spotType)
         if (event.target.value === '') {
             if (event.target.name === 'spotType') {
-                this.setState({ spotType: this.props.state.currentSpot.details.spotType })
+                this.setState({ spotType: this.props.state.currentSpot.details.details.spotType })
             }
             else {
-                this.setState({ spotNotes: this.props.state.currentSpot.details.spotNotes })
+                this.setState({ spotNotes: this.props.state.currentSpot.details.details.spotNotes })
             }
         }
     }
@@ -71,7 +70,8 @@ class SpotDetail extends Component {
                 right: 'auto',
                 bottom: 'auto',
                 marginRight: '-50%',
-                transform: 'translate(-50%, -50%)'
+                transform: 'translate(-50%, -50%)',
+                border: '2px solid black'
             }
         };
 
@@ -82,20 +82,20 @@ class SpotDetail extends Component {
                     isOpen={this.props.state.showSpotDetailModal} contentLabel="spot">
                     <Button floating icon='close' onClick={this.props.toggleSpotDetailModal} className='co-b' large style={{ bottom: '0px', left: '45%' }} />
 
-                    <p>  Details about the spot! </p>
+                    <p className="thick big">  Details about the spot! </p>
                     <div className="row">
                         <form onSubmit={this.handleSubmit} className="col s12">
                             <div className="row">
 
-                                <div className="input-field col s6">
-                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotType" className="validate" value={this.state.spotType} />
+                                <div className="input-field col s6 spot-f">
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotType" className="validate teal-text text-darken-3 spot-f" value={this.state.spotType} />
 
                                 </div>
-                                <div className="input-field col s6">
-                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotNotes" value={this.state.spotNotes} className="validate" />
+                                <div className="input-field col s6 spot-f">
+                                    <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotNotes" value={this.state.spotNotes} className="validate teal-text text-darken-3 spot-f" />
 
                                 </div>
-                                <Input onChange={this.updateCheck} checked={this.state.isSpotTaken} name='isSpotTaken' type='checkbox' label='Taken?' />
+                                <Input className="co" onChange={this.updateCheck} checked={this.state.isSpotTaken} name='isSpotTaken' type='checkbox' label='Taken?' />
                             </div>
                             <div className="row">
                                 <button className="btn waves-effect waves-light co margy-r" type="submit">Update Spot!

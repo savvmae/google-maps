@@ -246,7 +246,7 @@ class GMap extends React.Component {
                     ? <Row>
                         <Col s={12}>
                             <div className="fifty-w margy-a">
-                                <ProgressBar />
+                                <ProgressBar className="blue-grey" />
                             </div>
                         </Col>
                     </Row>

@@ -36,7 +36,7 @@ class MarkerModal extends Component {
                 right: 'auto',
                 bottom: 'auto',
                 marginRight: '-50%',
-                transform: 'translate(-30%, -5%)',
+                transform: 'translate(-50%, -5%)',
                 border: '2px solid black'
             }
         };
@@ -45,7 +45,7 @@ class MarkerModal extends Component {
                 <ReactModal header='New Spot' style={customStyles}
                     isOpen={this.props.state.showMarkerModal}
                     contentLabel="Minimal Modal Example">
-                    <p>  Would you like to add this location as a parking spot? </p>
+                    <p className="thick">  Would you like to add this location as a parking spot? </p>
                     <div className="row">
                         <button className="btn waves-effect waves-light z-zero margy-r co" onClick={this.handleToggleDetailModal}>Yes</button>
                     
