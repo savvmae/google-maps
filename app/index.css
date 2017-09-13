@@ -74,6 +74,10 @@ body {
   width: 60%!important 
 }
 
+.forty-w {
+  width: 40% !important
+}
+
 .co {
   color: black!important;
   background: #E1CC58!important;
@@ -106,36 +110,33 @@ body {
   border: 2px solid black!important;
   border-radius: 2px!important;
   font-weight: bolder;
-  padding-left: 10px;
+  padding-left: 10px !important;
 }
 
 .inpy:focus {
   border-bottom: 1px solid black!important;
   box-shadow: 0 1px 0 0 black!important;
+  padding: 0px 25px;
+  background: #759196 !important;
+  
 }
-
 
 .inpy::-webkit-input-placeholder {
   color:    black;
-  padding-left: 10px;
 }
 .inpy:-moz-placeholder { 
  color:    black;
  opacity:  .5;
- padding-left: 10px;
 }
 .inpy::-moz-placeholder {
  color:    black;
  opacity:  .5;
- padding-left: 10px;
 }
 .inpy:-ms-input-placeholder { 
  color:    black;
- padding-left: 10px;
 }
 .inpy::-ms-input-placeholder {
  color:    black;
- padding-left: 10px;
 }
 
 [type="checkbox"]:checked+label:before {
@@ -144,9 +145,18 @@ body {
 }
 
 input[type=text].valid, input[type=text]:focus.valid {
-  border-bottom: 1px solid #9e9e9e !important;
+  border-bottom: 1px solid #607d8b !important;
   box-shadow: none !important;
 } 
+
+input[type='checkbox']+label {
+  color: #466F76;
+}
+
+input {
+  border-bottom: 1px solid black !important;
+  box-shadow: none !important;
+}
 
 .blue-grey-text:focus {
   border-bottom: 1px solid #607d8b!important;
