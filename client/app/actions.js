@@ -58,12 +58,14 @@ export function searchCity(location) {
 }
 // will post to api to add spots
 export function submitNewSpot(payload) {
-    return { type: NEW_MARKER, payload}
+    console.log(payload)
+    // return { type: NEW_MARKER, payload}
     // service looking good
-    // return (dispatch, getState) => {
-    //     return addSpotService(payload).then((res) => {
-    // })
-    // }
+    return (dispatch, getState) => {
+        return addSpotService(payload).then((res) => {
+            console.log(res)
+    })
+    }
 }
 
 export function updateSpot(details, position) {

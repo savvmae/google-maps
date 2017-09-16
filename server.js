@@ -30,7 +30,7 @@ application.use(passport.initialize());
 
 application.use(express.static(path.join(__dirname, 'client/public')));
 
-// application.use(spots);
+application.use(spots);
 application.use(users);
 
 const jwtOptions = {}

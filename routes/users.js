@@ -19,7 +19,6 @@ jwtOptions.secretOrKey = 'icanauthenticatestuff';
 
 
 route.post('/api/signup', async function (request, response) {
-    console.log('signup', request.body)
     if (request.body.email && request.body.password && request.body.userName) {
         var hashed = crypto.pbkdf2Sync(request.body.password, 'salt', 10, 512, 'sha512').toString('base64');
         var user = await Users.find({ email: request.body.email });
@@ -43,14 +42,12 @@ route.post('/api/signup', async function (request, response) {
 
 
 route.post('/api/login', async function (request, response) {
-    console.log(request.body)
     if (request.body.email && request.body.password) {
         var email = request.body.email;
         var hashed = crypto.pbkdf2Sync(request.body.password, 'salt', 10, 512, 'sha512').toString('base64');
     }
     var user = await Users.find({ email: email });
     if (!user[0]) {
-        console.log('here')
         return response.status(401).json({ message: "no such user found" });
     } if (user[0].password === hashed) {
         var payload = { id: user[0]._id, name: user[0].userName };

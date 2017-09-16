@@ -42,10 +42,15 @@ export function searchService(param) {
         })
 }
 // working, ready to get plugged into api
-// export function addSpotService(details) { 
-//     return axios.post('api')
-//         .then(res => {
-//             console.log(res)
-//             return res
-//         })
-// }
+export function addSpotService(details) { 
+    return axios({
+        method: 'post',
+        url: '/api/spots',
+        data: {
+            details
+        }
+    }).then(serverResponse => {
+        console.log(serverResponse)
+        return serverResponse
+    })
+}
