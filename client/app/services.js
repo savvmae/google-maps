@@ -16,7 +16,6 @@ export function registerService(param) {
 }
 
 export function loginService(param) {
-    console.log('I am in the service')
     return axios({
         method: 'post',
         url: '/api/login',
@@ -25,7 +24,6 @@ export function loginService(param) {
             password: param.password
         }
     }).then(serverResponse => {
-        console.log(serverResponse, "i am the service response")
         return serverResponse
     })
 }

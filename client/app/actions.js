@@ -34,9 +34,10 @@ export function register(user) {
 export function login(user) {
     return (dispatch, getState) => {
         return loginService(user).then(function (res) {
-            console.log('inside login action promise')
-            // dispatch(setToken(res.data.auth_token))
-            // dispatch(dashboard())
+            dispatch(setToken(res.data.token))
+            dispatch(toggleLogin())
+            dispatch(toggleLanding())
+            dispatch(setUser(res.data.name))
         })
     }
 }

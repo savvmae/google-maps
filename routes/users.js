@@ -43,6 +43,7 @@ route.post('/api/signup', async function (request, response) {
 
 
 route.post('/api/login', async function (request, response) {
+    console.log(request.body)
     if (request.body.email && request.body.password) {
         var email = request.body.email;
         var hashed = crypto.pbkdf2Sync(request.body.password, 'salt', 10, 512, 'sha512').toString('base64');
@@ -54,7 +55,7 @@ route.post('/api/login', async function (request, response) {
     } if (user[0].password === hashed) {
         var payload = { id: user[0]._id, name: user[0].userName };
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
-        return response.json({ message: "ok", token: token });
+        return response.json({ message: "ok", token: token, name: payload.name });
     } else {
         return response.status(401).json({ message: "passwords did not match" });
     }
