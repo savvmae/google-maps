@@ -51,15 +51,6 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
     return {
-        toggleLanding: () => {
-            return dispatch(toggleLanding())
-        },
-        toggleRegister: () => {
-            return dispatch(toggleRegister())
-        },
-        toggleLogin: () => {
-            return dispatch(toggleLogin())
-        },
         dashboard: () => {
             return dispatch(dashboard())
         }

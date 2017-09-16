@@ -10,8 +10,8 @@ const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
 const application = express();
 
-const user = require('./models/user');
-const spot = require('./models/spot')
+const Users = require('./models/user');
+const Spots = require('./models/spot')
 const spots = require('./routes/spots');
 const users = require('./routes/users');
 
@@ -38,7 +38,7 @@ jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
 jwtOptions.secretOrKey = 'icanauthenticatestuff';
 
 const strategy = new JwtStrategy(jwtOptions, async function(jwt_payload, next) {
-  var user = await data.users.find({id: jwt_payload.id});
+  var user = await Users.find({id: jwt_payload.id});
   if (user) {
     next(null, user);
   } else {

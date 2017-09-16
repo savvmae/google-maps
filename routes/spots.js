@@ -8,11 +8,10 @@ const Spots = require('../models/spot');
 route.get('/api/spots', async function (request, response) {
     // returns all spots
     let spots = await Spots.find()
-    console.log(spots)
     response.status(200).json(spots)
 });
 
-route.post('/api/spots', async function (request, response) {
+route.post('/api/spots', passport.authenticate('jwt', { session: false }), async function (request, response) {
     let newSpot = await Spots.create({
         position: {
             lat: parseFloat(request.body.details.lat),
@@ -24,8 +23,17 @@ route.post('/api/spots', async function (request, response) {
             isSpotTaken: request.body.details.isSpotTaken
         }
     })
-    console.log(newSpot)
-    return response.send({newSpot})
+    return response.send({ newSpot })
+})
+
+route.put('/api/spots', passport.authenticate('jwt', { session: false }), async function (request, response) {
+    let thisSpot = await Spots.findOneAndUpdate({ _id: request.body.id },
+        {
+            spotNotes: request.body.details.spotNotes,
+            spotType: request.body.details.spotType,
+            isSpotTaken: request.body.details.isSpotTaken
+        })
+    return response.status(200).json({message: "success"})
 })
 
 module.exports = route;

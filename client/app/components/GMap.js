@@ -76,7 +76,6 @@ class GMap extends React.Component {
     }
 
     createMarkers(markers) {
-        console.log(markers)
         const markersArray = markers.map((marker) => {
             const config = this.props.state,
                 icon = config.icons && config.icons[marker.icon].image,
@@ -155,7 +154,8 @@ class GMap extends React.Component {
                 position: {
                     lat: details.lat,
                     lng: details.lng
-                }
+                },
+                _id: details._id
             }
             if (thisMarkerDetail.details.isSpotTaken) {
                 marker.setIcon('./no-entry-sign.png')

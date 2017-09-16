@@ -76,19 +76,7 @@ export const reducer = (state = initialState, action) => {
                     $set: false
                 }
             })
-        case UPDATE_SPOT:
-            let spot = state.markers.findIndex(spot => spot.position === action.payload.position)
-            return update(state, {
-                markers: {
-                    [spot]: {
-                        $set: action.payload
-                    }
-                },
-                showSpotDetailModal: {
-                    $set: false
-                }
 
-            })
         //toggles loading bar
         case TOGGLE_LOADING:
             return update(state, {

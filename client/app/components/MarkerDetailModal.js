@@ -24,14 +24,14 @@ class MarkerDetailModal extends Component {
     }
 
     updateCheck = (event) => {
-        this.setState({isSpotTaken: event.target.checked})
+        this.setState({ isSpotTaken: event.target.checked })
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.submitNewSpot(this.state);
-        this.props.addMarkerClick(this.props.currentMarker, this.state)
-        // would need to make sure this comes back successful, then add onclick
+        this.props.submitNewSpot(this.state, this.props.state.token).then(res => {
+            this.props.addMarkerClick(this.props.currentMarker, res.data.newSpot)
+        })
     }
 
     render() {
@@ -96,8 +96,8 @@ function mapDispatchToProps(dispatch) {
         toggleMarkerDetailModal: () => {
             return dispatch(toggleMarkerDetailModal())
         },
-        submitNewSpot: (details) => {
-            return dispatch(submitNewSpot(details))
+        submitNewSpot: (details, token) => {
+            return dispatch(submitNewSpot(details, token))
         }
     }
 }

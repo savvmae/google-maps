@@ -44,15 +44,31 @@ export function searchService(param) {
         })
 }
 // working, ready to get plugged into api
-export function addSpotService(details) {
+export function addSpotService(details, token) {
+    const AuthStr = "JWT ".concat(token);
     return axios({
         method: 'post',
         url: '/api/spots',
+        headers: { Authorization: AuthStr },
         data: {
-            details
+            details: details
         }
     }).then(serverResponse => {
-        console.log(serverResponse)
+        return serverResponse
+    })
+}
+
+export function updateSpotService(updated, id, token) {
+    const AuthStr = "JWT ".concat(token);    
+    return axios({
+        method: 'put',
+        url: '/api/spots',
+        headers: { Authorization: AuthStr },
+        data: {
+            id: id,
+            details: updated
+        }
+    }).then(serverResponse => {
         return serverResponse
     })
 }

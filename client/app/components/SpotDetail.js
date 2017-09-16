@@ -16,7 +16,7 @@ class SpotDetail extends Component {
     }
 
     clearText = (event) => {
-        this.setState({ [event.target.name]: ''})
+        this.setState({ [event.target.name]: '' })
     }
 
     putText = (event) => {
@@ -51,15 +51,15 @@ class SpotDetail extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.props.state.loggedIn) {
-            this.props.addMarkerClick(this.props.state.currentSpot.marker, this.state)
-            this.props.updateSpot(this.state, this.props.state.currentSpot.position)
-            
+            this.props.updateSpot(this.state, this.props.state.currentSpot.details, this.props.state.token).then(res => {
+                this.props.addMarkerClick(this.props.state.currentSpot.marker, this.state)
+            })
         } else {
             this.props.toggleRestrictedModal()
         }
     }
 
-    render() {  
+    render() {
         const customStyles = {
             overlay: {
                 backgroundColor: 'rgba(255, 255, 255)'
@@ -128,8 +128,8 @@ function mapDispatchToProps(dispatch) {
         toggleRestrictedModal: () => {
             return dispatch(toggleRestrictedModal())
         },
-        updateSpot: (details, position) => {
-            return dispatch(updateSpot(details, position))
+        updateSpot: (details, position, token) => {
+            return dispatch(updateSpot(details, position, token))
         }
     }
 }

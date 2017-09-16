@@ -1,4 +1,4 @@
-import { registerService, loginService, dashboardService, searchService, addSpotService } from './services'
+import { registerService, loginService, dashboardService, searchService, addSpotService, updateSpotService } from './services'
 import axios from 'axios'
 
 export const GET_RESPONSE = "GET_RESPONSE";
@@ -42,17 +42,16 @@ export function login(user) {
     }
 }
 
-// will use once api is set up, will pull markers from db to render to map
 export function dashboard() {
     return (dispatch, getState) => {
         return dashboardService().then((res) => {
             dispatch(setMarkers(res.data))
         })
     }
-
 }
+
 function setMarkers(spots) {
-    return { type: SET_MARKERS, spots}
+    return { type: SET_MARKERS, spots }
 }
 // searches for location based off user input
 export function searchCity(location) {
@@ -64,22 +63,23 @@ export function searchCity(location) {
     }
 }
 // will post to api to add spots
-export function submitNewSpot(payload) {
-    console.log(payload)
-    // return { type: NEW_MARKER, payload}
-    // service looking good
+export function submitNewSpot(payload, token) {
     return (dispatch, getState) => {
-        return addSpotService(payload).then((res) => {
-            console.log(res)
-    })
+        return addSpotService(payload, token).then((res) => {
+            dispatch(toggleMarkerDetailModal())
+            dispatch(toggleMarkerModal())
+            return res
+        })
     }
 }
 
-export function updateSpot(details, position) {
-    let payload = {
-        details, position
+export function updateSpot(updated, details, token) {
+    return (dispatch, getState) => {
+        return updateSpotService(updated, details._id, token).then((res) => {
+            dispatch(toggleSpotDetailModal())
+            return res
+        })
     }
-    return { type: UPDATE_SPOT, payload }
 }
 
 export function setLocation(location) {
@@ -123,7 +123,7 @@ export function toggleSpotDetailModal(marker, details) {
 }
 
 export function toggleRestrictedModal(payload) {
-    return { type: TOGGLE_RESTRICTED, payload}
+    return { type: TOGGLE_RESTRICTED, payload }
 }
 
 function getResponseAction(payload) {
