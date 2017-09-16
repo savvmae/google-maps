@@ -4,14 +4,11 @@
   "description": "A react component for a google map!",
   "main": "index.js",
   "scripts": {
-    "dev": "node_modules/.bin/webpack-dev-server --output-public-path=/public/",
+    "dev": "webpack --config webpack.config.js --watch",
     "build": "node_modules/.bin/webpack -p",
     "test": "mocha test/Gmap.test.js --opts test/mocha.opts"
   },
-  "repository": {
-    "type": "git",
-    "url": "react-gmap"
-  },
+  "repository": {},
   "keywords": [
     "react",
     "google",
@@ -49,6 +46,7 @@
     "enzyme": "^2.8.2",
     "eslint": "^4.6.1",
     "eslint-plugin-react": "^7.3.0",
+    "extract-text-webpack-plugin": "^3.0.0",
     "jsdom": "^11.0.0",
     "mocha": "^3.4.2",
     "react-test-renderer": "^15.5.4",
