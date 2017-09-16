@@ -8,12 +8,10 @@ import update from 'immutability-helper';
 const initialState = {
     url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyDsLRWK_AfZtF4dsnajc8zNpRU-Sp9KxuI&libraries=places",
     token: null,
-    user: {
-        name: "Savannah"
-    },
+    user: null,
     landing: true,
     loading: false,
-    loggedIn: true,
+    loggedIn: false, 
     showLandingModal: true,
     showLoginModal: false,
     showRegisterModal: false,

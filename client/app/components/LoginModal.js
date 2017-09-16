@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
-import ReactModal from 'react-modal';
-import { Row, Input, Link, Card, Col, Button, Icon  } from 'react-materialize'
 import { connect } from 'react-redux'
+import ReactModal from 'react-modal';
+import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
 
-import {toggleRegister, register} from '../actions';
+import { toggleLogin, login } from '../actions';
 
-
-class RegisterModal extends Component {
+class LoginModal extends Component {
     constructor() {
         super()
+
         this.state = {
             email: '',
-            password: '',
-            confirmPassword: '',
-            username: ''
+            password: ''
         }
     }
     updateState = (event) => {
         this.setState({ [event.target.name]: event.target.value })
     }
-
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.register(this.state);
+        this.props.login(this.state);
     }
-
     render() {
         const customStyles = {
             overlay: {
@@ -42,47 +38,33 @@ class RegisterModal extends Component {
             }
         };
         return (
-            <ReactModal style={customStyles} header='register Header'
-                isOpen={this.props.state.showRegisterModal}
+            <ReactModal style={customStyles} header='login Header'
+                isOpen={this.props.state.showLoginModal}
                 contentLabel="Minimal Modal Example">
-                <Button onClick={this.props.toggleRegister} floating icon='close' className='co-b' large style={{ top: '0px', left: '45%' }}/>
+                <Button onClick={this.props.toggleLogin} floating icon='close' className='co-b' large style={{ bottom: '0px', left: '45%' }} />
                 <div className="container container-fifty">
                     <Col m={6} s={12}>
                         <Card>
                             <div className="card-image">
-                                <img src="./public/lot.jpg" />
+                                <img src="./lot.jpg" />
                             </div>
                             <div className="row">
                                 <form onSubmit={this.handleSubmit} className="col s12">
                                     <div className="row">
 
                                         <div className="input-field col s6">
-                                            <i className="material-icons prefix">mail</i>
+                                            <i className="material-icons prefix blue-grey-text-hov">mail</i>
                                             <input onChange={this.updateState} id="icon_telephone" type="email" name="email" className="validate blue-grey-text" />
                                             <label className="blue-grey-text" htmlFor="icon_telephone" >Email</label>
                                         </div>
                                         <div className="input-field col s6">
-                                            <i className="material-icons prefix">textsms</i>
-                                            <input onChange={this.updateState} id="icon_telephone" type="text" name="username" className="validate blue-grey-text" />
-                                            <label className="blue-grey-text" htmlFor="icon_telephone" >Username</label>
-                                        </div>
-
-                                    </div>
-                                    <div className="row">
-                                        <div className="input-field col s6">
-                                            <i className="material-icons prefix">lock</i>
+                                            <i className="material-icons prefix blue-grey-text-hov">lock</i>
                                             <input onChange={this.updateState} id="icon_prefix" type="password" name="password" className="validate blue-grey-text" />
-                                            <label className="blue-grey-text" htmlFor="icon_prefix">Password</label>
+                                            <label className="blue-grey-text"  htmlFor="icon_prefix">Password</label>
                                         </div>
-                                        <div className="input-field col s6">
-                                            <i className="material-icons prefix">lock</i>
-                                            <input onChange={this.updateState} id="icon_prefix" type="password" name="confirmPassword" className="validate blue-grey-text" />
-                                            <label className="blue-grey-text" htmlFor="icon_prefix">Confirm Password</label>
-                                        </div>
-
                                     </div>
                                     <div className="row">
-                                        <button className="btn waves-effect waves-light co" type="submit" name="action">Submit
+                                        <button className="co btn waves-effect waves-light" type="submit" name="action">Submit
                                         <i className="material-icons right">send</i>
                                         </button>
                                     </div>
@@ -91,12 +73,12 @@ class RegisterModal extends Component {
                         </Card>
                     </Col>
                 </div>
-                
+
             </ReactModal>
         )
     }
-
 }
+
 
 const mapStateToProps = (state) => {
     return {
@@ -106,13 +88,13 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
     return {
-        register: (user) => {
-            return dispatch(register(user))
+        login: (user) => {
+            return dispatch(login(user))
         },
-        toggleRegister: () => {
-            return dispatch(toggleRegister())
-        },
+        toggleLogin: () => {
+            return dispatch(toggleLogin())
+        }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterModal)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal)

@@ -2,19 +2,15 @@ import axios from 'axios'
 
 
 export function registerService(param) {
-    console.log("i am the register service")
-
     return axios({
         method: 'post',
-        url: 'https://user-auth-test.herokuapp.com/register',
+        url: '/api/signup',
         data: {
             email: param.email,
             password: param.password,
-            full_name: param.name,
-            message: param.secret
+            userName: param.username,
         }
     }).then(serverResponse => {
-        console.log(serverResponse)
         return serverResponse
     })
 }
@@ -23,7 +19,7 @@ export function loginService(param) {
     console.log('I am in the service')
     return axios({
         method: 'post',
-        url: 'https://user-auth-test.herokuapp.com/login',
+        url: '/api/login',
         data: {
             email: param.email,
             password: param.password

@@ -15,7 +15,7 @@ class Nav extends Component {
 
     render() {
         return (
-            <Navbar className="co-n thick" brand={this.props.state.user.name} left>
+            <Navbar className="co-n thick" brand={this.props.state.user} left>
                 <NavItem className="thick" onClick={this.handleLogout}>Logout</NavItem>
             </Navbar>
         )

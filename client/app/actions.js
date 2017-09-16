@@ -23,7 +23,10 @@ export const UPDATE_SPOT = "UPDATE_SPOT";
 export function register(user) {
     return (dispatch, getState) => {
         return registerService(user).then(function (res) {
-            dispatch(getResponseAction(res.data.success))
+            dispatch(setToken(res.data.token))
+            dispatch(toggleRegister())
+            dispatch(toggleLanding())
+            dispatch(setUser(user.username))
         })
     }
 }
@@ -31,8 +34,9 @@ export function register(user) {
 export function login(user) {
     return (dispatch, getState) => {
         return loginService(user).then(function (res) {
-            dispatch(setToken(res.data.auth_token))
-            dispatch(dashboard())
+            console.log('inside login action promise')
+            // dispatch(setToken(res.data.auth_token))
+            // dispatch(dashboard())
         })
     }
 }
