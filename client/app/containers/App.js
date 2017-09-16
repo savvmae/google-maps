@@ -6,11 +6,16 @@ import LandingModal from '../containers/LandingModal';
 import MarkerModal from '../containers/MarkerModal';
 import Nav from '../containers/Nav'
 
+import { dashboard } from '../actions'
 
 
 class App extends Component {
     constructor(props) {
         super(props)
+    }
+
+    componentWillMount = () => {
+        this.props.dashboard();
     }
 
     render() {
@@ -54,8 +59,10 @@ function mapDispatchToProps(dispatch) {
         },
         toggleLogin: () => {
             return dispatch(toggleLogin())
+        },
+        dashboard: () => {
+            return dispatch(dashboard())
         }
-
     }
 }
 

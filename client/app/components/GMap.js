@@ -76,6 +76,7 @@ class GMap extends React.Component {
     }
 
     createMarkers(markers) {
+        console.log(markers)
         const markersArray = markers.map((marker) => {
             const config = this.props.state,
                 icon = config.icons && config.icons[marker.icon].image,

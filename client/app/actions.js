@@ -44,9 +44,16 @@ export function login(user) {
 
 // will use once api is set up, will pull markers from db to render to map
 export function dashboard() {
+    return (dispatch, getState) => {
+        return dashboardService().then((res) => {
+            dispatch(setMarkers(res.data))
+        })
+    }
+
+}
+function setMarkers(spots) {
     return { type: SET_MARKERS, spots}
 }
-
 // searches for location based off user input
 export function searchCity(location) {
     return (dispatch, getState) => {

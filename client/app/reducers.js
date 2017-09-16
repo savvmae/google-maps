@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { NEW_MARKER, SET_TOKEN, SET_USER, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, TOGGLE_SPOT_DETAIL, TOGGLE_RESTRICTED, UPDATE_SPOT } from './actions';
+import { NEW_MARKER, SET_TOKEN, SET_USER, SET_MARKERS, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, TOGGLE_SPOT_DETAIL, TOGGLE_RESTRICTED, UPDATE_SPOT } from './actions';
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
@@ -19,39 +19,7 @@ const initialState = {
     showMarkerDetailModal: false,
     showSpotDetailModal: false,
     currentSpot: null,
-    markers: [{
-        position: {
-            lat: 32.797,
-            lng: -79.955
-        },
-        details: {
-            spotType: "lot",
-            spotNotes: "34 spots",
-            isSpotTaken: true
-        }
-    },
-    {
-        position: {
-            lat: 32.792,
-            lng: -79.95
-        },
-        details: {
-            spotType: "broken meter",
-            spotNotes: "sometimes working",
-            isSpotTaken: false
-        }
-    },
-    {
-        position: {
-            lat: 32.795,
-            lng: -79.935
-        },
-        details: {
-            spotType: "resdential no time limit",
-            spotNotes: "1 block",
-            isSpotTaken: true
-        }
-    }],
+    markers: [],
     initialCenter: {
         lat: 32.79,
         lng: -79.93
@@ -70,6 +38,12 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_MARKERS:
+            return update(state, {
+                markers: {
+                    $set: action.spots
+                }
+            })
         // pushes new spot into markers, resets spot details and closes marker modals
         case NEW_MARKER:
             let newMarker = [{

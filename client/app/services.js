@@ -28,10 +28,12 @@ export function loginService(param) {
     })
 }
 
-// export function dashboardService() {
-//     console.log("i am triggering")
-//     return spots
-// }
+export function dashboardService() {
+    return axios.get('/api/spots')
+        .then(res => {
+            return res
+        })
+}
 
 export function searchService(param) {
     return axios.get('https://proxy.calweb.xyz/https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + param + '&key=AIzaSyDeWY-pmtMyV_d2yc5YJTZFqRPd6pMV268')
@@ -42,7 +44,7 @@ export function searchService(param) {
         })
 }
 // working, ready to get plugged into api
-export function addSpotService(details) { 
+export function addSpotService(details) {
     return axios({
         method: 'post',
         url: '/api/spots',
