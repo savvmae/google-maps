@@ -106,8 +106,9 @@ class GMap extends React.Component {
         this.setState({
             scriptLoaded: true
         });
+        let that = this
         setTimeout(function () {
-            this.loadMap();
+            that.loadMap();
         }, 1000)
         
     }
