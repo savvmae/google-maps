@@ -12,6 +12,8 @@ export function registerService(param) {
         }
     }).then(serverResponse => {
         return serverResponse
+    }).catch((err) => {
+        return err.response.data.message 
     })
 }
 
@@ -25,6 +27,9 @@ export function loginService(param) {
         }
     }).then(serverResponse => {
         return serverResponse
+    }).catch((err) => {
+        console.log(err.response.data.message);
+        return err.response.data.message 
     })
 }
 

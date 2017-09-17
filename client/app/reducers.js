@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { NEW_MARKER, SET_TOKEN, SET_USER, SET_MARKERS, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, TOGGLE_SPOT_DETAIL, TOGGLE_RESTRICTED, UPDATE_SPOT, RESET_CURRENT_SPOT } from './actions';
+import { NEW_MARKER, SET_TOKEN, SET_USER, SET_MARKERS, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, TOGGLE_SPOT_DETAIL, TOGGLE_RESTRICTED, UPDATE_SPOT, RESET_CURRENT_SPOT, SERVICE_ERROR } from './actions';
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
@@ -20,6 +20,7 @@ const initialState = {
     showSpotDetailModal: false,
     currentSpot: null,
     markers: [],
+    errorMessage: null,
     initialCenter: {
         lat: 32.79,
         lng: -79.93
@@ -38,6 +39,12 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case SERVICE_ERROR: 
+            return update(state, {
+                errorMessage: {
+                    $set: action.error
+                }
+            })
         case SET_MARKERS:
             return update(state, {
                 markers: {
@@ -84,12 +91,6 @@ export const reducer = (state = initialState, action) => {
                     $set: !state.loading
                 }
             })
-        case GET_RESPONSE:
-            return update(state, {
-                loading: {
-                    $set: false
-                }
-            })
         case SET_TOKEN:
             return update(state, {
                 token: {
@@ -97,6 +98,9 @@ export const reducer = (state = initialState, action) => {
                 },
                 loggedIn: {
                     $set: true
+                },
+                errorMessage: {
+                    $set: null
                 }
             })
         case SET_USER:

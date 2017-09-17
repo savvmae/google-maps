@@ -17,27 +17,41 @@ export const NEW_MARKER = "NEW_MARKER";
 export const SET_MARKERS = "SET_MARKERS";
 export const TOGGLE_RESTRICTED = "TOGGLE_RESTRICTED";
 export const UPDATE_SPOT = "UPDATE_SPOT";
-export const RESET_CURRENT_SPOT = "RESET_CURRENT_SPOT"
+export const RESET_CURRENT_SPOT = "RESET_CURRENT_SPOT";
+export const SERVICE_ERROR = "SERVICE_ERROR"
 
 
 export function register(user) {
     return (dispatch, getState) => {
-        return registerService(user).then(function (res) {
-            dispatch(setToken(res.data.token))
-            dispatch(toggleRegister())
-            dispatch(toggleLanding())
-            dispatch(setUser(user.username))
-        })
+        return registerService(user)
+            .then(function (res) {
+                if (!res.data) {
+                    dispatch(setError(res))
+                } else {
+                    dispatch(setToken(res.data.token))
+                    dispatch(toggleRegister())
+                    dispatch(toggleLanding())
+                    dispatch(setUser(user.username))
+                }
+            })
     }
+}
+
+export function setError(error) {
+    return { type: SERVICE_ERROR, error }
 }
 
 export function login(user) {
     return (dispatch, getState) => {
         return loginService(user).then(function (res) {
-            dispatch(setToken(res.data.token))
-            dispatch(toggleLogin())
-            dispatch(toggleLanding())
-            dispatch(setUser(res.data.name))
+            if (!res.data) {
+                dispatch(setError(res))
+            } else {
+                dispatch(setToken(res.data.token))
+                dispatch(toggleLogin())
+                dispatch(toggleLanding())
+                dispatch(setUser(user.username))
+            }
         })
     }
 }
@@ -53,7 +67,7 @@ export function dashboard() {
 function setMarkers(spots) {
     return { type: SET_MARKERS, spots }
 }
-// searches for location based off user input
+
 export function searchCity(location) {
     return (dispatch, getState) => {
         return searchService(location).then((res) => {
@@ -62,7 +76,7 @@ export function searchCity(location) {
         })
     }
 }
-// will post to api to add spots
+
 export function submitNewSpot(payload, token) {
     return (dispatch, getState) => {
         return addSpotService(payload, token).then((res) => {
@@ -93,6 +107,7 @@ export function deleteSpot(id, token) {
 export function setLocation(location) {
     return { type: SET_LOCATION, location }
 }
+
 export function logout(payload) {
     return { type: LOGOUT, payload }
 }

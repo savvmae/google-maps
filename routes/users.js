@@ -54,7 +54,7 @@ route.post('/api/login', async function (request, response) {
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
         return response.json({ message: "ok", token: token, name: payload.name });
     } else {
-        return response.status(401).json({ message: "passwords did not match" });
+        return response.status(401).json({ message: "incorrect password" });
     }
 });
 

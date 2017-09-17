@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
-import { Row, Input, Link, Card, Col, Button, Icon  } from 'react-materialize'
+import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
 import { connect } from 'react-redux'
 
-import {toggleRegister, register} from '../actions';
+import { toggleRegister, register, setError } from '../actions';
 
 
 class RegisterModal extends Component {
@@ -22,7 +22,11 @@ class RegisterModal extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.register(this.state);
+        if (this.state.password === this.state.confirmPassword) {
+            this.props.register(this.state);
+        } else {
+            this.props.setError('passwords do not match')
+        }
     }
 
     render() {
@@ -45,14 +49,19 @@ class RegisterModal extends Component {
             <ReactModal style={customStyles} header='register Header'
                 isOpen={this.props.state.showRegisterModal}
                 contentLabel="Minimal Modal Example">
-                <Button onClick={this.props.toggleRegister} floating icon='close' className='co-b' large style={{ top: '0px', left: '45%' }}/>
+                <Button onClick={this.props.toggleRegister} floating icon='close' className='co-b' large style={{ top: '0px', left: '45%' }} />
                 <div className="container container-fifty">
                     <Col m={6} s={12}>
                         <Card>
+                            {this.props.state.errorMessage ?
+                                <div className="row thick big">
+                                    {this.props.state.errorMessage}
+                                </div>
+                                : null}
                             <div className="card-image">
                                 <img src="./lot.jpg" />
                             </div>
-                            <div className="row">
+                            <div className="row no-m">
                                 <form onSubmit={this.handleSubmit} className="col s12">
                                     <div className="row">
 
@@ -81,7 +90,7 @@ class RegisterModal extends Component {
                                         </div>
 
                                     </div>
-                                    <div className="row">
+                                    <div className="row no-m">
                                         <button className="btn waves-effect waves-light co" type="submit" name="action">Submit
                                         <i className="material-icons right">send</i>
                                         </button>
@@ -91,7 +100,7 @@ class RegisterModal extends Component {
                         </Card>
                     </Col>
                 </div>
-                
+
             </ReactModal>
         )
     }
@@ -112,6 +121,9 @@ function mapDispatchToProps(dispatch) {
         toggleRegister: () => {
             return dispatch(toggleRegister())
         },
+        setError: (err) => {
+            return dispatch(setError(err))
+        }
     }
 }
 

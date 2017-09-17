@@ -45,6 +45,11 @@ class LoginModal extends Component {
                 <div className="container container-fifty">
                     <Col m={6} s={12}>
                         <Card>
+                        {this.props.state.errorMessage ? 
+                        <div className="row thick big">
+                        {this.props.state.errorMessage}
+                        </div>
+                        : null }
                             <div className="card-image">
                                 <img src="./lot.jpg" />
                             </div>
