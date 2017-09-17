@@ -59,6 +59,7 @@ export function login(user) {
 export function dashboard() {
     return (dispatch, getState) => {
         return dashboardService().then((res) => {
+            console.log('action', res.data)
             dispatch(setMarkers(res.data))
         })
     }

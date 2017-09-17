@@ -37,6 +37,7 @@ export function loginService(param) {
 export function dashboardService() {
     return axios.get('/api/spots')
         .then(res => {
+            console.log('service', res)
             return res
         })
 }
