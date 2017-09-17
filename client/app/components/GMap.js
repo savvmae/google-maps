@@ -106,7 +106,10 @@ class GMap extends React.Component {
         this.setState({
             scriptLoaded: true
         });
-        this.loadMap();
+        setTimeout(function () {
+            this.loadMap();
+        }, 1000)
+        
     }
 
     newMarker(position, image, details) {
