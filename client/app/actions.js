@@ -1,7 +1,6 @@
 import { registerService, loginService, dashboardService, searchService, addSpotService, updateSpotService, deleteSpotService } from './services'
 import axios from 'axios'
 
-export const GET_RESPONSE = "GET_RESPONSE";
 export const SET_TOKEN = "SET_TOKEN";
 export const SET_USER = "SET_USER";
 export const TOGGLE_LOADING = "TOGGLE_LOADING";
@@ -135,9 +134,6 @@ export function toggleRestrictedModal(payload) {
     return { type: TOGGLE_RESTRICTED, payload }
 }
 
-function getResponseAction(payload) {
-    return { type: GET_RESPONSE, payload }
-}
 
 function setToken(payload) {
     return { type: SET_TOKEN, payload }

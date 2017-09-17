@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const Spots = require('../models/spot');
 
 route.get('/api/spots', async function (request, response) {
-    // returns all spots
     let spots = await Spots.find()
     response.status(200).json(spots)
 });

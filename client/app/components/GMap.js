@@ -111,7 +111,7 @@ class GMap extends React.Component {
         let thisMarker = new google.maps.Marker({
             position: position,
             map: this.map,
-            draggable: true,
+            draggable: false,
             animation: google.maps.Animation.DROP,
             icon: './parking.png'
         })
@@ -163,11 +163,15 @@ class GMap extends React.Component {
     }
 
     removeMarker = (details, token) => {
-        this.props.deleteSpot(details._id, token).then(res => {
+        if (token) {
+            this.props.deleteSpot(details._id, token).then(res => {
+                this.state.currentMarker.setMap(null)
+                this.setState({ currentMarker: null })
+            })
+        } else {
             this.state.currentMarker.setMap(null)
             this.setState({ currentMarker: null })
-        })
-
+        }
     }
 
     mapCenter(lat, lng) {

@@ -3,9 +3,9 @@ TODO::
 
     protect api keys (.env??)
 
-    WRITE BACK END
+    custom marker animations
 
-    - handle delete spots
+    WRITE BACK END
     - handle specific errors from server and display to user
 
     - HOST
@@ -18,9 +18,6 @@ TODO::
 
 need to separate out my services and reducers and actions
 - how to link multple reducer files in provider???
-
-clean up unnecessary actions after api is in and login/register are good.
-
 
 STYLING
 
