@@ -6,7 +6,7 @@ import update from 'immutability-helper';
 import { key } from './secrets.js';
 
 const initialState = {
-    url: "http://maps.googleapis.com/maps/api/js?key=" + key + "&libraries=places",
+    url: "https://maps.googleapis.com/maps/api/js?key=" + key + "&libraries=places",
     token: null,
     user: null,
     landing: true,
