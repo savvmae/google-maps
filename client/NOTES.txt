@@ -5,9 +5,6 @@ TODO::
 
     custom marker animations
 
-    WRITE BACK END
-    - handle specific errors from server and display to user
-
     - HOST
 
 

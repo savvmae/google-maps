@@ -4,3 +4,4 @@ npm-debug.log
 .eslintrc
 .env
 .DS_Store
+secrets.js

@@ -3,10 +3,10 @@ import { NEW_MARKER, SET_TOKEN, SET_USER, SET_MARKERS, GET_RESPONSE, TOGGLE_LOAD
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
-
+import { key } from './secrets.js';
 
 const initialState = {
-    url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyDsLRWK_AfZtF4dsnajc8zNpRU-Sp9KxuI&libraries=places",
+    url: "http://maps.googleapis.com/maps/api/js?key=" + key + "&libraries=places",
     token: null,
     user: null,
     landing: true,
