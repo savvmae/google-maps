@@ -6,6 +6,7 @@ html, body {
   height: 100%;
   width: 100%;
   text-align: center;
+  overflow-x: hidden;
 }
 
 body {
@@ -25,8 +26,8 @@ body {
 
 .GMap-canvas {
   margin: auto;
-  width: 60%;
-  height: 450px;
+  width: 75%;
+  height: 525px;
   margin: auto;
 }
 
@@ -75,6 +76,10 @@ body {
 
 .fifty-w {
   width: 60%!important 
+}
+
+.seventy-w {
+  width: 75%!important
 }
 
 .forty-w {
@@ -173,6 +178,9 @@ input {
 }
 .big {
   font-size: 18px;
+}
+.x-big {
+  font-size: 24px;
 }
 nav .brand-logo {
   margin-right: -10px;

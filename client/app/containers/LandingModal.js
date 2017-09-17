@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import ReactModal from 'react-modal';
-import { Row, Input, Link, Card, Col, Button, Icon  } from 'react-materialize'
+import { Row, Input, Link, Card, Col, Button, Icon } from 'react-materialize'
 
-import {toggleLanding, toggleLogin, toggleRegister} from '../actions';
+import { toggleLanding, toggleLogin, toggleRegister } from '../actions';
 
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
@@ -48,18 +48,21 @@ class LandingModal extends Component {
                     {this.props.state.landing
                         ?
                         <div>
-                    <p className="thick big"> Welcome to Free parking spot finder! You may continue anonymously, but with limited features. Or you can login/register below </p>
-                    <div className="row">
-                        <button className="btn co waves-effect waves-light z-zero " onClick={this.handleToggleLanding}>Continue Without Logging in</button>
-                    </div>
-                    </div>
-                    : <div><p className="thick big"> You have unlocked a premium feature! If you wish to access this feature, please login or register! </p>
-                    <div className="row">
-                        <button className="btn co waves-effect waves-light z-zero " onClick={this.handleToggleLanding}>Continue Without Features</button>
-                    </div> </div> }
-                    <div className="row">
-                        <button className="btn co waves-effect waves-light z-zero  margy-r" onClick={this.handleToggleLogin}>Login</button>
-                        <button className="btn co waves-effect waves-light z-zero" onClick={this.handleToggleRegister}>Register</button></div>
+                            <p className="thick x-big no-m"> Welcome to Park It - A free parking spot finder!</p><p className="thick big"> login/register below to access premium features </p>
+                            <div className="row margyy-t">
+                                <button className="btn co waves-effect waves-light z-zero  margy-r" onClick={this.handleToggleLogin}>Login</button>
+                                <button className="btn co waves-effect waves-light z-zero" onClick={this.handleToggleRegister}>Register</button></div>
+                            <div className="row">
+                                <button className="btn co waves-effect waves-light z-zero " onClick={this.handleToggleLanding}>Continue Anonymously</button>
+                            </div>
+                        </div>
+                        : <div><p className="thick x-big"> You have unlocked a premium feature! </p><p className="thick big"> If you wish to access this feature, please login or register! </p>
+                            <div className="row margyy-t">
+                                <button className="btn co waves-effect waves-light z-zero  margy-r" onClick={this.handleToggleLogin}>Login</button>
+                                <button className="btn co waves-effect waves-light z-zero" onClick={this.handleToggleRegister}>Register</button></div>
+                            <div className="row">
+                                <button className="btn co waves-effect waves-light z-zero " onClick={this.handleToggleLanding}>Continue Without Features</button>
+                            </div> </div>}
                 </ReactModal>
                 {this.props.state.showLoginModal
 

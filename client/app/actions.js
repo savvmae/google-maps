@@ -50,7 +50,7 @@ export function login(user) {
                 dispatch(setToken(res.data.token))
                 dispatch(toggleLogin())
                 dispatch(toggleLanding())
-                dispatch(setUser(user.username))
+                dispatch(setUser(res.data.name))
             }
         })
     }

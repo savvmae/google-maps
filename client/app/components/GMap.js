@@ -239,16 +239,18 @@ class GMap extends React.Component {
                 />
                 <div className='GMap-canvas bor' ref="mapCanvas"></div>
                 {this.props.state.loading
-                    ? <Row>
+                    ? <Row className="no-m">
                         <Col s={12}>
-                            <div className="fifty-w margy-a">
-                                <ProgressBar className="blue-grey" />
+                            <div className="seventy-w margy-a no-m">
+                                <ProgressBar className="blue-grey no-m" />
                             </div>
                         </Col>
                     </Row>
                     : null}
-                <SearchBar handleChange={this.handleChange.bind(this)} searchCity={this.state.searchCity} />
-                <button className="co btn z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
+                <div className="row margyy-t">
+                    <SearchBar handleChange={this.handleChange.bind(this)} searchCity={this.state.searchCity} />
+                    <button className="co btn z-zero" onClick={this.getUserLocation.bind(this)}>Use current Location</button>
+                </div>
                 {this.props.state.showMarkerModal
                     ?
                     <MarkerModal
