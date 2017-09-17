@@ -29,7 +29,6 @@ export function loginService(param) {
     }).then(serverResponse => {
         return serverResponse
     }).catch((err) => {
-        console.log(err.response.data.message);
         return err.response.data.message 
     })
 }
@@ -37,7 +36,6 @@ export function loginService(param) {
 export function dashboardService() {
     return axios.get('/api/spots')
         .then(res => {
-            console.log('service', res)
             return res
         })
 }
