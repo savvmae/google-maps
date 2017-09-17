@@ -79,8 +79,10 @@ class GMap extends React.Component {
         navigator.geolocation.getCurrentPosition((position) => {
             this.props.loading();
             this.moveMap(position.coords.latitude, position.coords.longitude);
-            this.newMarker(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-            this.props.toggleMarkerModal()
+            if (this.props.state.isLoggedIn) {
+                this.newMarker(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                this.props.toggleMarkerModal()
+            }
         }, () => alert("Couldn't find your location"))
     }
 
