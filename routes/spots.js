@@ -7,6 +7,7 @@ const Spots = require('../models/spot');
 
 route.get('/api/spots', async function (request, response) {
     let spots = await Spots.find()
+    console.log(spots)
     response.status(200).json(spots)
 });
 
