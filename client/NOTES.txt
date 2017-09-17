@@ -1,8 +1,5 @@
 TODO::
     modularize reducers, actions, services
-
-    protect api keys (.env??)
-
     custom marker animations
 
     - HOST
