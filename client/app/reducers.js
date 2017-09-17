@@ -46,6 +46,7 @@ export const reducer = (state = initialState, action) => {
                 }
             })
         case SET_MARKERS:
+        console.log(action.spots)
             return update(state, {
                 markers: {
                     $set: action.spots
