@@ -42,7 +42,7 @@ export function searchService(param) {
             return loc
         })
 }
-// working, ready to get plugged into api
+
 export function addSpotService(details, token) {
     const AuthStr = "JWT ".concat(token);
     return axios({
@@ -70,4 +70,18 @@ export function updateSpotService(updated, id, token) {
     }).then(serverResponse => {
         return serverResponse
     })
+}
+
+export function deleteSpotService(id, token) {
+    const AuthStr = "JWT ".concat(token);    
+    return axios({
+        method: 'delete',
+        url: '/api/spots',
+        headers: { Authorization: AuthStr },
+        data: {
+            id: id
+        }
+    }).then(serverResponse => {
+        return serverResponse
+    }) 
 }

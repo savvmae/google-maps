@@ -1,4 +1,4 @@
-import { registerService, loginService, dashboardService, searchService, addSpotService, updateSpotService } from './services'
+import { registerService, loginService, dashboardService, searchService, addSpotService, updateSpotService, deleteSpotService } from './services'
 import axios from 'axios'
 
 export const GET_RESPONSE = "GET_RESPONSE";
@@ -18,6 +18,7 @@ export const NEW_MARKER = "NEW_MARKER";
 export const SET_MARKERS = "SET_MARKERS";
 export const TOGGLE_RESTRICTED = "TOGGLE_RESTRICTED";
 export const UPDATE_SPOT = "UPDATE_SPOT";
+export const RESET_CURRENT_SPOT = "RESET_CURRENT_SPOT"
 
 
 export function register(user) {
@@ -78,6 +79,14 @@ export function updateSpot(updated, details, token) {
         return updateSpotService(updated, details._id, token).then((res) => {
             dispatch(toggleSpotDetailModal())
             return res
+        })
+    }
+}
+
+export function deleteSpot(id, token) {
+    return (dispatch, getState) => {
+        return deleteSpotService(id, token).then((res) => {
+            return { type: RESET_CURRENT_SPOT }
         })
     }
 }

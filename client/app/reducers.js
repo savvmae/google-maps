@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { NEW_MARKER, SET_TOKEN, SET_USER, SET_MARKERS, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, TOGGLE_SPOT_DETAIL, TOGGLE_RESTRICTED, UPDATE_SPOT } from './actions';
+import { NEW_MARKER, SET_TOKEN, SET_USER, SET_MARKERS, GET_RESPONSE, TOGGLE_LOADING, LOGOUT, TOGGLE_LANDING, TOGGLE_LOGIN, TOGGLE_REGISTER, SET_LOCATION, TOGGLE_MARKER, TOGGLE_MARKER_AND_SET_LOCATION, TOGGLE_DETAIL_MARKER, TOGGLE_SPOT_DETAIL, TOGGLE_RESTRICTED, UPDATE_SPOT, RESET_CURRENT_SPOT } from './actions';
 
 import { connect } from 'react-redux'
 import update from 'immutability-helper';
@@ -191,6 +191,12 @@ export const reducer = (state = initialState, action) => {
                 },
                 currentSpot: {
                     $set: action.payload
+                }
+            })
+        case RESET_CURRENT_SPOT:
+            return update(state, {
+                currentSpot: {
+                    $set: null
                 }
             })
         default:

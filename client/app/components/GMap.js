@@ -8,7 +8,7 @@ import SearchBar from '../containers/SearchBar';
 import SpotDetail from './SpotDetail';
 import MarkerDetailModal from './MarkerDetailModal'
 import MarkerModal from '../containers/MarkerModal'
-import { loading, searchCity, toggleMarkerModal, toggleSpotDetailModal, toggleRestrictedModal } from '../actions';
+import { loading, searchCity, toggleMarkerModal, toggleSpotDetailModal, toggleRestrictedModal, deleteSpot } from '../actions';
 
 class GMap extends React.Component {
     constructor(props) {
@@ -33,21 +33,9 @@ class GMap extends React.Component {
         }
     }
 
-    // clean up event listeners when component unmounts
     componentDidUnMount() {
         google.maps.event.clearListeners(map, 'click');
     }
-
-    // createLegend(icons) {
-    //     const { legend } = this.refs;
-    //     for (const key in icons) {
-    //         const type = icons[key], name = type.name, icon = type.image;
-    //         const div = document.createElement('div');
-    //         div.innerHTML = `<img src="${icon}"> ${name}`;
-    //         legend.appendChild(div);
-    //     }
-    //     this.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
-    // }
 
     createMap(center) {
         const config = this.props.state;
@@ -165,7 +153,7 @@ class GMap extends React.Component {
             google.maps.event.addListener(marker, 'click', () => this.setCurrentMarker(marker, thisMarkerDetail));
         }
         else {
-            if (details.details.isSpotTaken) {                
+            if (details.details.isSpotTaken) {
                 marker.setIcon('./no-entry-sign.png')
             } else {
                 marker.setIcon('./parking.png')
@@ -174,9 +162,12 @@ class GMap extends React.Component {
         }
     }
 
-    removeMarker = () => {
-        this.state.currentMarker.setMap(null)
-        this.setState({ currentMarker: null })
+    removeMarker = (details, token) => {
+        this.props.deleteSpot(details._id, token).then(res => {
+            this.state.currentMarker.setMap(null)
+            this.setState({ currentMarker: null })
+        })
+
     }
 
     mapCenter(lat, lng) {
@@ -306,6 +297,9 @@ function mapDispatchToProps(dispatch) {
         },
         toggleRestrictedModal: () => {
             return dispatch(toggleRestrictedModal())
+        },
+        deleteSpot: (id, token) => {
+            return dispatch(deleteSpot(id, token))
         }
     }
 }

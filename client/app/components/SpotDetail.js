@@ -40,8 +40,7 @@ class SpotDetail extends Component {
 
     handleRemoveMarker = () => {
         if (this.props.state.loggedIn) {
-            this.props.removeMarker()
-            this.props.toggleSpotDetailModal()
+            this.props.removeMarker(this.props.state.currentSpot.details, this.props.state.token)
         } else {
             this.props.toggleRestrictedModal()
         }

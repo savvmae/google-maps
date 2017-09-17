@@ -36,4 +36,9 @@ route.put('/api/spots', passport.authenticate('jwt', { session: false }), async 
     return response.status(200).json({message: "success"})
 })
 
+route.delete('/api/spots', passport.authenticate('jwt', { session: false }), async function (request, response) {
+    let thisSpot = await Spots.findOneAndRemove({ _id: request.body.id });
+    return response.status(200).json({message: "success"})
+})
+
 module.exports = route;
