@@ -87,7 +87,7 @@ class SpotDetail extends Component {
                         <form onSubmit={this.handleSubmit} className="col s12">
                             <div className="row">
 
-                                <div className="input-field col s6">
+                                <div className="input-field col s6 redundant">
                                     <input onChange={this.updateState} onFocus={this.clearText} onBlur={this.putText} type="text" name="spotType" className="validate blue-grey-text" value={this.state.spotType} />
 
                                 </div>
